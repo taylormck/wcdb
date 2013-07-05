@@ -4,6 +4,7 @@ Conventions we are using for python:
  3. No limit line length
  4. Class names will be camel case with the first letter capitalized
  
-Ex 4
-    class CamelCaseClass:
-        pass
+        class CamelCaseClass:
+            pass
+
+    
