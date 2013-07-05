@@ -6,5 +6,5 @@ Conventions we are using for python:
  
         class CamelCaseClass:
             pass
-
+ 5. File names are also camelCase.
     
