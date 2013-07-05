@@ -1,5 +1,9 @@
 Conventions we are using for python:
- * No [Hungarian Notation](http://en.wikipedia.org/wiki/Hungarian_notation)
- * Variable names are camelCase.  Please do not use underscored_variable names
- * No limit line length
- * More to come
+ 1. No [Hungarian Notation](http://en.wikipedia.org/wiki/Hungarian_notation)
+ 2. Variable names are camelCase.  Please do not use underscored_variable names
+ 3. No limit line length
+ 4. Class names will be camel case with the first letter capitalized
+ 
+Ex 4
+    class CamelCaseClass:
+        pass
