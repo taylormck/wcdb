@@ -1,0 +1,5 @@
+Conventions we are using for python:
+ * No [Hungarian Notation](http://en.wikipedia.org/wiki/Hungarian_notation)
+ * Variable names are camelCase.  Please do not use underscored_variable names
+ * No limit line length
+ * More to come
