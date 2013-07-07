@@ -7,22 +7,28 @@ class Crisis(models.Model):
     date = models.DateField('Date')
     time = models.TimeField('Time')
     name = models.CharField('Name', max_length=100)
-    info = models.TextField('About')
+    common = CommonType('Common')
     people = models.ManyToManyField('Associated people', Person)
     organizations = models.ManyToManyField('Associated organizations', Organization)
 
 class Organization(models.Model):
     id = models.CharField(primary_key=True, max_length=10)
+    kind = models.CharField('Kind')
+    location = models.CharField('Location')
     name = models.CharField('Name', max_length=100)
-    info = models.TextField('About')
+    history = ListType('History')
+    contactInfo = ListType('Contact Info')
+    common = CommonType('Common')
     people = models.ManyToManyField('Associated people', Person)
 
 class Person(models.Model):
     id = models.CharField(primary_key=True, max_length=10)
     name = models.CharField('Name', max_length=100)
+    kind = models.CharField('Kind')
+    location = models.CharField('Location')
     birth = models.DateField('Date of birth')
     death = models.DateField('Date of death', blank=True, null=True)
-    info = models.TextField('About')
+    common = CommonType('Common')
 
 class ListType(models.Model):
     href = models.CharField('href')
@@ -30,7 +36,6 @@ class ListType(models.Model):
     text = models.TextField('text')
 
 class CommonType(models.Model):
-    crisis = models.ForeignKey('Crisis')
     summary = models.TextField('Summary')
 
 # These are all the types of List Types
