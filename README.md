@@ -7,7 +7,7 @@ Our assignment is simple.
 Create a website that compiles and shares data of world crises.  We list the individual crises, show some fact-checked information, and list information about people and organizations involved.
 This will help keep the public informed about the going-ons of the world and help them get in touch with the right people to make a difference.
 
-<h4>Great Moonstone Oxen of the First and Forsaken Oceans</h4>
+<h3>Great Moonstone Oxen of the First and Forsaken Oceans</h3>
 We have the best team name ever, and we are
 <ul>
     <li>Ben Bowely-Bryant</li>
