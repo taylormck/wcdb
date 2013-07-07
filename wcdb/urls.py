@@ -1,10 +1,15 @@
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls.defaults import *
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
+import crises
+
 urlpatterns = patterns('',
+    url(r'^home.html', 'test.current_datetime', name='home'),
+    #url(r'^crises/$', 'crises.test.current_datetime', name='house')
+    (r'^world/$', 'crises.test.current_datetime'),
     # Examples:
     # url(r'^$', 'wcdb.views.home', name='home'),
     # url(r'^wcdb/', include('wcdb.foo.urls')),
