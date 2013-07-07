@@ -13,6 +13,7 @@ urlpatterns = patterns('',
 
     #Index page
     (r'^$', 'views.index'),
+    (r'base/$', 'views.base'),
 
 
     # Examples:
