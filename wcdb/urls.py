@@ -10,6 +10,11 @@ urlpatterns = patterns('',
     url(r'^home.html', 'test.current_datetime', name='home'),
     #url(r'^crises/$', 'crises.test.current_datetime', name='house')
     (r'^world/$', 'crises.test.current_datetime'),
+
+    #Index page
+    (r'^$', 'views.index'),
+
+
     # Examples:
     # url(r'^$', 'wcdb.views.home', name='home'),
     # url(r'^wcdb/', include('wcdb.foo.urls')),
