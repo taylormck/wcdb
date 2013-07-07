@@ -1,5 +1,5 @@
 from django.http import HttpResponse
 
 def index(request):
-    html = "<html><body>Woohoo !! Index page</body></html>"
+    html = open("index.html", 'r')
     return HttpResponse(html)
