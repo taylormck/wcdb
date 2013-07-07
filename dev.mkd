@@ -18,4 +18,5 @@ Please add any links you use that you found useful to this.
 
 [Using views.py](https://docs.djangoproject.com/en/1.3/topics/http/views/)
 
+[Adding urls to the django website](https://docs.djangoproject.com/en/1.3/topics/http/urls/)
 
