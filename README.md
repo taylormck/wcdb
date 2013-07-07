@@ -7,6 +7,8 @@ Our assignment is simple.
 Create a website that compiles and shares data of world crises.  We list the individual crises, show some fact-checked information, and list information about people and organizations involved.
 This will help keep the public informed about the going-ons of the world and help them get in touch with the right people to make a difference.
 
+We are currently using the schema provided [here](https://github.com/aaronj1335/cs373-wcdb1-schema)
+
 <h3>Great Moonstone Oxen of the First and Forsaken Oceans</h3>
 We have the best team name ever, and we are
 <ul>
