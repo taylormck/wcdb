@@ -7,4 +7,15 @@ Conventions we are using for python:
         class CamelCaseClass:
             pass
  5. File names are also camelCase.
-    
+
+Useful Django Website
+===================
+Please add any links you use that you found useful to this.
+
+[Create a Dynamic Website from Scratch](http://net.tutsplus.com/tutorials/python-tutorials/python-from-scratch-creating-a-dynamic-website/)
+
+[Making queries with Django Models](https://docs.djangoproject.com/en/1.3/topics/db/queries/)
+
+[Using views.py](https://docs.djangoproject.com/en/1.3/topics/http/views/)
+
+
