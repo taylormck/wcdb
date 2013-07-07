@@ -19,3 +19,5 @@ We have the best team name ever, and we are
 Powered by
 ----------
 [Django](https://www.djangoproject.com/)
+
+We are currently using the schema provided [here](https://github.com/aaronj1335/cs373-wcdb1-schema)
