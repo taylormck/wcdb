@@ -1,4 +1,45 @@
+<<<<<<< HEAD
 body {
     background-color: grey;
     font-family: Courier New;
 }
+=======
+#navbar {
+    position: relative;
+    text-align: center;
+    vertical-align: top;
+    /*margin-top: 0px;*/
+}
+
+#navbar > ul {
+    list-style: none;
+}
+
+#navbar > ul > li {
+    list-style-type: none;
+/*    margin: 0;
+    padding: 0;*/
+    /*position: relative;*/
+    /*display: block;*/
+    font-size: 25px;
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+#navbar > ul > li > a {
+    padding: 5px 10px;
+    display: block;
+}
+
+#content {
+    margin-right: 10;
+    position: relative;
+    width: auto;
+    min-height: 500px;
+}
+
+#footer {
+    text-align: center;
+    color: #777777;
+}
+>>>>>>> master
