@@ -39,13 +39,8 @@
     max-width: 600px;
 }
 
-#content ul > img {
-    list-style: none;
-    max-height: 400px;
-    max-width: 600px;
-}
-
 #content ul > li > img {
+    display: inline-block;
     list-style: none;
     max-height: 400px;
     max-width: 600px;
