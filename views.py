@@ -16,3 +16,10 @@ def base(request):
     #return render_to_response('base.html',
     #                          {},
     #                          context_instance=RequestContext(request))
+
+def bootstrapTest(request):
+    html = open("static/html/base.html", 'r')
+    x = ''.join(line for line in html.readlines())        
+    t = Template(x)
+    c = RequestContext(request)
+    return HttpResponse(t.render(c))
