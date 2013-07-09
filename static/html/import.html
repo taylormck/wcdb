@@ -5,10 +5,13 @@
         <title>World Crises|  </title>
     </head>
     <body>
-        {{ cats.apple_sauce }}
         <form method="post" enctype="multipart/form-data">
-            <input type="file" name="myfile" />
+            {% csrf_token %}
+            <input type="file" name="xmlFile" />
             <input type="submit" name="submit" value="Upload" />
         </form>
+        XML Submitted: 
+        <p>
+        {{ tree }}
     </body>
 </html>

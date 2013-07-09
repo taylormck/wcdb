@@ -20,3 +20,4 @@ Please add any links you use that you found useful to this.
 
 [Adding urls to the django website](https://docs.djangoproject.com/en/1.3/topics/http/urls/)
 
+[Working with Django models](http://www.b-list.org/weblog/2007/nov/04/working-models/)
