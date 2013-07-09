@@ -4,9 +4,7 @@ from django.template import Context, RequestContext, Template, loader
 
 def index(request):
     t = loader.get_template("index.html")
-    # html = open("static/html/index.html", 'r')
     return HttpResponse(t.render(RequestContext(request)))
-    # return HttpResponse(html)
 
 
 def base(request):

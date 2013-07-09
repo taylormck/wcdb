@@ -26,8 +26,8 @@ urlpatterns = patterns('',
     url(r'person2/$', 'views.person2', name='person2'),
     url(r'person3/$', 'views.person3', name='person3'),
     url(r'organization1/$', 'views.organization1', name='organization1'),
-    url(r'organization2/$', 'views.organization2', name='organization1'),
-    url(r'organization3/$', 'views.organization3', name='organization1'),
+    url(r'organization2/$', 'views.organization2', name='organization2'),
+    url(r'organization3/$', 'views.organization3', name='organization3'),
 
     # Examples:
     # url(r'^$', 'wcdb.views.home', name='home'),
