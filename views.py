@@ -9,7 +9,7 @@ def index(request):
 
 def base(request):
     #html = open("static/html/base.html", 'r')
-    t = loader.get_template("html/base.html")
+    t = loader.get_template("base.html")
     #t = Template(''.join(line for line in html.readlines()))
     c = RequestContext(request)
     return HttpResponse(t.render(c))
