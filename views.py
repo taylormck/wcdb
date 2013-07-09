@@ -25,3 +25,39 @@ def bootstrapTest(request):
     # c = RequestContext(request)
     # return HttpResponse(t.render(c))
     return HttpResponse(html)
+
+def person1(request):
+    html = open("static/html/person1.html", 'r')
+    return HttpResponse(html)
+
+def person2(request):
+    html = open("static/html/person2.html", 'r')
+    return HttpResponse(html)
+
+def person3(request):
+    html = open("static/html/person3.html", 'r')
+    return HttpResponse(html)
+
+def crisis1(request):
+    html = open("static/html/crisis1.html", 'r')
+    return HttpResponse(html)
+
+def crisis2(request):
+    html = open("static/html/crisis2.html", 'r')
+    return HttpResponse(html)
+
+def crisis3(request):
+    html = open("static/html/crisis3.html", 'r')
+    return HttpResponse(html)
+
+def organization1(request):
+    html = open("static/html/organization1.html", 'r')
+    return HttpResponse(html)
+
+def organization2(request):
+    html = open("static/html/organization2.html", 'r')
+    return HttpResponse(html)
+
+def organization3(request):
+    html = open("static/html/organization3.html", 'r')
+    return HttpResponse(html)

@@ -18,6 +18,17 @@ urlpatterns = patterns('',
     # Bootstrap test
     (r'bootstrapTest/$', 'views.bootstrapTest'),
 
+    # Static pages
+    (r'crisis1/$', 'views.crisis1'),
+    (r'crisis2/$', 'views.crisis2'),
+    (r'crisis3/$', 'views.crisis3'),
+    (r'person1/$', 'views.person1'),
+    (r'person2/$', 'views.person2'),
+    (r'person3/$', 'views.person3'),
+    (r'organization1/$', 'views.organization1'),
+    (r'organization2/$', 'views.organization2'),
+    (r'organization3/$', 'views.organization3'),
+
 
     # Examples:
     # url(r'^$', 'wcdb.views.home', name='home'),
