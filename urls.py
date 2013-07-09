@@ -9,25 +9,25 @@ import crises
 urlpatterns = patterns('',
     url(r'^home.html', 'test.current_datetime', name='home'),
     #url(r'^crises/$', 'crises.test.current_datetime', name='house')
-    (r'^world/$', 'crises.test.current_datetime'),
+    url(r'^world/$', 'crises.test.current_datetime'),
 
     #Index page
-    (r'^$', 'views.index'),
-    (r'base/$', 'views.base'),
+    url(r'^$', 'views.index', name='index'),
+    url(r'base/$', 'views.base'), # template ?
 
     # Bootstrap test
-    (r'bootstrapTest/$', 'views.bootstrapTest'),
+    url(r'bootstrapTest/$', 'views.bootstrapTest'),
 
     # Static pages
-    (r'crisis1/$', 'views.crisis1'),
-    (r'crisis2/$', 'views.crisis2'),
-    (r'crisis3/$', 'views.crisis3'),
-    (r'person1/$', 'views.person1'),
-    (r'person2/$', 'views.person2'),
-    (r'person3/$', 'views.person3'),
-    (r'organization1/$', 'views.organization1'),
-    (r'organization2/$', 'views.organization2'),
-    (r'organization3/$', 'views.organization3'),
+    url(r'crisis1/$', 'views.crisis1', name='crisis1'),
+    url(r'crisis2/$', 'views.crisis2', name='crisis2'),
+    url(r'crisis3/$', 'views.crisis3', name='crisis3'),
+    url(r'person1/$', 'views.person1', name='person1'),
+    url(r'person2/$', 'views.person2', name='person2'),
+    url(r'person3/$', 'views.person3', name='person3'),
+    url(r'organization1/$', 'views.organization1', name='organization1'),
+    url(r'organization2/$', 'views.organization2', name='organization1'),
+    url(r'organization3/$', 'views.organization3', name='organization1'),
 
 
     # Examples:

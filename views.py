@@ -3,9 +3,10 @@ from django.shortcuts import render_to_response
 from django.template import Context, RequestContext, Template, loader
 
 def index(request):
-    html = open("static/html/index.html", 'r')
-    
-    return HttpResponse(html)
+    t = loader.get_template("index.html")
+    # html = open("static/html/index.html", 'r')
+    return HttpResponse(t.render(RequestContext(request)))
+    # return HttpResponse(html)
 
 
 def base(request):
