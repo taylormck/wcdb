@@ -1,0 +1,91 @@
+<?xml version="1.0" ?>
+
+<!-- World Crises XML using schema (WorldCrises.xsd) -->
+
+<WorldCrises>
+    <!-- Example Crisis element -->
+    <Crisis ID="CRI_AURSHO" Name="2012 Aurora Shooting">
+        <People>
+            <Person ID="PER_JAEAHO" />
+        </People>
+        <Organizations>
+            <Org ID="ORG_PMRLFD" />
+        </Organizations>
+        <Kind>Mass Shooting</Kind>
+        <Date>2012-07-20</Date>
+        <Time>00:30:00</Time>
+        <Locations>
+            <li>Aurora, CO, USA</li>
+        </Locations>
+        <HumanImpact>
+            <li>Twelve people were killed at a multiplex Cinemark theatre in Aurora Colorda during the midnight screening of the film The Dark Knight Rises.</li>
+            <li>Deadliest shooting since The Columbine massacre on April 20, 1999.</li>
+            <li> Several other incidents followed this one at other theatres where several other men were arrested for acts of violence or attempting to carry through with an act of violence.</li>
+            <li>The Presidential Candidates at the time, Barrack Obama and Mitt Romney, suspended campagin advertising and visited victims at Hospitals.</li>
+            <li>Actor Christian Bale along with other sports teams visited several victims and expressed their condolences.</li>
+            <li>This once again brought the issue of gun control to the surface of news and politics.</li>
+        </HumanImpact>
+        <EconomicImpact>
+            <li>The Organization The Community First Foundation recieved substantial donations from Warner Bros. to aid the vicimts of the shooting.</li>
+            <li>The theatre where the incident occurred was shut down for months before reopening on Januray 2013, resulting in a great loss for the theatre owners. </li>
+            <li>Gun sales in Colorado, Washington, Florida, and several other states grew tremendously after the incident along with an increase in background checks.</li>
+        </EconomicImpact>
+        <ResourcesNeeded>
+            <li>Cinemas and theatres around the world began hiring more employess to fill out the roles needed in their security increase. </li>
+            <li>Companies associated with the film and theatre, Warner Bros. and Cinemark, donated a great amount of time to aid the families of the victims.</li>
+        </ResourcesNeeded>
+        <WaysToHelp>
+            <!-- Put text with optional hyperlinks here -->
+            <li>Donations can still provided to the <a href="http://www.communityfirstfoundation.org">Comunity First Foundation</a> for the families of the vicims of the incident.</li>
+            <li>Be warry of specific people entering theatres.</li>
+            <li>Cooperate with theatre employees by not wearing suspicious looking clothing or bringing any possible weapon props to events they might be holding.</li>
+        </WaysToHelp>
+        <Common>
+            <Summary>
+              Lorem ipsum...
+            </Summary>
+        </Common>
+    </Crisis>
+    
+    <!-- Example Person element -->
+    <Person ID="PER_MNSNGH" Name="Manmohan Singh">
+        <Crises>
+            <Crisis ID="CRI_NRINFL" />
+        </Crises>
+        <Organizations>
+            <Org ID="ORG_PMRLFD" />
+        </Organizations>
+        <Kind>Politician</Kind>
+        <Location>India</Location>
+        <!-- See Crisis element above for examples of everything under <Common> -->
+    </Person>
+    <Person ID="PER_JAEAHO" Name="James Eagen Holmes">
+        <Crises>
+            <Crisis ID="CRI_AURSHO" />
+        </Crises>
+        <Kind>Mass Murderer</Kind>
+        <Location>Aurora, CO, USA</Location>
+        <Common>
+            <Summary>
+               I have nothing nice to say about this man.
+            </Summary>
+        </Common>
+    </Person>
+    
+    <Organization ID="ORG_COFIFO" Name="The Community First Foundation">
+        <Crises>
+            <Crisis ID="CRI_AURSHO" />
+        </Crises>
+        <Kind>Charity</Kind>
+        <Location>United States</Location>
+        <History>
+            <li>This is a story all about how...</li>
+        </History>
+        <ContactInfo>
+            <li>Phone: 1-800-555-5555</li>
+            <li>Email: donot@email.me</li>
+        </ContactInfo>
+        <!-- See Crisis element above for examples of everything under <Common> -->
+    </Organization>
+</WorldCrises>
+
