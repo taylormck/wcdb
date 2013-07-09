@@ -1,6 +1,7 @@
 ﻿Unique People
 
 Name: James Eagan Holmes
+ID: JAMHOL
 Crisis: 2012 Aurora Shooting
 Kind: Mass Murder
 Location: Aurora, Colorado
@@ -20,6 +21,7 @@ James Eagan Holmes (born December 13, 1987) is the accused perpetrator of a ma
 
 
 Name: Ajmal Kasab
+ID: AJKASA
 Crisis: 2008 Mumbai attacks
 Organization: Lashkar-e-Taiba
 Kind: Terrorist
@@ -39,6 +41,7 @@ Kasab (born 13 July 1987 died 21 November 2012) was the only attacker captured a
 
 
 Name: Luis Urzúa
+ID: LUISUR
 Crisis: 2010 Copiapó mining accident
 Organization: San Esteban Mining Company 
 Kind: Miner
