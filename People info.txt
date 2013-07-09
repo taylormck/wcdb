@@ -25,7 +25,7 @@ Organization: Lashkar-e-Taiba
 Kind: Terrorist
 Location: Pakistan
 
-Common
+Common:
 
 External Links: 
 http://en.wikipedia.org/wiki/Ajmal_Kasab
@@ -50,7 +50,7 @@ External Links:
 http://www.guardian.co.uk/world/2010/sep/05/luis-urzua-chile-trapped-miners
 
 Images:
-http://blogs.babble.com/famecrawler/files/2010/10/1039959_300.jpg   
+http://blogs.babble.com/famecrawler/files/2010/10/1039959_300.jpg           
 
 Summary:
 Leader of the group of trapped miners. He was the shift foreman who immediately recognized the gravity of the situation and the difficulty of any rescue attempt. He gathered the men in a secure "refuge" then organized them and their meager resources to cope with a long-term survival situation. He was credited with keeping the men alive on an emergency food supply during their first 17 days without contact from the outside world, and he was the last miner to make the journey to the surface.
