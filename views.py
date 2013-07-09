@@ -38,6 +38,26 @@ def person3(request):
     html = open("static/html/person3.html", 'r')
     return HttpResponse(html)
 
-def crises1(request):
-    html = open("static/html/person1.html", 'r')
+def crisis1(request):
+    html = open("static/html/crisis1.html", 'r')
+    return HttpResponse(html)
+
+def crisis2(request):
+    html = open("static/html/crisis2.html", 'r')
+    return HttpResponse(html)
+
+def crisis3(request):
+    html = open("static/html/crisis3.html", 'r')
+    return HttpResponse(html)
+
+def organization1(request):
+    html = open("static/html/organization1.html", 'r')
+    return HttpResponse(html)
+
+def organization2(request):
+    html = open("static/html/organization2.html", 'r')
+    return HttpResponse(html)
+
+def organization3(request):
+    html = open("static/html/organization3.html", 'r')
     return HttpResponse(html)
