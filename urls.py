@@ -29,7 +29,6 @@ urlpatterns = patterns('',
     (r'organization2/$', 'views.organization2'),
     (r'organization3/$', 'views.organization3'),
 
-
     # Examples:
     # url(r'^$', 'wcdb.views.home', name='home'),
     # url(r'^wcdb/', include('wcdb.foo.urls')),
