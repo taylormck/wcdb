@@ -23,6 +23,7 @@ def bootstrapTest(request):
     # t = Template(x)
     # c = RequestContext(request)
     # return HttpResponse(t.render(c))
+    
     return HttpResponse(html)
 
 def person1(request):
