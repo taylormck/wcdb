@@ -15,7 +15,7 @@
 }
 
 #navbar > ul > li > a {
-    display: inline-block;
+    /*display: inline-block;*/
 }
 
 #content {
@@ -23,6 +23,20 @@
     position: relative;
     width: auto;
     min-height: 500px;
+}
+
+#content > ul {
+    list-style: none;
+}
+
+#content > ul > li {
+    list-style: none;
+}
+
+#content img {
+    list-style: none;
+    max-height: 400px;
+    max-width: 600px;
 }
 
 #footer {
