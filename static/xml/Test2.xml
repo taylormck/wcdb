@@ -9,7 +9,7 @@
             <Person ID="PER_JAEAHO" />
         </People>
         <Organizations>
-            <Org ID="ORG_PMRLFD" />
+            <Org ID="ORG_COFIFO" />
         </Organizations>
         <Kind>Mass Shooting</Kind>
         <Date>2012-07-20</Date>
@@ -36,7 +36,7 @@
         </ResourcesNeeded>
         <WaysToHelp>
             <!-- Put text with optional hyperlinks here -->
-            <li>Donations can still provided to the <a href="http://www.communityfirstfoundation.org">Comunity First Foundation</a> for the families of the vicims of the incident.</li>
+            <li href="http://www.communityfirstfoundation.org">Comunity First Foundation</li>
             <li>Be warry of specific people entering theatres.</li>
             <li>Cooperate with theatre employees by not wearing suspicious looking clothing or bringing any possible weapon props to events they might be holding.</li>
         </WaysToHelp>
@@ -48,17 +48,6 @@
     </Crisis>
     
     <!-- Example Person element -->
-    <Person ID="PER_MNSNGH" Name="Manmohan Singh">
-        <Crises>
-            <Crisis ID="CRI_NRINFL" />
-        </Crises>
-        <Organizations>
-            <Org ID="ORG_PMRLFD" />
-        </Organizations>
-        <Kind>Politician</Kind>
-        <Location>India</Location>
-        <!-- See Crisis element above for examples of everything under <Common> -->
-    </Person>
     <Person ID="PER_JAEAHO" Name="James Eagen Holmes">
         <Crises>
             <Crisis ID="CRI_AURSHO" />
