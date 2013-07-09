@@ -15,6 +15,9 @@ urlpatterns = patterns('',
     (r'^$', 'views.index'),
     (r'base/$', 'views.base'),
 
+    # Bootstrap test
+    (r'bootstrapTest/$', 'views.bootstrapTest'),
+
 
     # Examples:
     # url(r'^$', 'wcdb.views.home', name='home'),

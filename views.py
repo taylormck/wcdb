@@ -18,8 +18,9 @@ def base(request):
     #                          context_instance=RequestContext(request))
 
 def bootstrapTest(request):
-    html = open("static/html/base.html", 'r')
-    x = ''.join(line for line in html.readlines())        
-    t = Template(x)
-    c = RequestContext(request)
-    return HttpResponse(t.render(c))
+    html = open("static/html/bootstrapTest.html", 'r')
+    # x = ''.join(line for line in html.readlines())        
+    # t = Template(x)
+    # c = RequestContext(request)
+    # return HttpResponse(t.render(c))
+    return HttpResponse(html)
