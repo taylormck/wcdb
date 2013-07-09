@@ -1,6 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import Context, RequestContext, Template, loader
+import static.scripts.imported
+
+class Empty():
+    pass
 
 def index(request):
     html = open("static/html/index.html", 'r')
@@ -9,14 +13,18 @@ def index(request):
 
 
 def base(request):
-    #html = open("static/html/base.html", 'r')
     t = loader.get_template("base.html")
-    #t = Template(''.join(line for line in html.readlines()))
     c = RequestContext(request)
     return HttpResponse(t.render(c))
     #return render_to_response("static/html/base.html",
     #                          {},
     #                          context_instance=RequestContext(request))
+
+def imports(request):
+    catss = Empty()
+    catss.apple_sauce = "HAHAHAHAHAHAH YEAH\nstuff"
+    return render_to_response("import.html", {"cats" : catss}, context_instance=RequestContext(request))
+    
 
 def bootstrapTest(request):
     html = open("static/html/bootstrapTest.html", 'r')

@@ -6,7 +6,7 @@ import sys
 class BadXMLException(Exception):
     pass
 
-def import(file_chosen):
+def parseXML(file_chosen):
     toParse = "../xml/test.xml"
     
     if(len(file_chosen) > 0):
@@ -23,6 +23,8 @@ def import(file_chosen):
             
     tree = ET.fromstringlist(xmlInfo)
     return tree
+
+def 
 
 """
 toParse = "../xml/test.xml"

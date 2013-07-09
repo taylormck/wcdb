@@ -28,6 +28,9 @@ urlpatterns = patterns('',
     (r'organization1/$', 'views.organization1'),
     (r'organization2/$', 'views.organization2'),
     (r'organization3/$', 'views.organization3'),
+    
+    # Import/Expert pages
+    (r'^import.html$', 'views.imports'),
 
     # Examples:
     # url(r'^$', 'wcdb.views.home', name='home'),
