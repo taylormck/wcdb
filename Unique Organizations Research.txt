@@ -1,7 +1,8 @@
-﻿Unique Organizations
+Unique Organizations
 
 Name: The Community First Foundation
-Kind: Denver area fund-raising group
+ID: ORG_COMFFO
+Kind: Fund-Raising Group
 History: 
 Founded in 1975 as a Lutheran Medical Center foundation to serve as a fund-raising section of the Medical Center a non-profit hospital.
 In mid-90's it participated in a two-year study to give a voice to the community when it came to health care and community programs and services.
@@ -10,8 +11,11 @@ In 2007 changed their name to the Community First Foundation to reflect new miss
 Contact Information:
 Phone: 720-898-5900
 http://www.communityfirstfoundation.org/index.cfm
+Address: 6870 West 52nd Avenue, Suite 103 Arvada, Colorado 80002 
+Location: Colorado
 
 Name: San Estaban Mining Company
+ID: ORG_SEMINE
 Kind: Chilean mining company dedicated to the production of copper and gold
 History:
 Began operations in the San Jose Mine in 1889 but the company was not officially founded until 1957 but a Hungarian immigrant named Jorge Kemeny Letay.
@@ -20,8 +24,10 @@ The San Jose Mine which is owned by the company was closed in 2007 when relative
 The company has a history of ignoring warnings and worker lawsuits of unsafe working conditions and many believe that were it not for this the event could have been avoided.
 Contact Information:
 +56 2 223 9116
+Location: Santiago, Chile
 
 Name: Lashkar-e-Taiba
+ID: ORG_LASHTA
 Kind: Islamist terrorist organization
 History:
 It is one of the largest and most active Islamist terrorist organizations in South Asia operating mainly from Pakistan.
@@ -32,6 +38,7 @@ Is known for target military and civilian targets with the most notable events  
 After the 2008 Mumbai attacks Pakistan was pressured by the US and India to launch operations against the group and while they have clamped down on the group it is suspected by many that they continue to support the group.
 Contact Information:
 Probably don't want to contact these guys
+Location: Pakistan
 
 Name: Pakistan ISI
 Kind:

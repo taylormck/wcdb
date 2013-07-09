@@ -1,7 +1,7 @@
 ﻿Unique Crisis Info 
 
 Name: 2012 Aurora Shooting 
-ID: AURORA
+ID: CRI_AURORA
 Key Person: James Eagen Holmes 
 Key Organization: The Community First Foundation 
 Kind: Mass Shooting 
@@ -35,7 +35,7 @@ http://www.cbsnews.com/video/watch/?id=7415902n
 
 
 Name: 2010 Copiago mining accident 
-ID:COPMAC
+ID:CRI_COPMAC
 Key Person: 
 Key Organization: San Esteban Mining Company 
 Kind: Natural Disaster 
@@ -60,7 +60,7 @@ http://upload.wikimedia.org/wikipedia/en/1/13/Mina_San_Jos%C3%A9_-_Trapped_miner
 http://upload.wikimedia.org/wikipedia/commons/0/0d/480382main_miners2.jpg
 
 Name: 2013 Alabama bunker hostage crisis 
-ID: ALABUN
+ID: CRI_ALABUN
 Key Person: Jimmy Lee Dykes, Charles Albert Poland, Jr. 
 Key Organization: FBI 
 Kind: Hostage Crisis 
@@ -89,7 +89,7 @@ Resources Needed:
 Ways to Help: 
 
 Name: 2008 Mumbai attacks
-ID: MUMBAI 
+ID: CRI_MUMBAI 
 Key Person: Ajmal Kasab, Prime Minister Manmohan Singh
 Key Organization: Lashkar-e-Taiba
 Kind: Bombings
