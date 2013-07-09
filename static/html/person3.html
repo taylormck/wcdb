@@ -4,24 +4,55 @@
     <title>World Crises Database|Ajmal Kasab</title>
 </head>
 <body>
+    <div id="navbar">
+        <ul>
+            <li><h3>Links</h3></li>
+            <li><a href="{% url index %}">Home Page</a></li>
+            <li><h4>Crises</h4></li>
+            <li><a href="{% url crisis1 %}">Aurora Shooting</a></li>
+            <li><a href="{% url crisis2 %}">Copiago Mining Accident</a></li>
+            <li><a href="{% url crisis3 %}">Mumbai Attacks</a></li>
+            <li><h4>Organizations</h4></li>
+            <li><a href="{% url organization1 %}">The Community First Foundation</a></li>
+            <li><a href="{% url organization2 %}">San Esteban Mining Company</a></li>
+            <li><a href="{% url organization3 %}">Lashkar-e-Taiba</a></li>
+            <li><h4>People</h4></li>
+            <li><a href="{% url person1 %}">James Eagen Holmes</a></li>
+            <li><a href="{% url person2 %}">Luis Urzúa</a></li>
+            <li><a href="{% url person3 %}">Ajmal Kasab</a></li>
+        </ul>
+    </div>
     <div id="content">
-        Name: Ajmal Kasab
-        Crisis: 2008 Mumbai attacks
-        Organization: Lashkar-e-Taiba
-        Kind: Terrorist
-        Location: Pakistan
+        <h2>Ajmal Kasab</h2>
 
-        Common:
+        <h4>Crisis</h4>
+        <ul>
+            <li><a href="{% url crisis3 %}">Mumbai attacks</a></li>
+        </ul>
 
-        External Links: 
-        http://en.wikipedia.org/wiki/Ajmal_Kasab
+        <h4>Organizations Involved</h4>
+        <ul>
+            <li><a href="{% url organization3 %}">Lashkar-e-Taiba</a></li>
+        </ul>
 
-        Images:
-        http://en.wikipedia.org/wiki/File:Mohammed_Ajmal_Kasab.jpg
+        <h4>Kind</h4>Terrorist
 
-        Summary:
+        <h4>Locations:</h4>Pakistan 
 
-        Kasab (born 13 July 1987 died 21 November 2012) was the only attacker captured alive by police after the 2008 Mumbai attacks. He later confessed upon interrogation that the attacks were conducted with the support of Pakistan's ISI. On 29 August 2012, Kasab was found guilty of waging war and was sentenced to death by hanging by the Supreme Court of India.
+        <h4>Common:</h4>
+        
+        <h4>External Links:</h4>
+        <ul>
+            <li><a href="http://en.wikipedia.org/wiki/Ajmal_Kasab">Wikipedia</a></li>
+        </ul>
+
+        <h4>Images:</h4>
+        <ul>
+            <li><img src="http://upload.wikimedia.org/wikipedia/en/c/ce/Mohammed_Ajmal_Kasab.jpg"></li>
+        </ul>
+
+        <h4>Summary:</h4>Kasab (born 13 July 1987 died 21 November 2012) was the only attacker captured alive by police after the 2008 Mumbai attacks. He later confessed upon interrogation that the attacks were conducted with the support of Pakistan's ISI. On 29 August 2012, Kasab was found guilty of waging war and was sentenced to death by hanging by the Supreme Court of India.
+
     </div>
 </body>
 </html>
