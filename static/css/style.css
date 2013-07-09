@@ -39,6 +39,18 @@
     max-width: 600px;
 }
 
+#content ul > img {
+    list-style: none;
+    max-height: 400px;
+    max-width: 600px;
+}
+
+#content ul > li > img {
+    list-style: none;
+    max-height: 400px;
+    max-width: 600px;
+}
+
 #footer {
     text-align: center;
     color: #777777;
