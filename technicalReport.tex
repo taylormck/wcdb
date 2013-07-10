@@ -4,6 +4,27 @@
 \usepackage{listings}
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 
+\usepackage{marvosym} % Required for symbols in the colored box
+\usepackage{ifsym} % Required for symbols in the colored box
+
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{506266} % Blue grey color for links
+\hypersetup{colorlinks,breaklinks, urlcolor=linkcolor, linkcolor=linkcolor} % Set up links and colors
+
+\definecolor{shade}{HTML}{F5DD9D} % Peach color for the contact information box
+\definecolor{text1}{HTML}{2b2b2b} % Main document font color, off-black
+\definecolor{headings}{HTML}{701112} % Dark red color for headings
+
+\usepackage{fancyhdr}
+% \pagestyle{fancy}
+% \fancyhf{}
+
+\usepackage{titlesec} % Allows creating custom \section's
+
+\titleformat{\section}{\color{headings}
+\scshape\Large\raggedright}{}{0em}{}[\color{black}\titlerule]
+\titlespacing{\section}{0pt}{0pt}{5pt} % Spacing around titles
+
 \title{Great Moonstone Oxen of the First and Forsaken Oceans}
 \author{
     Taylor McKinney
@@ -31,6 +52,9 @@ People who want to help can look to our site for the best ways to get involved, 
 \newpage
 \section*{Design}
 \subsection*{XML Schema}
+Our class has been divided into separate groups for this project, but most groups have agreed upon a shared schema for XML.
+The schema as of the latest version is printed here, but the latest version can be found with this link.
+\href{https://github.com/aaronj1335/cs373-wcdb1-schema/blob/master/WorldCrises.xsd.xml}{Updated schema on Github}
 % Showing xml code
 \lstset{language=XML,
         breaklines=true,
