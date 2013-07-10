@@ -49,16 +49,15 @@ def xmlToModels(eleTree):
     
     all_Information = parseCrisis(crises_nodes[0],link_up_dict)
     
-    
-    return all_Information
+    return (all_Information, ET.tostring(eleTree))
     
 def parseCrisis(crisis, lud):
     #Add all the basic info
     newCrisis = info.Crisis(id=crisis.attrib["ID"], name=crisis.attrib["Name"])
     
-    newCrisis.date = date.parse(crisis.find("Date").text) if crisis.find("Date") else None
-    newCrisis.time = date.parse(crisis.find("Time").text) if crisis.find("Time") else None
-    newCrisis.kind = crisis.find("Kind").text if crisis.find("Kind") else ""
+    newCrisis.date = date.parse(crisis.find("Date").text) if crisis.find("Date") is not None else None
+    newCrisis.time = date.parse(crisis.find("Time").text) if crisis.find("Time") is not None else None
+    newCrisis.kind = crisis.find("Kind").text if crisis.find("Kind") is not None else ""
     
     
     #Parse the common types
@@ -108,7 +107,7 @@ def parseCommon(common, parentModel):
     
     container = info.Common()
     container.save()
-    container.summary = common.find("Summary").text if common.find("Summary") else ""
+    container.summary = common.find("Summary").text if common.find("Summary") is not None else ""
     
     for i in common.find("Citations"):
         parseListType(info.CommonListType.CITATIONS, i, container)

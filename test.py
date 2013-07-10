@@ -12,6 +12,7 @@ print os.getcwd()
 
 print "AHAHA" if None else "BABAB"
 
-tree = ET.fromstring("<cats happy=\"whoooo\"></cats>")
+tree = ET.fromstring("<cats happy=\"whoooo\">apple juice<Summary>Lorem ipsum...</Summary></cats>")
 print tree.attrib["happy"]
-print tree.attrib["sad"]
+print tree.find("Summary").text
+#print tree.attrib["sad"]
