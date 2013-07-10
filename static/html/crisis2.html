@@ -1,28 +1,10 @@
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" />
-    <title>World Crises Database|Copiago Mining Accident</title>
-</head>
-<body>        
-    <div id="navbar">
-        <ul>
-            <li><h3>Links</h3></li>
-            <li><a href="{% url index %}">Home Page</a></li>
-            <li><h4>Crises</h4></li>
-            <li><a href="{% url crisis1 %}">Aurora Shooting</a></li>
-            <li><a href="{% url crisis2 %}">Copiago Mining Accident</a></li>
-            <li><a href="{% url crisis3 %}">Mumbai Attacks</a></li>
-            <li><h4>Organizations</h4></li>
-            <li><a href="{% url organization1 %}">The Community First Foundation</a></li>
-            <li><a href="{% url organization2 %}">San Esteban Mining Company</a></li>
-            <li><a href="{% url organization3 %}">Lashkar-e-Taiba</a></li>
-            <li><h4>People</h4></li>
-            <li><a href="{% url person1 %}">James Eagen Holmes</a></li>
-            <li><a href="{% url person2 %}">Luis Urzúa</a></li>
-            <li><a href="{% url person3 %}">Ajmal Kasab</a></li>
-        </ul>
-    </div>
-    
+{% extends 'base.html' %}
+
+<!-- Page title -->
+{% block title %}Copiago Mining Accident{% endblock %}
+
+<!-- Page content -->
+{% block content %}
     <div id="content">
         <h2>Copiago Mining Accident</h2>
 
@@ -64,7 +46,7 @@
         </ul>
 
         <h4>Images:</h4>
-        <ul>
+        <ul class="unstyled">
             <li><img src="http://upload.wikimedia.org/wikipedia/en/1/13/Mina_San_Jos%C3%A9_-_Trapped_miners_before_rescue_-_Gobierno_de_Chile.jpg"></li>
             <li><img src="http://upload.wikimedia.org/wikipedia/commons/0/0d/480382main_miners2.jpg"></li>
         </ul>
@@ -73,6 +55,4 @@
         <ul>
             <li></li>
         </ul>
-    </div>
-</body>
-</html>
+{% endblock %}

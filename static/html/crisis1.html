@@ -1,10 +1,10 @@
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" />
-    <title>World Crises Database|Aurora Shooting</title>
-</head>
-<body>
-    <div id="content">
+{% extends 'base.html' %}
+
+<!-- Page title -->
+{% block title %}Aurora Shooting{% endblock %}
+
+<!-- Page content -->
+{% block content %}
         <h2>Aurora Shooting</h2>
 
         <h4>People Involved</h4>
@@ -52,7 +52,7 @@
         </ul>
 
         <h4>Images:</h4>
-        <ul>
+        <ul class="unstyled">
             <li><img src="http://upload.wikimedia.org/wikipedia/commons/0/03/The_Century_16_theater_in_Aurora_CO_-_Shooting_location.jpg"></li>
         </ul>
 
@@ -60,6 +60,4 @@
         <ul>
             <li><embed src="http://cnettv.cnet.com/av/video/cbsnews/atlantis2/cbsnews_player_embed.swf" scale="noscale" salign="lt" type="application/x-shockwave-flash" background="#333333" width="425" height="279" allowFullScreen="true" allowScriptAccess="always" FlashVars="si=254&&contentValue=50128376&shareUrl=http://www.cbsnews.com/video/watch/?id=7415902n" /></li>
         </ul>
-    </div>
-</body>
-</html>
+{% endblock %}
