@@ -82,6 +82,8 @@ def parseCrisis(crisis, lud):
     parseCommon(crisis.find("Common"), newCrisis)
     
     lud[newCrisis.id] = newCrisis
+    newCrisis.save()
+    return newCrisis
     '''
     person = info.Person(id='PER_TESTNO', name="NAME")
     person.save()
@@ -122,6 +124,8 @@ def parseCommon(common, parentModel):
         parseListType(info.CommonListType.FEEDS, i, newCrisis)
     
     container.summary = common.find("Summary").text if common.find("Summary") else ""
+    parentModel.common_id = container.id
+    container.save()
 
 def parseListType(listType, node, parentModel):
     if type(parentModel) is info.Crisis:
@@ -147,8 +151,9 @@ def parseListType(listType, node, parentModel):
         listMember.altText = ""
         
     listMember.text = node.text    
-    listMember.context = listType    
+    listMember.context = listType
     listMember.owner_id = parentModel.id
+    listMember.save()
     
 
 """
