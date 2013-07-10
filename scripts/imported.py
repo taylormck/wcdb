@@ -3,6 +3,7 @@
 import xml.etree.ElementTree as ET
 import sys
 import crises.models as info
+import datetime
 
 class BadXMLException(Exception):
     pass
@@ -36,7 +37,9 @@ def xmlToModels(eleTree):
     
 def parseCrisis(crisis, lud):
     newCrisis = info.Crisis(id=crisis.attrib["ID"], name=crisis.attrib["Name"])
-    #newCrisis.save()
+    newCrisis.date = datetime.datetime.now()
+    newCrisis.time = datetime.datetime.now()
+    newCrisis.save()
     lud[newCrisis.id] = newCrisis
     return newCrisis
     
