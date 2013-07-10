@@ -58,10 +58,14 @@ def parseCrisis(crisis, lud):
     
     newCrisis.date = date.parse(crisis.find("Date").text) if crisis.find("Date") else None
     newCrisis.time = date.parse(crisis.find("Time").text) if crisis.find("Time") else None
-    newCrisis.kind = crisis.find("Kind").text if crisis.find("Kind") else None
+    newCrisis.kind = crisis.find("Kind").text if crisis.find("Kind") else ""
+    
+    
+    #Parse the common types
+    parseCommon(crisis.find("Common"), newCrisis)
+    newCrisis.save()
     
     #Parse the list types unique to crisis
-    
     for i in crisis.find("Locations"):
         parseListType(info.CrisisListType.LOCATION, i, newCrisis)
         
@@ -77,9 +81,8 @@ def parseCrisis(crisis, lud):
     for i in crisis.find("WaysToHelp"):
         parseListType(info.CrisisListType.WAYS_TO_HELP, i, newCrisis)
         
-    #Parse the common types
     
-    parseCommon(crisis.find("Common"), newCrisis)
+    
     
     lud[newCrisis.id] = newCrisis
     newCrisis.save()
@@ -104,36 +107,36 @@ def parseCommon(common, parentModel):
         return
     
     container = info.Common()
+    container.save()
+    container.summary = common.find("Summary").text if common.find("Summary") else ""
     
     for i in common.find("Citations"):
-        parseListType(info.CommonListType.CITATIONS, i, newCrisis)
+        parseListType(info.CommonListType.CITATIONS, i, container)
         
     for i in common.find("ExternalLinks"):
-        parseListType(info.CommonListType.EXTERNAL_LINKS, i, newCrisis)
+        parseListType(info.CommonListType.EXTERNAL_LINKS, i, container)
     
     for i in common.find("Images"):
-        parseListType(info.CommonListType.IMAGES, i, newCrisis)
+        parseListType(info.CommonListType.IMAGES, i, container)
     
     for i in common.find("Videos"):
-        parseListType(info.CommonListType.VIDEOS, i, newCrisis)
+        parseListType(info.CommonListType.VIDEOS, i, container)
     
     for i in common.find("Maps"):
-        parseListType(info.CommonListType.MAPS, i, newCrisis)
+        parseListType(info.CommonListType.MAPS, i, container)
         
     for i in common.find("Feeds"):
-        parseListType(info.CommonListType.FEEDS, i, newCrisis)
+        parseListType(info.CommonListType.FEEDS, i, container)
     
-    container.summary = common.find("Summary").text if common.find("Summary") else ""
     parentModel.common_id = container.id
     container.save()
 
 def parseListType(listType, node, parentModel):
+
     if type(parentModel) is info.Crisis:
         listMember = info.CrisisListType()
-    else
+    else:
         listMember = info.CommonListType()
-    
-    node = node.find("li")
     
     try:
         listMember.href = node.attrib["href"]
@@ -146,11 +149,11 @@ def parseListType(listType, node, parentModel):
         listMember.embed = ""
         
     try:
-        listMember.altText = node.attrib["altText"]
+        listMember.altText = node.attrib["text"]
     except KeyError:
         listMember.altText = ""
         
-    listMember.text = node.text    
+    listMember.text = node.text if node.text is not None else ""    
     listMember.context = listType
     listMember.owner_id = parentModel.id
     listMember.save()

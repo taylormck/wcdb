@@ -29,8 +29,8 @@ class Organization(models.Model):
     kind = models.CharField('Kind', max_length=255)
     location = models.CharField('Location', max_length=255)
     name = models.CharField('Name', max_length=100)
-    history = ListType('History')
-    contactInfo = ListType('Contact Info')
+    #history = ListType('History')
+    #contactInfo = ListType('Contact Info')
     common = models.OneToOneField('Common')
     people = models.ManyToManyField('Person', verbose_name='Associated people')
 
