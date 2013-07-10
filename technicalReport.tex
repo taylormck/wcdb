@@ -1,4 +1,4 @@
-\documentclass{report}
+\documentclass[12pt]{report}
 
 \usepackage[pdftex]{graphicx} % for pictures
 
@@ -306,15 +306,30 @@ The schema as of the latest version is printed here, but the latest version can 
 
 \newpage
 \section*{Implementation}
+
+\hfill \newline \newline
+Most of the code, including the \emph{import} and \emph{export} scripts, are done in Python.
+The website is delivered using Django and the site is designed using Twitter's Bootstrap.
+The data is stored to a MySQL server on campus.
+\newline
+
 \subsection*{Data Model}
+The core of our data model starts with the tables \emph{Crisis}, \emph{Organizations}, \emph{Person}.
+These three tables all have a many to many relation between each other.
+We have a \emph{Common} table to hold data these three models can all have.
+\emph{Crisis}, emph{Organizations}, and \emph{Person} can have 0 or 1 \emph{Common} objects.
+We have an abstract model, \emph{AbstractListType}.
+The database will never write an \emph{AbstractListType}, but abstract types are useful when scripting.
+The types \emph{CommonListType} and \emph{CrisisListType} both inherit from \emph{AbstractListType}.
+\emph{CrisisListType} will hold data for \emph{Crisis} objects, and \emph{CommonListType} will hold data for \emph{Common}.
 
 % Show picture of data model
-\includegraphics*[width=4in,height=6in]{dataModelDiagram.png}
+\newpage
+\includegraphics*[width=4in,height=7in]{dataModelDiagram.png}
 \newline
-\footnotesize This is a diagram of our data model\normalsize % note under the picture
-\newline\newline
-
-Please don't be footnotesize
+\footnotesize This is a diagram of our data model % note under the picture
+\normalsize
+\newpage
 
 \subsection*{Import}
 
