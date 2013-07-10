@@ -5,7 +5,7 @@ from django.db import models
 class Common(models.Model):
     summary = models.TextField('Summary')
     
-class ListType(models.Model):
+class AbstractListType(models.Model):
     href = models.TextField('href')
     embed = models.TextField('embed')
     altText = models.TextField('altText')
@@ -43,7 +43,7 @@ class Person(models.Model):
 
 
 # These are all the types of List Types
-class CommonListType(ListType):
+class CommonListType(AbstractListType):
     CITATIONS = 'CI'
     EXTERNAL_LINKS = "EL"
     IMAGES = 'IM'
@@ -65,7 +65,7 @@ class CommonListType(ListType):
     
 
 #Below are exclusive to crisis
-class CrisisListType(ListType):
+class CrisisListType(AbstractListType):
     LOCATION = 'LO'
     HUMAN_IMPACT = 'HI'
     ECONOMIC_IMPACT = 'EI'
