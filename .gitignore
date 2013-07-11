@@ -48,3 +48,6 @@ nosetests.xml
 *.aux
 *.dvi
 *.out
+
+# sqlite3 database
+testdb
