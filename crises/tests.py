@@ -1,27 +1,28 @@
 """
 This file demonstrates writing tests using the unittest module. These will pass
 when you run "manage.py test".
+
+We will definitely want to add many many more tests, but for now, 3 per
+function will have to do.
 """
 # --- imports ---
 import StringIO
 import xml.etree.cElementTree as et
-# if os.path.join(os.getcwd(), "..") not in sys.path:
-#     sys.path += [os.path.join(os.getcwd, "..")]
-# --- django imports ---
 from django.test import TestCase
-
-# --- local imports ---
-from scripts.importScript import parseXML, xmlToModels
+from scripts.importScript import *
 
 class TestImportScript(TestCase):
     def test_parsevalidate_01(TestCase):
-        pass
+        testXML = StringIO.StringIO("<Dragon></Dragon>")
+        assert validateXML(testXML)
         
     def test_parsevalidate_02(TestCase):
-        pass
+        testXML = StringIO.StringIO("<Dragon></NotDragon>")
+        assert not validateXML(testXML)
         
     def test_parsevalidate_03(TestCase):
-        pass
+        testXML = StringIO.StringIO("<Dragon><Cooly></Cooly></Dragon>")
+        assert validateXML(testXML)
         
     def test_parseXML_01(self):
         testXML = StringIO.StringIO("<Dragon></Dragon>")
@@ -41,15 +42,6 @@ class TestImportScript(TestCase):
         root = parseXML(testXML)
         assert(root.tag == "Dragon")
         assert(root.get("id") == "5")
-
-    def test_xmlToModels_01(TestCase):
-        pass
-
-    def test_xmlToModels_02(TestCase):
-        pass
-
-    def test_xmlToModels_03(TestCase):
-        pass
 
     def test_parseCrisis_01(TestCase):
         pass
@@ -96,3 +88,11 @@ class TestImportScript(TestCase):
     def test_parseListType_03(TestCase):
         pass
         
+    def test_xmlToModels_01(TestCase):
+        pass
+
+    def test_xmlToModels_02(TestCase):
+        pass
+
+    def test_xmlToModels_03(TestCase):
+        pass
