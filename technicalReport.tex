@@ -293,6 +293,9 @@ The schema as of the latest version is printed here, but the latest version can 
     </xsd:simpleType>
 </xsd:schema>
 \end{lstlisting}
+\footnotesize
+Figure 1. The XML schema % note under the picture
+\normalsize
 
 \newpage
 \section*{Implementation}
@@ -314,15 +317,23 @@ The types \emph{CommonListType} and \emph{CrisisListType} both inherit from \emp
 \emph{CrisisListType} will hold data for \emph{Crisis} objects, and \emph{CommonListType} will hold data for \emph{Common}.
 
 \subsection*{Import}
+\emph{Import} is implemented as a Python script, in the root folder of the application.
+It reads in an XML file as input, parse the information, and stores the applicable data into the database for future viewing.
+The XML file must conform to the schema in Figure 1.
+Otherwise, no data will be imported
+\emph{Import} is password protected, and only site administrators may run this script.
 
 \subsection*{Export}
+\emph{Export} is implemented as a Python script, in the root folder of the application.
+It takes the data stored in the database and writes into a new XML file conforming to the schema in Figure 1.
+\emph{Export} does not require administrator access.
 
 % Show picture of data model
 \newpage
 \includegraphics*[width=4in,height=7in]{dataModelDiagram.png}
 \newline
 \footnotesize
-Figure 1. A diagram of our data model % note under the picture
+Figure 2. A diagram of our data model % note under the picture
 \normalsize
 \newpage
 
