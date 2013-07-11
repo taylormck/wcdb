@@ -29,7 +29,7 @@ urlpatterns = patterns('',
     
     # Import/Expert pages
     url(r'^import/$', 'views.importScript', name='importScript'),
-    url(r'^export/$', 'views.exportScript', name='exportScript')
+    url(r'^export/$', 'views.exportScript', name='exportScript'),
     
     # Examples:
     # url(r'^$', 'wcdb.views.home', name='home'),
