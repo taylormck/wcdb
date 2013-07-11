@@ -16,6 +16,9 @@ Before court http://www.google.com/url?sa=i&source=images&cd=&cad=rja&docid=enz5
 During court http://i.huffpost.com/gen/700200/thumbs/s-JAMES-EAGAN-HOLMES-BRAIN-EXPERTS-large.jpg
 Current image: http://www.huffingtonpost.com/2013/06/05/theater-shooting-suspect-_0_n_3389524.html?utm_hp_ref=aurora-shooting
 
+Citation
+wikipedia  
+
 Summary:
 James Eagan Holmes (born December 13, 1987) is the accused perpetrator of a mass shooting that killed 12 people at a Century movie theater in Aurora, Colorado, on July 20, 2012. 
 
@@ -35,6 +38,9 @@ http://en.wikipedia.org/wiki/Ajmal_Kasab
 Images:
 http://en.wikipedia.org/wiki/File:Mohammed_Ajmal_Kasab.jpg
 
+Citation
+wikipedia  
+
 Summary:
 
 Kasab (born 13 July 1987 died 21 November 2012) was the only attacker captured alive by police after the 2008 Mumbai attacks. He later confessed upon interrogation that the attacks were conducted with the support of Pakistan's ISI. On 29 August 2012, Kasab was found guilty of waging war and was sentenced to death by hanging by the Supreme Court of India.
@@ -53,7 +59,44 @@ External Links:
 http://www.guardian.co.uk/world/2010/sep/05/luis-urzua-chile-trapped-miners
 
 Images:
-http://blogs.babble.com/famecrawler/files/2010/10/1039959_300.jpg           
+http://blogs.babble.com/famecrawler/files/2010/10/1039959_300.jpg 
+
+       
 
 Summary:
 Leader of the group of trapped miners. He was the shift foreman who immediately recognized the gravity of the situation and the difficulty of any rescue attempt. He gathered the men in a secure "refuge" then organized them and their meager resources to cope with a long-term survival situation. He was credited with keeping the men alive on an emergency food supply during their first 17 days without contact from the outside world, and he was the last miner to make the journey to the surface.
+
+Name: Tahawwur Hussain Rana
+ID: PER_TAHUSS
+Crisis: 2008 Mumbai attacks
+Organization: Lashkar-e-Taiba
+Kind: Terrorist
+Location:  Pakistan
+
+Common
+
+External Links: 
+http://en.wikipedia.org/wiki/Tahawwur_Hussain_Rana
+
+Citation
+wikipedia
+
+Summary:
+born January 12, 1961)[1] is a Pakistani Canadian resident of Chicago, USA who is an immigration service businessman and a former military physician. In 2011, he was convicted of providing support to the militant group Lashkar-e-Taiba and of allegedly plotting an attack on the Danish newspaper Jyllands-Posten.[2] He was however not found guilty of involvement in the 2008 Mumbai attacks, a charge for which he was originally detained.
+
+
+Name:Jimmy Lee Dykes
+ID: PER_JDYKES
+Crisis: 2013 Alabama bunker hostage crisis
+Kind: Kidnapper
+Location: Midland City, Alabama
+
+Common
+
+External Links:
+http://www.huffingtonpost.com/tag/jimmy-lee-dykes
+http://en.wikipedia.org/wiki/2013_Alabama_bunker_hostage_crisis
+
+Citation:
+huffingtonpost
+wikipedia

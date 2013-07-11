@@ -71,14 +71,6 @@ Our database already holds data from all of the shared groups, as well as our ow
 
 \subsection*{Folder Structure}
 The model of the data structure can be seen below.
-The root folder \emph{must} be named \emph{wcdb}.
-If downloading from \emph{Github}, it is necessary to rename the cloned folder to \emph{wcdb}.
-Inside the \emph{wcdb} folder, there are three folders \emph{crises}, \emph{scripts}, and \emph{static}.
-The \emph{crisis} folder contains the \emph{crisis} application and the standard \emph{Django} files,
-including \emph{models.py}, which has details about the table structure, and \emph{tests.py}, which contains
-most of our unit tests.
-The \emph{scripts} folder contains the scripts \emph{importScript} and \emph{export}.
-The \emph{importScript} is named to avoid conflicts with the \emph{Python}
 
 % Here's the model of the data structure
 \hfill \newline
@@ -105,8 +97,26 @@ wcdb/
         templates/
         xml/
 \end{lstlisting}
+\footnotesize Figure 1. The Folder Layout \normalsize
 
-\footnotesize Figure 2. The Folder Layout \normalsize
+The root folder \emph{must} be named \emph{wcdb}.
+If downloading from \emph{Github}, it is necessary to rename the cloned folder to \emph{wcdb}.
+Inside the \emph{wcdb} folder, there are three folders \emph{crises}, \emph{scripts}, and \emph{static}.
+The \emph{crisis} folder contains the \emph{crisis} application and the standard \emph{Django} files,
+including \emph{models.py}, which has details about the table structure, and \emph{tests.py}, which contains
+most of our unit tests.
+The \emph{scripts} folder contains the scripts \emph{importScript} and \emph{export}.
+The \emph{importScript} is named to avoid conflicts with the \emph{Python} keyword.
+Inside the \emph{static} folder, there are the folders \emph{css}, \emph{html}, \emph{img}, \emph{js}, \emph{templates}, and \emph{xml}.
+The \emph{css} folder contains the CSS files associated with Twitter's Bootstrap.
+The \emph{html} folder contains all of our content pages.
+The file \emph{base.html} is similar to a template.
+It contains most of the HTML data that can be seen on the site, with several blocks filled in with content from other pages.
+The other pages, excluding \emph{export.html} and \emph{export.xml} all extend \emph{base.html}.
+When Django is rendering a page, it will start by rendering data from the page it extends.
+Since all of our pages extend \emph{base.html}, all of our pages use the html found there.
+When Django is filling in content from \emph{base.html} and encouters a block,
+it will fill in this block with data from the first page it was rendering.
 
 \subsection*{Data Model}
 The core of our data model starts with the tables \emph{Crisis}, \emph{Organizations}, \emph{Person}.
@@ -130,7 +140,8 @@ There is a link in the navbar that reads \emph{Import}.
 From this page, an administrator may select a file and upload the information.
 
 \subsection*{Export}
-\emph{Export} is implemented as a Python script, in the root folder of the application.
+\emph{Export} is implemented as a Python script, in the \emph{scripts} folder.
+It is named \emph{export.py}, though may likely be renamed during a later stage to match \emph{importScript.py}.
 It takes the data stored in the database and writes into a new XML file conforming to the schema in Figure 1.
 \emph{Export} does not require administrator access.
 Any user may export the data in this database by clicking the \emph{Export} link from the navigation bar.
@@ -140,7 +151,7 @@ Any user may export the data in this database by clicking the \emph{Export} link
 \includegraphics*[width=3in,height=5in]{dataModelDiagram.png}
 \newline
 \footnotesize
-Figure 3. A diagram of our data model % note under the picture
+Figure 2. A diagram of our data model % note under the picture
 \normalsize
 \newpage
 
@@ -156,6 +167,6 @@ and another to run tests on \emph{MySQL} before pushing to ensure there are no d
 
 \subsection*{unittest}
 \emph{Django} extends the standard unittesting framework, and provides several hundred tests against the back end.
-In addition, we've added a number of unit tests to test our \emph{importScript}
+In addition, we've added a number of unit tests to test our scripts \emph{importScript} and \emph{export}.
 
 \end{document}  
