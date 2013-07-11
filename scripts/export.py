@@ -43,13 +43,14 @@ def createCrisisElement(crisis):
     
     if crisis.time is not None:
         tag = ET.Element("Time")
-        tag.text = crisis.date.strftime("%H:%M:%S")
+        tag.text = crisis.time.strftime("%H:%M:%S")
         xmlCrisis.append(tag)
     
     crisis_list_elems = info.CrisisListType.objects.filter(owner__exact=crisis.id)
     
     #Gets all the crisis types and adds them
     listElemDict = {}
+    toRemove = []
     for val in info.CrisisListType.LIST_TYPE_CHOICES:
         listElemDict[val[0]] = ET.Element(val[1])
     
@@ -70,7 +71,11 @@ def createCrisisElement(crisis):
             li.text = element.text
         
         listElemDict[element.context].append(li)
-    
+        
+    for node in listElemDict.values():
+        if len(node) > 0 or len(node.attrib) > 0 or node.text is not None:
+            xmlCrisis.append(node)
+            
     createCommonNode(crisis, xmlCrisis)
     
     return xmlCrisis
@@ -121,6 +126,7 @@ def createOrganizationElement(org):
     organization_list_elems = info.OrganizationListType.objects.filter(owner__exact=org.id)
     
     listElemDict = {}
+    toRemove = []
     for val in info.OrganizationListType.LIST_TYPE_CHOICES:
         listElemDict[val[0]] = ET.Element(val[1])
     
@@ -141,6 +147,10 @@ def createOrganizationElement(org):
             li.text = element.text
         
         listElemDict[element.context].append(li)
+        
+    for node in listElemDict.values():
+        if len(node) > 0 or len(node.attrib) > 0 or node.text is not None:
+            xmlOrg.append(node)
     
     createCommonNode(org, xmlOrg)
     
@@ -167,22 +177,22 @@ def get_all_elements(objects, filterID, parent, tagName):
         objXml = ET.Element(tagName)
         objXml.attrib["ID"] = obj.id
         xmlContainer.append(objXml)
-        
-    parent.append(xmlContainer)
+    
+    if len(xmlContainer) > 0:    
+        parent.append(xmlContainer)
 
 def createCommonNode(owner, xmlNode):
     try:
         common = info.Common.objects.get(id=owner.common_id)
     except Exception:
         return
-    commonNode = ET.Element("Common")
+    xmlCommon = ET.Element("Common")
     common_list_elems = info.CommonListType.objects.filter(owner__exact=common.id)
     
     #Gets all the crisis types and adds them
     listElemDict = {}
     for val in info.CommonListType.LIST_TYPE_CHOICES:
         listElemDict[val[0]] = ET.Element(val[1])
-        commonNode.append(listElemDict[val[0]])
     
     for element in common_list_elems:
         li = ET.Element("li")
@@ -201,9 +211,15 @@ def createCommonNode(owner, xmlNode):
             li.text = element.text
         
         listElemDict[element.context].append(li)
+         
+    for node in listElemDict.values():
+        if len(node) > 0 or len(node.attrib) > 0 or node.text is not None:
+            xmlCommon.append(node)
         
     if common.summary != "":
         tag = ET.Element("Summary")
         tag.text = common.summary
-        commonNode.append(tag)
-    xmlNode.append(commonNode)
+        xmlCommon.append(tag)
+        
+    if len(xmlCommon) > 0:
+        xmlNode.append(xmlCommon)
