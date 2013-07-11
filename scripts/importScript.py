@@ -81,40 +81,28 @@ def parseCrisis(crisis, lud):
     newCrisis.save()
     
     #Parse the people
-    for person in crisis.find("People"):
-        newCrisis.people.add(lud[person.attrib["ID"]])
+    if crisis.find("People") is not None:
+        for person in crisis.find("People"):
+            newCrisis.people.add(lud[person.attrib["ID"]])
         
     #Parse the organizations
-    for organization in crisis.find("Organizations"):
-        newCrisis.organizations.add(lud[organization.attrib["ID"]])
+    if crisis.find("Organizations") is not None:
+        for organization in crisis.find("Organizations"):
+            newCrisis.organizations.add(lud[organization.attrib["ID"]])
     
     #Parse the list types unique to crisis
-    for i in crisis.find("Locations"):
-        parseListType(info.CrisisListType.LOCATION, i, newCrisis)
-        
-    for i in crisis.find("HumanImpact"):
-        parseListType(info.CrisisListType.HUMAN_IMPACT, i, newCrisis)
+    listElemDict = {}
+    for val in info.CrisisListType.LIST_TYPE_CHOICES:
+        listElemDict[val[1]] = val[0]
     
-    for i in crisis.find("EconomicImpact"):
-        parseListType(info.CrisisListType.ECONOMIC_IMPACT, i, newCrisis)
-    
-    for i in crisis.find("ResourcesNeeded"):
-        parseListType(info.CrisisListType.RESOURCES_NEEDED, i, newCrisis)
-    
-    for i in crisis.find("WaysToHelp"):
-        parseListType(info.CrisisListType.WAYS_TO_HELP, i, newCrisis)
-        
+    for node in listElemDict.keys():
+        if crisis.find(node) is not None:
+            for i in crisis.find(node):
+                parseListType(listElemDict[node], i, newCrisis)
+
     lud[newCrisis.id] = newCrisis
     newCrisis.save()
     return newCrisis
-    '''
-    person = info.Person(id='PER_TESTNO', name="NAME")
-    person.save()
-    newCrisis.save()
-    newCrisis.people.add(person)
-    newCrisis.save()
-    return newCrisis
-    '''
 
 def parsePerson(person, lud):
     newPerson = info.Person(id=person.attrib["ID"], name=person.attrib["Name"])
@@ -137,14 +125,19 @@ def parseOrganization(organization, lud):
     newOrg.save()
     
     #Parse the People
-    for person in organization.find("People"):
-        newOrg.people.add(lud[person.attrib["ID"]])
+    if organization.find("People") is not None:
+        for person in organization.find("People"):
+            newOrg.people.add(lud[person.attrib["ID"]])
     
-    for i in organization.find("History"):
-        parseListType(info.OrganizationListType.HISTORY, i, newOrg)
-        
-    for i in organization.find("ContactInfo"):
-        parseListType(info.OrganizationListType.CONTACT_INFO, i, newOrg)
+    #Iterates over History Types and parses them
+    listElemDict = {}
+    for val in info.OrganizationListType.LIST_TYPE_CHOICES:
+        listElemDict[val[1]] = val[0]
+    
+    for node in listElemDict.keys():
+        if organization.find(node) is not None:
+            for i in organization.find(node):
+                parseListType(listElemDict[node], i, newOrg)
         
     lud[newOrg.id] = newOrg
     newOrg.save()
@@ -158,29 +151,19 @@ def parseCommon(common, parentModel):
     container.save()
     container.summary = common.find("Summary").text if common.find("Summary") is not None else ""
     
-    for i in common.find("Citations"):
-        parseListType(info.CommonListType.CITATIONS, i, container)
-        
-    for i in common.find("ExternalLinks"):
-        parseListType(info.CommonListType.EXTERNAL_LINKS, i, container)
+    listElemDict = {}
+    for val in info.CommonListType.LIST_TYPE_CHOICES:
+        listElemDict[val[1]] = val[0]
     
-    for i in common.find("Images"):
-        parseListType(info.CommonListType.IMAGES, i, container)
-    
-    for i in common.find("Videos"):
-        parseListType(info.CommonListType.VIDEOS, i, container)
-    
-    for i in common.find("Maps"):
-        parseListType(info.CommonListType.MAPS, i, container)
-        
-    for i in common.find("Feeds"):
-        parseListType(info.CommonListType.FEEDS, i, container)
+    for node in listElemDict.keys():
+        if common.find(node) is not None:
+            for i in common.find(node):
+                parseListType(listElemDict[node], i, container)
     
     parentModel.common_id = container.id
     container.save()
 
 def parseListType(listType, node, parentModel):
-
     if type(parentModel) is info.Crisis:
         listMember = info.CrisisListType()
     elif type(parentModel) is info.Organization:
@@ -207,6 +190,8 @@ def parseListType(listType, node, parentModel):
     listMember.context = listType
     listMember.owner_id = parentModel.id
     listMember.save()
+    
+
     
 
 """
