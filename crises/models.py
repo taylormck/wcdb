@@ -71,7 +71,7 @@ class CrisisListType(AbstractListType):
     WAYS_TO_HELP = 'WH'
     
     LIST_TYPE_CHOICES = (
-        (LOCATION, 'Location'),
+        (LOCATION, 'Locations'),
         (HUMAN_IMPACT, 'HumanImpact'),
         (ECONOMIC_IMPACT, 'EconomicImpact'),
         (RESOURCES_NEEDED,'ResourcesNeeded'),

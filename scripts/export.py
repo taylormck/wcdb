@@ -50,9 +50,10 @@ def createCrisisElement(crisis):
     
     #Gets all the crisis types and adds them
     listElemDict = {}
-    toRemove = []
+    strict_order = []
     for val in info.CrisisListType.LIST_TYPE_CHOICES:
         listElemDict[val[0]] = ET.Element(val[1])
+        strict_order += (val[0],)
     
     for element in crisis_list_elems:
         li = ET.Element("li")
@@ -72,7 +73,8 @@ def createCrisisElement(crisis):
         
         listElemDict[element.context].append(li)
         
-    for node in listElemDict.values():
+    for val in strict_order:
+        node = listElemDict[val]
         if len(node) > 0 or len(node.attrib) > 0 or node.text is not None:
             xmlCrisis.append(node)
             
@@ -126,9 +128,10 @@ def createOrganizationElement(org):
     organization_list_elems = info.OrganizationListType.objects.filter(owner__exact=org.id)
     
     listElemDict = {}
-    toRemove = []
+    strict_order = []
     for val in info.OrganizationListType.LIST_TYPE_CHOICES:
         listElemDict[val[0]] = ET.Element(val[1])
+        strict_order += (val[0],)
     
     for element in organization_list_elems:
         li = ET.Element("li")
@@ -148,7 +151,8 @@ def createOrganizationElement(org):
         
         listElemDict[element.context].append(li)
         
-    for node in listElemDict.values():
+    for val in strict_order:
+        node = listElemDict[val]
         if len(node) > 0 or len(node.attrib) > 0 or node.text is not None:
             xmlOrg.append(node)
     
@@ -191,8 +195,10 @@ def createCommonNode(owner, xmlNode):
     
     #Gets all the crisis types and adds them
     listElemDict = {}
+    strict_order = []
     for val in info.CommonListType.LIST_TYPE_CHOICES:
         listElemDict[val[0]] = ET.Element(val[1])
+        strict_order += (val[0],)
     
     for element in common_list_elems:
         li = ET.Element("li")
@@ -212,7 +218,8 @@ def createCommonNode(owner, xmlNode):
         
         listElemDict[element.context].append(li)
          
-    for node in listElemDict.values():
+    for val in strict_order:
+        node = listElemDict[val]
         if len(node) > 0 or len(node.attrib) > 0 or node.text is not None:
             xmlCommon.append(node)
         
