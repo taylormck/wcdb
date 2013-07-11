@@ -46,11 +46,27 @@ def xmlToModels(eleTree):
     link_up_dict = {}
     
     crises_nodes = eleTree.findall("Crisis")
+    people_nodes = eleTree.findall("Person")
+    organization_nodes = eleTree.findall("Organization")
     
-    all_Information = parseCrisis(crises_nodes[0],link_up_dict)
+    #Must be parsed in this order due to dependencies :/ Sorry
+    
+    for person in people_nodes:
+        all_Information  += (parsePerson(person,link_up_dict),)
+    
+    for organization in organization_nodes:
+        all_Information  += (parseOrganization(organization,link_up_dict),)
+    
+    for problem in crises_nodes:
+        all_Information += (parseCrisis(problem,link_up_dict),)
+    
     
     return (all_Information, ET.tostring(eleTree))
-    
+
+# ===================================
+#      v   HERE BE PARSERS     v
+# ===================================
+
 def parseCrisis(crisis, lud):
     #Add all the basic info
     newCrisis = info.Crisis(id=crisis.attrib["ID"], name=crisis.attrib["Name"])
@@ -59,10 +75,17 @@ def parseCrisis(crisis, lud):
     newCrisis.time = date.parse(crisis.find("Time").text) if crisis.find("Time") is not None else None
     newCrisis.kind = crisis.find("Kind").text if crisis.find("Kind") is not None else ""
     
-    
     #Parse the common types
     parseCommon(crisis.find("Common"), newCrisis)
     newCrisis.save()
+    
+    #Parse the people
+    for person in crisis.find("People"):
+        newCrisis.people.add(lud[person.attrib["ID"]])
+        
+    #Parse the organizations
+    for organization in crisis.find("Organizations"):
+        newCrisis.organizations.add(lud[organization.attrib["ID"]])
     
     #Parse the list types unique to crisis
     for i in crisis.find("Locations"):
@@ -80,9 +103,6 @@ def parseCrisis(crisis, lud):
     for i in crisis.find("WaysToHelp"):
         parseListType(info.CrisisListType.WAYS_TO_HELP, i, newCrisis)
         
-    
-    
-    
     lud[newCrisis.id] = newCrisis
     newCrisis.save()
     return newCrisis
@@ -96,13 +116,40 @@ def parseCrisis(crisis, lud):
     '''
 
 def parsePerson(person, lud):
-    pass
+    newPerson = info.Person(id=person.attrib["ID"], name=person.attrib["Name"])
+    newPerson.kind = person.find("Kind").text if person.find("Kind") is not None else ""
+    newPerson.kind = person.find("Location").text if person.find("Location") is not None else ""
+    
+    parseCommon(person.find("Common"), newPerson)
+    lud[newPerson.id] = newPerson
+    newPerson.save()
+    return newPerson
 
 def parseOrganization(organization, lud):
-    pass
+    newOrg = info.Organization(id=organization.attrib["ID"], name=organization.attrib["Name"])
+    newOrg.kind = organization.find("Location").text if organization.find("Location") is not None else ""
+    newOrg.kind = organization.find("Kind").text if organization.find("Kind") is not None else ""
+    
+    #Parse the common types
+    parseCommon(organization.find("Common"), newOrg)
+    newOrg.save()
+    
+    #Parse the People
+    for person in organization.find("People"):
+        newOrg.people.add(lud[person.attrib["ID"]])
+    
+    for i in organization.find("History"):
+        parseListType(info.OrganizationListType.HISTORY, i, newOrg)
+        
+    for i in organization.find("ContactInfo"):
+        parseListType(info.OrganizationListType.CONTACT_INFO, i, newOrg)
+        
+    lud[newOrg.id] = newOrg
+    newOrg.save()
+    return newOrg
 
 def parseCommon(common, parentModel):
-    if not common:
+    if common is None:
         return
     
     container = info.Common()
@@ -134,6 +181,8 @@ def parseListType(listType, node, parentModel):
 
     if type(parentModel) is info.Crisis:
         listMember = info.CrisisListType()
+    elif type(parentModel) is info.Organization:
+        listMember = info.OrganizationListType()
     else:
         listMember = info.CommonListType()
     

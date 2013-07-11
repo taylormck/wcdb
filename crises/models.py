@@ -20,7 +20,7 @@ class Crisis(models.Model):
     date = models.DateField('Date', null=True)
     time = models.TimeField('Time', null=True)
     name = models.CharField('Name', max_length=100)
-    common = models.OneToOneField('Common')
+    common = models.OneToOneField('Common',null=True)
     people = models.ManyToManyField('Person', verbose_name='Associated people')
     organizations = models.ManyToManyField('Organization', verbose_name='Associated organizations')
 
@@ -29,9 +29,7 @@ class Organization(models.Model):
     kind = models.CharField('Kind', max_length=255)
     location = models.CharField('Location', max_length=255)
     name = models.CharField('Name', max_length=100)
-    #history = ListType('History')
-    #contactInfo = ListType('Contact Info')
-    common = models.OneToOneField('Common')
+    common = models.OneToOneField('Common',null=True)
     people = models.ManyToManyField('Person', verbose_name='Associated people')
 
 class Person(models.Model):
@@ -39,7 +37,7 @@ class Person(models.Model):
     name = models.CharField('Name', max_length=100)
     kind = models.CharField('Kind', max_length=255)
     location = models.CharField('Location', max_length=255)
-    common = models.OneToOneField('Common')
+    common = models.OneToOneField('Common',null=True)
 
 
 # These are all the types of List Types
@@ -82,4 +80,20 @@ class CrisisListType(AbstractListType):
     
     context = models.CharField(max_length=2,choices=LIST_TYPE_CHOICES,default=LOCATION)
     owner = models.ForeignKey('Crisis')
+
+#Below are exclusive to god damn freaking organizations seriously i know i am not supposed to make these comments but rage.
+#I forgot about these two being list types
+#hashtag terrible schema
+#hashtag ungrateful coder
+class OrganizationListType(AbstractListType):
+    HISTORY = 'HS'
+    CONTACT_INFO = 'HI'
+    
+    LIST_TYPE_CHOICES = (
+        (HISTORY, 'History'),
+        (CONTACT_INFO, 'Contact Information'),
+    )
+    
+    context = models.CharField(max_length=2,choices=LIST_TYPE_CHOICES,default=HISTORY)
+    owner = models.ForeignKey('Organization')
 

@@ -27,7 +27,7 @@ def imports(request):
         try:
             xml = IMP.parseXML(request.FILES['xmlFile'])
             data = IMP.xmlToModels(xml)
-            information = {"tree" : [data[0], data[0].id, data[1]]}
+            information = {"tree" : [data[0], data[1]]}
         except KeyError:
             pass
         except IMP.BadXMLException:
