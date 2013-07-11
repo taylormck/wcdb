@@ -12,6 +12,7 @@ from django.test import TestCase
 from scripts.importScript import *
 
 class TestImportScript(TestCase):
+    # TODO must make sure to make proper XML strings for these
     def test_parsevalidate_01(TestCase):
         testXML = StringIO.StringIO("<Dragon></Dragon>")
         assert validateXML(testXML)
