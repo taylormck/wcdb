@@ -13,6 +13,7 @@ class ValdiationFailedException(Exception):
     pass
 
 def validateXML(file_chosen):
+    #TODO: WRITE THIS METHOD
     return True
 
 def parseXML(file_chosen):
