@@ -51,7 +51,7 @@ class CommonListType(AbstractListType):
     
     LIST_TYPE_CHOICES = (
         (CITATIONS, 'Citations'),
-        (EXTERNAL_LINKS, 'External Links'),
+        (EXTERNAL_LINKS, 'ExternalLinks'),
         (IMAGES, 'Images'),
         (VIDEOS, 'Videos'),
         (MAPS, 'Maps'),
@@ -72,10 +72,10 @@ class CrisisListType(AbstractListType):
     
     LIST_TYPE_CHOICES = (
         (LOCATION, 'Location'),
-        (HUMAN_IMPACT, 'Human Impact'),
-        (ECONOMIC_IMPACT, 'Economic Impact'),
-        (RESOURCES_NEEDED,'Resources Needed'),
-        (WAYS_TO_HELP,'Ways To Help'),
+        (HUMAN_IMPACT, 'HumanImpact'),
+        (ECONOMIC_IMPACT, 'EconomicImpact'),
+        (RESOURCES_NEEDED,'ResourcesNeeded'),
+        (WAYS_TO_HELP,'WaysToHelp'),
     )
     
     context = models.CharField(max_length=2,choices=LIST_TYPE_CHOICES,default=LOCATION)
@@ -91,7 +91,7 @@ class OrganizationListType(AbstractListType):
     
     LIST_TYPE_CHOICES = (
         (HISTORY, 'History'),
-        (CONTACT_INFO, 'Contact Information'),
+        (CONTACT_INFO, 'ContactInformation'),
     )
     
     context = models.CharField(max_length=2,choices=LIST_TYPE_CHOICES,default=HISTORY)

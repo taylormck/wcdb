@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import Context, RequestContext, Template, loader
 import scripts.imported as IMP
+import scripts.export as EXP
+import xml.etree.ElementTree as ET
 import sys
 
 class Empty():
@@ -33,6 +35,31 @@ def imports(request):
             information = {"tree" : "Upload Failed!"}
     return render_to_response("import.html", information, context_instance=RequestContext(request))
     
+    
+def html_decode(s):
+    """
+    Returns the ASCII decoded version of the given HTML string. This does
+    NOT remove normal HTML tags like <p>.
+    """
+    htmlCodes = (
+            ("'", '&#39;'),
+            ('"', '&quot;'),
+            ('>', '&gt;'),
+            ('<', '&lt;'),
+            ('&', '&amp;')
+        )
+    for code in htmlCodes:
+        s = s.replace(code[1], code[0])
+    return s
+    
+def exports(request):
+    dogs = ET.tostring(EXP.exportXML())
+    t = loader.get_template("export.xml")
+    information = {"cats" : dogs}
+    c = RequestContext(request, information)
+    return HttpResponse(html_decode(t.render(c)), content_type="text/xml")
+
+
 
 def bootstrapTest(request):
     t = loader.get_template("bootstrapTest.html")

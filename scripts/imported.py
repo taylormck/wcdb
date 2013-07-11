@@ -119,7 +119,7 @@ def parseCrisis(crisis, lud):
 def parsePerson(person, lud):
     newPerson = info.Person(id=person.attrib["ID"], name=person.attrib["Name"])
     newPerson.kind = person.find("Kind").text if person.find("Kind") is not None else ""
-    newPerson.kind = person.find("Location").text if person.find("Location") is not None else ""
+    newPerson.location = person.find("Location").text if person.find("Location") is not None else ""
     
     parseCommon(person.find("Common"), newPerson)
     lud[newPerson.id] = newPerson
@@ -128,8 +128,9 @@ def parsePerson(person, lud):
 
 def parseOrganization(organization, lud):
     newOrg = info.Organization(id=organization.attrib["ID"], name=organization.attrib["Name"])
-    newOrg.kind = organization.find("Location").text if organization.find("Location") is not None else ""
     newOrg.kind = organization.find("Kind").text if organization.find("Kind") is not None else ""
+    newOrg.location = organization.find("Location").text if organization.find("Location") is not None else ""
+    
     
     #Parse the common types
     parseCommon(organization.find("Common"), newOrg)

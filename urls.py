@@ -31,6 +31,7 @@ urlpatterns = patterns('',
     
     # Import/Expert pages
     (r'^import.html$', 'views.imports'),
+    (r'^export.html', 'views.exports')
     
     # Examples:
     # url(r'^$', 'wcdb.views.home', name='home'),
