@@ -135,3 +135,6 @@ class TestImportScript(TestCase):
 
     def test_xmlToModels_03(TestCase):
         pass
+
+class TestExportScript(TestCase):
+    pass

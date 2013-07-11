@@ -300,11 +300,49 @@ Figure 1. The XML schema % note under the picture
 \newpage
 \section*{Implementation}
 
-\hfill \newline
+\subsection*{Source Code}
 Most of the code, including the \emph{import} and \emph{export} scripts, are done in Python.
 The website is delivered using Django and the site is designed using Twitter's Bootstrap.
 The data is stored to a MySQL server on campus.
-\newline
+Most of the separate groups have already shared data.
+Our database already holds data from all of the shared groups, as well as our own.
+
+\subsection*{Folder Structure}
+The model of the data structure can be seen below.
+The root folder \emph{must} be named \emph{wcdb}.
+If downloading from \emph{Github}, it is necessary to rename the cloned folder to \emph{wcdb}.
+Inside the \emph{wcdb} folder, there are three folders \emph{crises}, \emph{scripts}, and \emph{static}.
+The \emph{crisis} folder contains the \emph{crisis} application and the standard \emph{Django} files,
+including \emph{models.py}, which has details about the table structure, and \emph{tests.py}, which contains
+most of our unit tests.
+
+% Here's the model of the data structure
+\hfill \newline
+\lstset{
+    language=bash,
+    frame=shadowbox,
+    rulesepcolor=\color{gray},
+    xleftmargin=50pt,
+    xrightmargin=50pt,
+    framexleftmargin=0pt,
+    tabsize=2, 
+    basicstyle=\normalsize, 
+    numbers=none, 
+}
+\begin{lstlisting}
+wcdb/
+    crises/
+    scripts/
+    static/
+        css/
+        html/
+        img/
+        js/
+        templates/
+        xml/
+\end{lstlisting}
+
+\footnotesize Figure 2. The Folder Layout \normalsize
 
 \subsection*{Data Model}
 The core of our data model starts with the tables \emph{Crisis}, \emph{Organizations}, \emph{Person}.
@@ -333,11 +371,11 @@ It takes the data stored in the database and writes into a new XML file conformi
 Any user may export the data in this database by clicking the \emph{Export} link from the navigation bar.
 
 % Show picture of data model
-\newpage
-\includegraphics*[width=4in,height=7in]{dataModelDiagram.png}
+\hfill \newline \newline
+\includegraphics*[width=3in,height=5in]{dataModelDiagram.png}
 \newline
 \footnotesize
-Figure 2. A diagram of our data model % note under the picture
+Figure 3. A diagram of our data model % note under the picture
 \normalsize
 \newpage
 
