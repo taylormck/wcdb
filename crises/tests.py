@@ -9,6 +9,7 @@ function will have to do.
 import StringIO
 import xml.etree.ElementTree as et
 from django.test import TestCase
+import crises.models as cm
 from scripts.importScript import *
 
 NIFCrisis = """
@@ -79,7 +80,7 @@ class TestImportScript(TestCase):
         testElement = et.fromstring(NIFCrisis)
         testDict = {}
         testCrisis = parseCrisis(testElement, testDict)
-        testCrisisCopy = Crisis.objects.get(id="CRI_NRINFL")
+        testCrisisCopy = cm.Crisis.objects.get(id="CRI_NRINFL")
         assert(testCrisis is not testCrisisCopy)
         assert(testCrisis == testCrisisCopy)
 
