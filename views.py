@@ -5,6 +5,7 @@ from django.template import Context, RequestContext, Template, loader
 import scripts.importScript as IMP
 import scripts.export as EXP
 import xml.etree.ElementTree as ET
+from xml.dom.minidom import parseString
 
 import sys
 
@@ -55,13 +56,13 @@ def html_decode(s):
     return s
     
 def exportScript(request):
-    dogs = ET.tostring(EXP.exportXML())
+    rawXML = ET.tostring(EXP.exportXML())
+    # prettyXML = parseString(rawXML).toprettyxml()
+    # prettyXML = html_decode(prettyXML)
     t = loader.get_template("export.xml")
-    information = {"cats" : dogs}
+    information = {"XML" : rawXML}
     c = RequestContext(request, information)
     return HttpResponse(html_decode(t.render(c)), content_type="text/xml")
-
-
 
 def bootstrapTest(request):
     t = loader.get_template("bootstrapTest.html")
