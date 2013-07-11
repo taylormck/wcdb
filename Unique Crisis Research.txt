@@ -32,6 +32,8 @@ Images:
 http://upload.wikimedia.org/wikipedia/commons/0/03/The_Century_16_theater_in_Aurora_CO_-_Shooting_location.jpg
 Videos:
 http://www.cbsnews.com/video/watch/?id=7415902n
+Citations:
+Wikipedia
 
 
 Name: 2010 Copiago mining accident 
@@ -58,6 +60,8 @@ http://en.wikipedia.org/wiki/2010_Copiap%C3%B3_mining_accident
 Images
 http://upload.wikimedia.org/wikipedia/en/1/13/Mina_San_Jos%C3%A9_-_Trapped_miners_before_rescue_-_Gobierno_de_Chile.jpg
 http://upload.wikimedia.org/wikipedia/commons/0/0d/480382main_miners2.jpg
+Citations:
+Wikipedia
 
 Name: 2013 Alabama bunker hostage crisis 
 ID: CRI_ALABUN
@@ -75,18 +79,41 @@ Resources Needed:
 Food and medicine were provided to Dykes for the child who happened to suffer from several illnesses.
 Tools used by the FBI to access and monitor the bunker before attempting a rescue.
 Ways to Help: 
+Event has already been cleared up but taking an active role in community can always help prevents incidents like this from occuring.
+Links:
+http://en.wikipedia.org/wiki/2013_Alabama_bunker_hostage_crisis
+Images:
+http://www.washingtonpost.com/rf/image_606w/2010-2019/WashingtonPost/2013/01/31/National-Enterprise/Images/School_Bus_Driver_Shot-0d692-2437.jpg
+Citations:
+Wikipedia
 
-Name: 2008 Raid on Mormon Compound 
+Name: 2008 Raid on Religious Compound (YFZ Ranch) 
+ID: CRI_RRCOMP
 Key Person: 
-Key Organization: 
-Kind:
-Date and Time:
-Locations: 
+Key Organization: Fundamentalist Church of Jesus Christ of Latter Day Saints
+Kind: Raid
+Date and Time: April 3, 2008
+Locations: Eldorado, Texas United States.
 Human Impact: 
-
+Children were separated from their families due to suspicion of physical and sexual abuse.
+462 Children went into the care of the state of Texas and were held by Child Protective Services at the Fort Concho and Wells Fargo Pavillion in San Angelo.
+Throughout their stay at the Fort women complained about the living conditions within the Fort, claiming children exposed to horrifying physical examinations and interrogation sessions and that the temporary houses were cramped.
+Several men were sentenced to prison for sexually assualting an children while one man was sentenced to 33 years in prison for fathering a child with an underage girl.
+A year after the event two-thirds families had been reunited with their families and were back at the ranch.
 Economic Impact: 
-Resources Needed: 
+State of Texas spent a large amount of money to shelter the women and children and provide a safe and comfortable environment for them.
+Resources Needed:
+Police Officers to thoroughly search every house on the compound for any evidence that could point to any form of abuse to the hundreds of children on the compound.
+Money for housing requirements such as food, beds, and cribs that would be used over the period of 3 months.
 Ways to Help: 
+Families were reunited and sect leaders promised to end underage marriage, so there is no real way to help.
+Possibly contacting any of the families and making donations to them.
+Links:
+http://en.wikipedia.org/wiki/YFZ_Ranch#April_2008_raid
+Images:
+http://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/FLDS_Eldorado_hi.jpg/800px-FLDS_Eldorado_hi.jpg
+Citations:
+Wikipedia
 
 Name: 2008 Mumbai attacks
 ID: CRI_MUMBAI 
@@ -115,6 +142,8 @@ http://www.nytimes.com/2008/11/27/world/asia/27mumbai.html?pagewanted=all&_r=0
 Images:
 https://upload.wikimedia.org/wikipedia/commons/9/9b/2008_Mumbai_terror_attacks_Oberoi_Restaurant.jpg
 http://graphics8.nytimes.com/packages/images/photo/2008/11/26/20081128-INDIATIMELINE/14497036.JPG
+Citations:
+NYTimes
 
 
 
