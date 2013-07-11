@@ -58,244 +58,6 @@ Our class has been divided into separate groups for this project, but most group
 The schema as of the latest version is printed here, but the latest version can be found with this link.
 \newline
 \href{https://github.com/aaronj1335/cs373-wcdb1-schema/blob/master/WorldCrises.xsd.xml}{Updated schema on Github}
-\newline
-
-% Showing xml code
-\lstset{language=XML,
-        breaklines=true,
-        frame=shadowbox,
-        rulesepcolor=\color{gray},
-        xleftmargin=-15pt,
-        xrightmargin=-20pt,
-        framexleftmargin=15pt,
-        tabsize=2, 
-        basicstyle=\tiny, 
-        numbers=left, 
-        numberstyle=\tiny,
-        keywordstyle=\color{blue}\bf,
-        commentstyle=\color{gray},
-        stringstyle=\color{magenta},
-        numbersep=5pt,
-        emph={
-            xsd:schema,
-            xsd:element,
-            xsd:complexType,
-            xsd:sequence,
-            xsd:key,
-            xsd:selector,
-            xsd:field,
-            xsd:keyref,
-            xsd:attribute,
-            xsd:simpleType,
-            xsd:restriction,
-            xsd:any
-        },
-        emphstyle={\color{purple}}
-        }
-\begin{lstlisting}
-<?xml version="1.0" ?>
-<!-- XSD for World Crises database -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <xsd:element name="WorldCrises">
-        <xsd:complexType>
-            <xsd:sequence>
-                <xsd:element name="Crisis" type="CrisisType" minOccurs="1" maxOccurs="unbounded" />
-                <xsd:element name="Person" type="PersonType" minOccurs="1" maxOccurs="unbounded" />
-                <xsd:element name="Organization" type="OrgType" minOccurs="1" maxOccurs="unbounded" />
-            </xsd:sequence>
-        </xsd:complexType>
-        
-        <!-- All keys and keyrefs go here -->
-        <xsd:key name="CrisisKey">
-            <xsd:selector xpath="Crisis" />
-            <xsd:field xpath="@ID" />
-        </xsd:key>
-        <xsd:keyref name="CrisisKeyRef_Person" refer="CrisisKey">
-            <xsd:selector xpath="Person/Crises/Crisis" />
-            <xsd:field xpath="@ID" />
-        </xsd:keyref>
-        <xsd:keyref name="CrisisKeyRef_Org" refer="CrisisKey">
-            <xsd:selector xpath="Organization/Crises/Crisis" />
-            <xsd:field xpath="@ID" />
-        </xsd:keyref>
-        
-        <xsd:key name="PersonKey">
-            <xsd:selector xpath="Person" />
-            <xsd:field xpath="@ID" />
-        </xsd:key>
-        <xsd:keyref name="PersonKeyRef_Crisis" refer="PersonKey">
-            <xsd:selector xpath="Crisis/People/Person" />
-            <xsd:field xpath="@ID" />
-        </xsd:keyref>
-        <xsd:keyref name="PersonKeyRef_Org" refer="PersonKey">
-            <xsd:selector xpath="Organization/People/Person" />
-            <xsd:field xpath="@ID" />
-        </xsd:keyref>
-        
-        <xsd:key name="OrgKey">
-            <xsd:selector xpath="Organization" />
-            <xsd:field xpath="@ID" />
-        </xsd:key>
-        <xsd:keyref name="OrgKeyRef_Crisis" refer="OrgKey">
-            <xsd:selector xpath="Crisis/Organizations/Org" />
-            <xsd:field xpath="@ID" />
-        </xsd:keyref>
-        <xsd:keyref name="OrgKeyRef_Person" refer="OrgKey">
-            <xsd:selector xpath="Person/Organizations/Org" />
-            <xsd:field xpath="@ID" />
-        </xsd:keyref>
-    </xsd:element>
-    
-    <xsd:complexType name="CrisisType">
-        <xsd:sequence>
-            <xsd:element name="People" minOccurs="0" maxOccurs="1">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="Person" type="PersonWithID" minOccurs="1" maxOccurs="unbounded" />
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
-            <xsd:element name="Organizations" minOccurs="0" maxOccurs="1">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="Org" type="OrgWithID" minOccurs="1" maxOccurs="unbounded" />
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
-            
-            <xsd:element name="Kind" type="xsd:token" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="Date" type="xsd:date" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="Time" type="xsd:time" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="Locations" type="ListType" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="HumanImpact" type="ListType" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="EconomicImpact" type="ListType" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="ResourcesNeeded" type="ListType" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="WaysToHelp" type="ListType" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="Common" type="CommonType" minOccurs="0" maxOccurs="1" />
-            <xsd:any minOccurs="0" />
-        </xsd:sequence>
-        <xsd:attribute name="ID" type="CrisisIDType" use="required" />
-        <xsd:attribute name="Name" type="xsd:token" use="required" />
-    </xsd:complexType>
-
-    <xsd:complexType name="PersonType">
-        <xsd:sequence>
-            <xsd:element name="Crises" minOccurs="0" maxOccurs="1">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="Crisis" type="CrisisWithID" minOccurs="1" maxOccurs="unbounded" />
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
-            <xsd:element name="Organizations" minOccurs="0" maxOccurs="1">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="Org" type="OrgWithID" minOccurs="1" maxOccurs="unbounded" />
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
-            
-            <xsd:element name="Kind" type="xsd:token" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="Location" type="xsd:token" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="Common" type="CommonType" minOccurs="0" maxOccurs="1" />
-            <xsd:any minOccurs="0" />
-        </xsd:sequence>
-        <xsd:attribute name="ID" type="PersonIDType" use="required" />
-        <xsd:attribute name="Name" type="xsd:token" use="required" />
-    </xsd:complexType>
-
-    <xsd:complexType name="OrgType">
-        <xsd:sequence>
-            <xsd:element name="Crises" minOccurs="0" maxOccurs="1">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="Crisis" type="CrisisWithID" minOccurs="1" maxOccurs="unbounded" />
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
-            <xsd:element name="People" minOccurs="0" maxOccurs="1">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="Person" type="PersonWithID" minOccurs="1" maxOccurs="unbounded" />
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
-            
-            <xsd:element name="Kind" type="xsd:token" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="Location" type="xsd:token" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="History" type="ListType" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="ContactInfo" type="ListType" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="Common" type="CommonType" minOccurs="0" maxOccurs="1" />
-            <xsd:any minOccurs="0" />
-        </xsd:sequence>
-        <xsd:attribute name="ID" type="OrgIDType" use="required"/>
-        <xsd:attribute name="Name" type="xsd:token" use="required" />
-    </xsd:complexType>
-
-    <xsd:complexType name="CommonType">
-        <xsd:sequence>
-            <xsd:element name="Citations" type="ListType" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="ExternalLinks" type="ListType" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="Images" type="ListType" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="Videos" type="ListType" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="Maps" type="ListType" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="Feeds" type="ListType" minOccurs="0" maxOccurs="1" />
-            <xsd:element name="Summary" type="xsd:token" minOccurs="0" maxOccurs="1" />
-        </xsd:sequence>
-    </xsd:complexType>
-
-    <xsd:complexType name="ListType">
-        <xsd:sequence>
-            <xsd:element name="li" minOccurs="1" maxOccurs="unbounded">
-                <xsd:complexType mixed="true">
-                    <xsd:attribute name="href" type="xsd:token" />
-                    <xsd:attribute name="embed" type="xsd:token" />
-                    <xsd:attribute name="text" type="xsd:token" />
-                </xsd:complexType>
-            </xsd:element>
-        </xsd:sequence>
-    </xsd:complexType>
-
-    <xsd:complexType name="CrisisWithID">
-        <xsd:attribute name="ID" type="CrisisIDType" use="required" />
-    </xsd:complexType>
-    
-    <xsd:complexType name="PersonWithID">
-        <xsd:attribute name="ID" type="PersonIDType" use="required" />
-    </xsd:complexType>
-    
-    <xsd:complexType name="OrgWithID">
-        <xsd:attribute name="ID" type="OrgIDType" use="required" />
-    </xsd:complexType>
-
-    <xsd:simpleType name="CrisisIDType">
-        <xsd:restriction base="IDType">
-            <xsd:pattern value="CRI_[A-Z]{6}" />
-        </xsd:restriction>
-    </xsd:simpleType>
-    
-    <xsd:simpleType name="PersonIDType">
-        <xsd:restriction base="IDType">
-            <xsd:pattern value="PER_[A-Z]{6}" />
-        </xsd:restriction>
-    </xsd:simpleType>
-    
-    <xsd:simpleType name="OrgIDType">
-        <xsd:restriction base="IDType">
-            <xsd:pattern value="ORG_[A-Z]{6}" />
-        </xsd:restriction>
-    </xsd:simpleType>
-
-    <xsd:simpleType name="IDType">
-        <xsd:restriction base="xsd:token">
-            <xsd:length value="10" />
-        </xsd:restriction>
-    </xsd:simpleType>
-</xsd:schema>
-\end{lstlisting}
-\footnotesize
-Figure 1. The XML schema % note under the picture
-\normalsize
 
 \newpage
 \section*{Implementation}
@@ -315,6 +77,8 @@ Inside the \emph{wcdb} folder, there are three folders \emph{crises}, \emph{scri
 The \emph{crisis} folder contains the \emph{crisis} application and the standard \emph{Django} files,
 including \emph{models.py}, which has details about the table structure, and \emph{tests.py}, which contains
 most of our unit tests.
+The \emph{scripts} folder contains the scripts \emph{importScript} and \emph{export}.
+The \emph{importScript} is named to avoid conflicts with the \emph{Python}
 
 % Here's the model of the data structure
 \hfill \newline
@@ -355,7 +119,8 @@ The types \emph{CommonListType} and \emph{CrisisListType} both inherit from \emp
 \emph{CrisisListType} will hold data for \emph{Crisis} objects, and \emph{CommonListType} will hold data for \emph{Common}.
 
 \subsection*{Import}
-\emph{Import} is implemented as a Python script, in the root folder of the application.
+\emph{Import} is implemented as a Python script, in the \emph{scripts} folder.
+It is named \emph{importScript.py} to avoid naming conflits with the \emph{Python} keyword.
 It reads in an XML file as input, parse the information, and stores the applicable data into the database for future viewing.
 The XML file must conform to the schema in Figure 1.
 Otherwise, no data will be imported
@@ -385,16 +150,12 @@ Testing is done using tools provided by \emph{Django} and \emph{unittest}.
 To run the tests, run the command \textbf{python manage.py test}.
 This command will run the unit tests using \emph{SQLite3}.
 \emph{SQLite3} was used for faster unit testing.
-\emph{MySQL} will be used for testing in later phases of development to ensure the code is runing properly on our production environment.
+\emph{MySQL} should be used for testing in later phases of development to ensure the code is runing properly on our production environment.
+The ideal solution is to create two testing environments, the first of which runs unit tests on \emph{SQLite3} for performance purposes,
+and another to run tests on \emph{MySQL} before pushing to ensure there are no differences between the two that could cause errors.
 
 \subsection*{unittest}
-
-
-\newpage
-\section*{Other}
-% Other
-%Proof-read your report. Get another group to read it. Read it aloud.
-%Create diagrams with captions.
-%Create sections and subsections effectively.
+\emph{Django} extends the standard unittesting framework, and provides several hundred tests against the back end.
+In addition, we've added a number of unit tests to test our \emph{importScript}
 
 \end{document}  
