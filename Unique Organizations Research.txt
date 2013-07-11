@@ -25,6 +25,8 @@ The company has a history of ignoring warnings and worker lawsuits of unsafe wor
 Contact Information:
 +56 2 223 9116
 Location: Santiago, Chile
+Citation:
+http://en.wikipedia.org/wiki/Compa%C3%B1%C3%ADa_Minera_San_Esteban_Primera
 
 Name: Lashkar-e-Taiba
 ID: ORG_LASHTA
@@ -39,7 +41,8 @@ After the 2008 Mumbai attacks Pakistan was pressured by the US and India to laun
 Contact Information:
 Probably don't want to contact these guys
 Location: Pakistan
-
+Citation:
+http://en.wikipedia.org/wiki/Lashkar-e-Taiba
 
 Name: Child Protective Services
 ID: ORG_WWCPSE
@@ -49,6 +52,7 @@ The Texas Department of Family and Protective Services (DFPS) is responsible for
 Contact Information:
 http://www.dfps.state.tx.us/child_protection/
 Location: Austin, Texas
+Citation:
 
 Common
 
@@ -69,6 +73,52 @@ The Fundamentalist Church of Jesus Christ of Latter-Day Saints (FLDS Church, kno
 The FLDS Church is estimated to have 6,000 - 10,000 members residing in the sister cities of Hildale, Utah and Colorado City, Arizona; Eldorado, Texas; Westcliffe, Colorado; Mancos, Colorado; Creston and Bountiful, British Columbia; and Pringle, South Dakota.[6] There are also developing communities near Benjamín Hill, Sonora (south of Nogales in the state of Sonora) and Ensenada, Baja California (south of Tijuana). n 2003, the church received increased attention from the state of Utah when police officer Rodney Holm, a member of the church, was convicted of unlawful sexual conduct with a 16- or 17-year-old and one count of bigamy for his marriage to and impregnation of plural wife Ruth Stubbs. The conviction was the first legal action against a member of the FLDS Church since the Short Creek raid.
 
 Contact Information:
+Citation:
+http://en.wikipedia.org/wiki/Fundamentalist_Church_of_Jesus_Christ_of_Latter-Day_Saints
 
+Non Unique Organizations
+
+Name: Federal Bureau of Investigation
+ID: FEDBOI
+Kind: Government agency
+History:
+Established in 1908 as the Bureau of Investigation later changed to Fedar Bureau of Investigation in 1935.
+J. Edgar Hoover served as director of the of FBI from 1924-1972 and was responsible for creating the FBI Laboratory.
+The FBI were responsible for apprehending or killing a multitude of notorious criminals who carried out kidnappings, robberies and other such crimes throughout the country.
+They went on to become heavily involved in many of the Nations greatest and worst incidents.
+
+Contact Information:
+http://www.fbi.gov/
+
+Citation:
+http://www.fbi.gov/
+https://en.wikipedia.org/wiki/Federal_Bureau_of_Investigation#History
+
+Name: Central Intelligence Agency
+ID: CENTIA
+Kind: Government agency
+History:
+Created by Congress with the passage of the Nationaly Security Act of 1947, signed into law by President Harry Truman.
+It was inspired by the OSS's success during World War II, and after it was dissolved was proposed to Roosevelt as a possible new organization that would be directly supervised by the president.
+The CIA played a much bigger role during the Cold War going as far as to overthrow a foreign government for the first time during the 1953 Iranian coup d'etat at Churchill' request.
+
+Contact Information:
+https://www.cia.gov/index.html
+
+Citation:
+https://www.cia.gov/index.html
+http://en.wikipedia.org/wiki/Central_Intelligence_Agency
+
+Name: Valve
+ID: HLFLIF
+Kind: Privately owned Software company
+History:
+Founded by a long-time Microsoft employees
+
+Contact Information:
+http://www.valvesoftware.com/
+
+Citations:
+http://en.wikipedia.org/wiki/Valve_Corporation
 
 
