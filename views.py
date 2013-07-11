@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import Context, RequestContext, Template, loader
-import scripts.imported as IMP
+import scripts.importScript as IMP
 import sys
 
 class Empty():

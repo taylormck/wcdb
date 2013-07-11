@@ -209,7 +209,7 @@ def parseListType(listType, node, parentModel):
     
 
 """
-toParse = "../xml/test.xml"
+toParse = "../xml/tests.xml"
 
 if len(sys.argv) > 1:   
     toParse = sys.argv[1]
