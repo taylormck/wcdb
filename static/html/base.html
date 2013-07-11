@@ -58,11 +58,11 @@
                         <li><a href="{% url person3 %}">Ajmal Kasab</a></li>
 
                         <li class="nav-header">Import / Export</li>
-                        <li>Import</li>
-                        <li>Export</li>
+                        <li><a href="{% url importScript %}">Import</a></li>
+                        <li><a href="{% url exportScript %}">Export</a></li>
                     </div>
                 </div>
-                <div class="span10">
+                <div class="span8">
                     {% block content %}{% endblock %}
                 </div>
             </div>

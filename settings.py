@@ -1,5 +1,6 @@
 # Django settings for wcdb project.
 import os
+import sys
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -9,13 +10,18 @@ PROJECT_ROOT = os.getcwd() #os.path.abspath(os.path.dirname(__file__))
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
-)
+    )
 
 MANAGERS = ADMINS
+
+
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        # 'NAME': 'cs373_tsm544',
+        # 'USER': 'tsm544',
+        # 'PASSWORD': 'qd.WhTIJxN',
         'NAME': 'cs373_benbb',                      # Or path to database file if using sqlite3.
         'USER': 'benbb',                      # Not used with sqlite3.
         'PASSWORD': 'pLH3Y6Mnkw',               # Not used with sqlite3.
@@ -23,6 +29,11 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+# Different engine for testing and production
+if 'test' in sys.argv:
+    DATABASES ['default']['ENGINE'] = 'django.db.backends.sqlite3'
+    DATABASES ['default']['NAME'] = 'testdb'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#allowed-hosts
@@ -81,7 +92,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-)
+    )
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -107,7 +118,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-)
+    )
 
 ROOT_URLCONF = 'wcdb.urls'
 
@@ -116,7 +127,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-)
+    )
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -132,7 +143,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'wcdb',
     'crises',
-)
+    )
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -140,19 +151,19 @@ INSTALLED_APPS = (
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    }
+'version': 1,
+'disable_existing_loggers': False,
+'handlers': {
+'mail_admins': {
+'level': 'ERROR',
+'class': 'django.utils.log.AdminEmailHandler'
+}
+},
+'loggers': {
+'django.request': {
+'handlers': ['mail_admins'],
+'level': 'ERROR',
+'propagate': True,
+},
+}
 }

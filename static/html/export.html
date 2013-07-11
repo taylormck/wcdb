@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" />
-        <title>World Crises|  </title>
-    </head>
-    <body>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="file" name="xmlFile" />
-            <input type="submit" name="submit" value="Upload" />
-        </form>
-        XML Submitted: 
-        <p>
-        {{ tree }}
-    </body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Import{% endblock %}
+
+{% block content %}
+{{ XML }}
+{% endblock %}
