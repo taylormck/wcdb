@@ -322,11 +322,15 @@ It reads in an XML file as input, parse the information, and stores the applicab
 The XML file must conform to the schema in Figure 1.
 Otherwise, no data will be imported
 \emph{Import} is password protected, and only site administrators may run this script.
+Running import is done on the website.
+There is a link in the navbar that reads \emph{Import}.
+From this page, an administrator may select a file and upload the information.
 
 \subsection*{Export}
 \emph{Export} is implemented as a Python script, in the root folder of the application.
 It takes the data stored in the database and writes into a new XML file conforming to the schema in Figure 1.
 \emph{Export} does not require administrator access.
+Any user may export the data in this database by clicking the \emph{Export} link from the navigation bar.
 
 % Show picture of data model
 \newpage
