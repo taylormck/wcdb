@@ -58,12 +58,15 @@ Our class has been divided into separate groups for this project, but most group
 The schema as of the latest version is printed here, but the latest version can be found with this link.
 \newline
 \href{https://github.com/aaronj1335/cs373-wcdb1-schema/blob/master/WorldCrises.xsd.xml}{Updated schema on Github}
+\newline
+
 % Showing xml code
 \lstset{language=XML,
         breaklines=true,
         frame=shadowbox,
         rulesepcolor=\color{gray},
-        xleftmargin=20pt,
+        xleftmargin=-15pt,
+        xrightmargin=-20pt,
         framexleftmargin=15pt,
         tabsize=2, 
         basicstyle=\tiny, 
@@ -91,9 +94,7 @@ The schema as of the latest version is printed here, but the latest version can 
         }
 \begin{lstlisting}
 <?xml version="1.0" ?>
-
 <!-- XSD for World Crises database -->
-
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <xsd:element name="WorldCrises">
         <xsd:complexType>
@@ -145,8 +146,6 @@ The schema as of the latest version is printed here, but the latest version can 
         </xsd:keyref>
     </xsd:element>
     
-    <!-- Crisis Data Type -->
-    <!-- Required: Name, ID (attributes), People, Orgs (each with ID attributes)-->
     <xsd:complexType name="CrisisType">
         <xsd:sequence>
             <xsd:element name="People" minOccurs="0" maxOccurs="1">
@@ -178,9 +177,7 @@ The schema as of the latest version is printed here, but the latest version can 
         <xsd:attribute name="ID" type="CrisisIDType" use="required" />
         <xsd:attribute name="Name" type="xsd:token" use="required" />
     </xsd:complexType>
-    
-    <!-- Person Data Type -->
-    <!-- Required: Name, ID (attributes), Crises, Orgs (each with ID attributes) -->
+
     <xsd:complexType name="PersonType">
         <xsd:sequence>
             <xsd:element name="Crises" minOccurs="0" maxOccurs="1">
@@ -206,9 +203,7 @@ The schema as of the latest version is printed here, but the latest version can 
         <xsd:attribute name="ID" type="PersonIDType" use="required" />
         <xsd:attribute name="Name" type="xsd:token" use="required" />
     </xsd:complexType>
-    
-    <!-- Person Data Type -->
-    <!-- Required: Name, ID (attributes), Crises, People (each with ID attributes) -->
+
     <xsd:complexType name="OrgType">
         <xsd:sequence>
             <xsd:element name="Crises" minOccurs="0" maxOccurs="1">
@@ -236,8 +231,7 @@ The schema as of the latest version is printed here, but the latest version can 
         <xsd:attribute name="ID" type="OrgIDType" use="required"/>
         <xsd:attribute name="Name" type="xsd:token" use="required" />
     </xsd:complexType>
-    
-    <!-- CommonType contains elements common to crises, people and organizations. Each of these elements is a list. -->
+
     <xsd:complexType name="CommonType">
         <xsd:sequence>
             <xsd:element name="Citations" type="ListType" minOccurs="0" maxOccurs="1" />
@@ -249,9 +243,7 @@ The schema as of the latest version is printed here, but the latest version can 
             <xsd:element name="Summary" type="xsd:token" minOccurs="0" maxOccurs="1" />
         </xsd:sequence>
     </xsd:complexType>
-    
-    <!-- ListType is a list of tokens. Each token can have an optional hyperlink (href attribute) and/or link for embedded object (embed attribute).
-        This is a generic type that can accomodate all types of lists (images, videos, citations, text, etc.) See example XML for usage -->
+
     <xsd:complexType name="ListType">
         <xsd:sequence>
             <xsd:element name="li" minOccurs="1" maxOccurs="unbounded">
@@ -263,8 +255,7 @@ The schema as of the latest version is printed here, but the latest version can 
             </xsd:element>
         </xsd:sequence>
     </xsd:complexType>
-    
-    <!-- Use these when making references to crises, people or orgs -->
+
     <xsd:complexType name="CrisisWithID">
         <xsd:attribute name="ID" type="CrisisIDType" use="required" />
     </xsd:complexType>
@@ -276,8 +267,7 @@ The schema as of the latest version is printed here, but the latest version can 
     <xsd:complexType name="OrgWithID">
         <xsd:attribute name="ID" type="OrgIDType" use="required" />
     </xsd:complexType>
-    
-    <!-- All ID Types go here -->
+
     <xsd:simpleType name="CrisisIDType">
         <xsd:restriction base="IDType">
             <xsd:pattern value="CRI_[A-Z]{6}" />
@@ -307,7 +297,7 @@ The schema as of the latest version is printed here, but the latest version can 
 \newpage
 \section*{Implementation}
 
-\hfill \newline \newline
+\hfill \newline
 Most of the code, including the \emph{import} and \emph{export} scripts, are done in Python.
 The website is delivered using Django and the site is designed using Twitter's Bootstrap.
 The data is stored to a MySQL server on campus.
@@ -323,17 +313,18 @@ The database will never write an \emph{AbstractListType}, but abstract types are
 The types \emph{CommonListType} and \emph{CrisisListType} both inherit from \emph{AbstractListType}.
 \emph{CrisisListType} will hold data for \emph{Crisis} objects, and \emph{CommonListType} will hold data for \emph{Common}.
 
+\subsection*{Import}
+
+\subsection*{Export}
+
 % Show picture of data model
 \newpage
 \includegraphics*[width=4in,height=7in]{dataModelDiagram.png}
 \newline
-\footnotesize This is a diagram of our data model % note under the picture
+\footnotesize
+Figure 1. A diagram of our data model % note under the picture
 \normalsize
 \newpage
-
-\subsection*{Import}
-
-\subsection*{Export}
 
 \newpage
 \section*{Testing}
