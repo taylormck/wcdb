@@ -7,9 +7,7 @@ from django.conf.urls.defaults import *
 import crises
 
 urlpatterns = patterns('',
-    url(r'^home.html', 'test.current_datetime', name='home'),
     #url(r'^crises/$', 'crises.test.current_datetime', name='house')
-    url(r'^world/$', 'crises.test.current_datetime'),
 
     #Index page
     url(r'^$', 'views.index', name='index'),

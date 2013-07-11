@@ -64,9 +64,9 @@ def xmlToModels(eleTree):
     
     return (all_Information, ET.tostring(eleTree))
 
-# ===================================
-#      v   HERE BE PARSERS     v
-# ===================================
+# ======================================
+#      v   ARRR, HERE BE PARSERS     v
+# ======================================
 
 def parseCrisis(crisis, lud):
     #Add all the basic info
@@ -130,7 +130,6 @@ def parseOrganization(organization, lud):
     newOrg = info.Organization(id=organization.attrib["ID"], name=organization.attrib["Name"])
     newOrg.kind = organization.find("Kind").text if organization.find("Kind") is not None else ""
     newOrg.location = organization.find("Location").text if organization.find("Location") is not None else ""
-    
     
     #Parse the common types
     parseCommon(organization.find("Common"), newOrg)
