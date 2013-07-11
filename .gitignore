@@ -43,3 +43,8 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# Latex files
+*.aux
+*.dvi
+*.out

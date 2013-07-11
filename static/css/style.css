@@ -1,8 +1,7 @@
 #navbar {
     position: relative;
-    text-align: center;
+    text-align: left;
     vertical-align: top;
-    /*margin-top: 0px;*/
 }
 
 #navbar > ul {
@@ -10,19 +9,13 @@
 }
 
 #navbar > ul > li {
-    list-style-type: none;
-/*    margin: 0;
-    padding: 0;*/
-    /*position: relative;*/
-    /*display: block;*/
-    font-size: 25px;
+    font-size: 15px;
     padding: 5px 10px;
     display: inline-block;
 }
 
 #navbar > ul > li > a {
-    padding: 5px 10px;
-    display: block;
+    /*display: inline-block;*/
 }
 
 #content {
@@ -30,6 +23,27 @@
     position: relative;
     width: auto;
     min-height: 500px;
+}
+
+#content > ul {
+    list-style: none;
+}
+
+#content > ul > li {
+    list-style: none;
+}
+
+#content img {
+    list-style: none;
+    max-height: 400px;
+    max-width: 600px;
+}
+
+#content ul > li > img {
+    display: inline-block;
+    list-style: none;
+    max-height: 400px;
+    max-width: 600px;
 }
 
 #footer {

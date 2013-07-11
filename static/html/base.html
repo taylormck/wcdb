@@ -1,24 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" />
-    <title>World Crises|  </title>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.css"/> 
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.js"></script>
+    <title>WCDB | {% block title %}{% endblock %}</title>
+
+    <!-- css to pad the page content away from the edges -->
+    <style type="text/css">
+    body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+    }
+    .sidebar-nav {
+        padding-bottom: 9px 0;
+    }
+
+    .img-rounded {
+        max-width: 300px;
+        height: auto;
+        max-height: 500px;
+    }
+
+    @media (max-width: 980px) {
+        .navbar-text.pull-right {
+            float: none;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    }
+    </style>
 </head>
+
 <body>
-    <div id="navbar">
-        <ul>
-            <li>Crises</li>
-            <li>Organizations</li>
-            <li>People</li>
-            <li>import</li>
-            <li>export</li>
-        </ul>
-    </div>
+    <!-- This is our common navbar -->
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span2">
+                <div class="well sidebar-nav">
+                    <ul class="nav nav-list">
+                        <li class="nav-header">Site</li>
+                        <li><a href="{% url index %}">Home Page</a></li>
 
-    <div id="content">
-    </div>
+                        <li class="nav-header">Crises</li>
+                        <li><a href="{% url crisis1 %}">Aurora Shooting</a></li>
+                        <li><a href="{% url crisis2 %}">Copiago Mining Accident</a></li>
+                        <li><a href="{% url crisis3 %}">Mumbai Attacks</a></li>
 
-    <div id="footer">
+                        <li class="nav-header">Organizations</li>
+                        <li><a href="{% url organization1 %}">The Community First Foundation</a></li>
+                        <li><a href="{% url organization2 %}">San Esteban Mining Company</a></li>
+                        <li><a href="{% url organization3 %}">Lashkar-e-Taiba</a></li>
+
+                        <li class="nav-header">People</li>
+                        <li><a href="{% url person1 %}">James Eagen Holmes</a></li>
+                        <li><a href="{% url person2 %}">Luis Urzúa</a></li>
+                        <li><a href="{% url person3 %}">Ajmal Kasab</a></li>
+
+                        <li class="nav-header">Import / Export</li>
+                        <li>Import</li>
+                        <li>Export</li>
+                    </div>
+                </div>
+                <div class="span10">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
     </div>
-</body>
+</body> 
 </html>

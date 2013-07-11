@@ -10,7 +10,7 @@ This will help keep the public informed about the going-ons of the world and hel
 ###Great Moonstone Oxen of the First and Forsaken Oceans
 We have the best team name ever, and we are
 * Spencer Reynoso
-* Ben Bowely-Bryant
+* Ben Bowley-Bryant
 * Taylor McKinney
 * Matt Stringer
 * Cesar Cantu

@@ -1,0 +1,351 @@
+\documentclass[12pt]{report}
+
+\usepackage[pdftex]{graphicx} % for pictures
+
+\usepackage{color}
+\usepackage{listings}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+\usepackage{marvosym} % Required for symbols in the colored box
+\usepackage{ifsym} % Required for symbols in the colored box
+
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{506266} % Blue grey color for links
+\hypersetup{colorlinks,breaklinks, urlcolor=linkcolor, linkcolor=linkcolor} % Set up links and colors
+
+\definecolor{shade}{HTML}{F5DD9D} % Peach color for the contact information box
+\definecolor{text1}{HTML}{2b2b2b} % Main document font color, off-black
+\definecolor{headings}{HTML}{701112} % Dark red color for headings
+
+\usepackage{fancyhdr}
+% \pagestyle{fancy}
+% \fancyhf{}
+
+\usepackage{titlesec} % Allows creating custom \section's
+
+\titleformat{\section}{\color{headings}
+\scshape\Large\raggedright}{}{0em}{}[\color{black}\titlerule]
+\titlespacing{\section}{0pt}{0pt}{5pt} % Spacing around titles
+
+\title{Great Moonstone Oxen of the First and Forsaken Oceans}
+\author{
+    Taylor McKinney
+    \and Matt Stringer
+    \and Cesar Cantu
+    \and Spencer Reynoso
+    \and Ben Bowley-Bryant
+    \and David Denton}
+
+\begin{document}
+\maketitle
+
+\section*{Introduction}
+\subsection*{What is the problem?}
+It's often easy to forget the many crises occurring throughout the world.
+This site is designed to gather the data on every crisis, and present in a simple format.
+We gather details about victims, and information on organizations and people that want to help.
+
+\subsection*{What are the use cases?}
+With the increasing availability of telecommunication access and this site makes use of this to share news and help victims.
+This site can be a good source for anyone looking to get informed and help. 
+We can provide contact information for people and organizations involved in helping the victims of crises around the world.
+People who want to help can look to our site for the best ways to get involved, whether it be donating to the right charities or volunteering at a local site.
+
+\newpage
+\section*{Design}
+\subsection*{XML Schema}
+Our class has been divided into separate groups for this project, but most groups have agreed upon a shared schema for XML.
+The schema as of the latest version is printed here, but the latest version can be found with this link.
+\newline
+\href{https://github.com/aaronj1335/cs373-wcdb1-schema/blob/master/WorldCrises.xsd.xml}{Updated schema on Github}
+\newline
+
+% Showing xml code
+\lstset{language=XML,
+        breaklines=true,
+        frame=shadowbox,
+        rulesepcolor=\color{gray},
+        xleftmargin=-15pt,
+        xrightmargin=-20pt,
+        framexleftmargin=15pt,
+        tabsize=2, 
+        basicstyle=\tiny, 
+        numbers=left, 
+        numberstyle=\tiny,
+        keywordstyle=\color{blue}\bf,
+        commentstyle=\color{gray},
+        stringstyle=\color{magenta},
+        numbersep=5pt,
+        emph={
+            xsd:schema,
+            xsd:element,
+            xsd:complexType,
+            xsd:sequence,
+            xsd:key,
+            xsd:selector,
+            xsd:field,
+            xsd:keyref,
+            xsd:attribute,
+            xsd:simpleType,
+            xsd:restriction,
+            xsd:any
+        },
+        emphstyle={\color{purple}}
+        }
+\begin{lstlisting}
+<?xml version="1.0" ?>
+<!-- XSD for World Crises database -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="WorldCrises">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="Crisis" type="CrisisType" minOccurs="1" maxOccurs="unbounded" />
+                <xsd:element name="Person" type="PersonType" minOccurs="1" maxOccurs="unbounded" />
+                <xsd:element name="Organization" type="OrgType" minOccurs="1" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+        
+        <!-- All keys and keyrefs go here -->
+        <xsd:key name="CrisisKey">
+            <xsd:selector xpath="Crisis" />
+            <xsd:field xpath="@ID" />
+        </xsd:key>
+        <xsd:keyref name="CrisisKeyRef_Person" refer="CrisisKey">
+            <xsd:selector xpath="Person/Crises/Crisis" />
+            <xsd:field xpath="@ID" />
+        </xsd:keyref>
+        <xsd:keyref name="CrisisKeyRef_Org" refer="CrisisKey">
+            <xsd:selector xpath="Organization/Crises/Crisis" />
+            <xsd:field xpath="@ID" />
+        </xsd:keyref>
+        
+        <xsd:key name="PersonKey">
+            <xsd:selector xpath="Person" />
+            <xsd:field xpath="@ID" />
+        </xsd:key>
+        <xsd:keyref name="PersonKeyRef_Crisis" refer="PersonKey">
+            <xsd:selector xpath="Crisis/People/Person" />
+            <xsd:field xpath="@ID" />
+        </xsd:keyref>
+        <xsd:keyref name="PersonKeyRef_Org" refer="PersonKey">
+            <xsd:selector xpath="Organization/People/Person" />
+            <xsd:field xpath="@ID" />
+        </xsd:keyref>
+        
+        <xsd:key name="OrgKey">
+            <xsd:selector xpath="Organization" />
+            <xsd:field xpath="@ID" />
+        </xsd:key>
+        <xsd:keyref name="OrgKeyRef_Crisis" refer="OrgKey">
+            <xsd:selector xpath="Crisis/Organizations/Org" />
+            <xsd:field xpath="@ID" />
+        </xsd:keyref>
+        <xsd:keyref name="OrgKeyRef_Person" refer="OrgKey">
+            <xsd:selector xpath="Person/Organizations/Org" />
+            <xsd:field xpath="@ID" />
+        </xsd:keyref>
+    </xsd:element>
+    
+    <xsd:complexType name="CrisisType">
+        <xsd:sequence>
+            <xsd:element name="People" minOccurs="0" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Person" type="PersonWithID" minOccurs="1" maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Organizations" minOccurs="0" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Org" type="OrgWithID" minOccurs="1" maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="Kind" type="xsd:token" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="Date" type="xsd:date" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="Time" type="xsd:time" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="Locations" type="ListType" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="HumanImpact" type="ListType" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="EconomicImpact" type="ListType" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="ResourcesNeeded" type="ListType" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="WaysToHelp" type="ListType" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="Common" type="CommonType" minOccurs="0" maxOccurs="1" />
+            <xsd:any minOccurs="0" />
+        </xsd:sequence>
+        <xsd:attribute name="ID" type="CrisisIDType" use="required" />
+        <xsd:attribute name="Name" type="xsd:token" use="required" />
+    </xsd:complexType>
+
+    <xsd:complexType name="PersonType">
+        <xsd:sequence>
+            <xsd:element name="Crises" minOccurs="0" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Crisis" type="CrisisWithID" minOccurs="1" maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Organizations" minOccurs="0" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Org" type="OrgWithID" minOccurs="1" maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="Kind" type="xsd:token" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="Location" type="xsd:token" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="Common" type="CommonType" minOccurs="0" maxOccurs="1" />
+            <xsd:any minOccurs="0" />
+        </xsd:sequence>
+        <xsd:attribute name="ID" type="PersonIDType" use="required" />
+        <xsd:attribute name="Name" type="xsd:token" use="required" />
+    </xsd:complexType>
+
+    <xsd:complexType name="OrgType">
+        <xsd:sequence>
+            <xsd:element name="Crises" minOccurs="0" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Crisis" type="CrisisWithID" minOccurs="1" maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="People" minOccurs="0" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Person" type="PersonWithID" minOccurs="1" maxOccurs="unbounded" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            
+            <xsd:element name="Kind" type="xsd:token" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="Location" type="xsd:token" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="History" type="ListType" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="ContactInfo" type="ListType" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="Common" type="CommonType" minOccurs="0" maxOccurs="1" />
+            <xsd:any minOccurs="0" />
+        </xsd:sequence>
+        <xsd:attribute name="ID" type="OrgIDType" use="required"/>
+        <xsd:attribute name="Name" type="xsd:token" use="required" />
+    </xsd:complexType>
+
+    <xsd:complexType name="CommonType">
+        <xsd:sequence>
+            <xsd:element name="Citations" type="ListType" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="ExternalLinks" type="ListType" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="Images" type="ListType" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="Videos" type="ListType" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="Maps" type="ListType" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="Feeds" type="ListType" minOccurs="0" maxOccurs="1" />
+            <xsd:element name="Summary" type="xsd:token" minOccurs="0" maxOccurs="1" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListType">
+        <xsd:sequence>
+            <xsd:element name="li" minOccurs="1" maxOccurs="unbounded">
+                <xsd:complexType mixed="true">
+                    <xsd:attribute name="href" type="xsd:token" />
+                    <xsd:attribute name="embed" type="xsd:token" />
+                    <xsd:attribute name="text" type="xsd:token" />
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="CrisisWithID">
+        <xsd:attribute name="ID" type="CrisisIDType" use="required" />
+    </xsd:complexType>
+    
+    <xsd:complexType name="PersonWithID">
+        <xsd:attribute name="ID" type="PersonIDType" use="required" />
+    </xsd:complexType>
+    
+    <xsd:complexType name="OrgWithID">
+        <xsd:attribute name="ID" type="OrgIDType" use="required" />
+    </xsd:complexType>
+
+    <xsd:simpleType name="CrisisIDType">
+        <xsd:restriction base="IDType">
+            <xsd:pattern value="CRI_[A-Z]{6}" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="PersonIDType">
+        <xsd:restriction base="IDType">
+            <xsd:pattern value="PER_[A-Z]{6}" />
+        </xsd:restriction>
+    </xsd:simpleType>
+    
+    <xsd:simpleType name="OrgIDType">
+        <xsd:restriction base="IDType">
+            <xsd:pattern value="ORG_[A-Z]{6}" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="IDType">
+        <xsd:restriction base="xsd:token">
+            <xsd:length value="10" />
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>
+\end{lstlisting}
+\footnotesize
+Figure 1. The XML schema % note under the picture
+\normalsize
+
+\newpage
+\section*{Implementation}
+
+\hfill \newline
+Most of the code, including the \emph{import} and \emph{export} scripts, are done in Python.
+The website is delivered using Django and the site is designed using Twitter's Bootstrap.
+The data is stored to a MySQL server on campus.
+\newline
+
+\subsection*{Data Model}
+The core of our data model starts with the tables \emph{Crisis}, \emph{Organizations}, \emph{Person}.
+These three tables all have a many to many relation between each other.
+We have a \emph{Common} table to hold data these three models can all have.
+\emph{Crisis}, emph{Organizations}, and \emph{Person} can have 0 or 1 \emph{Common} objects.
+We have an abstract model, \emph{AbstractListType}.
+The database will never write an \emph{AbstractListType}, but abstract types are useful when scripting.
+The types \emph{CommonListType} and \emph{CrisisListType} both inherit from \emph{AbstractListType}.
+\emph{CrisisListType} will hold data for \emph{Crisis} objects, and \emph{CommonListType} will hold data for \emph{Common}.
+
+\subsection*{Import}
+\emph{Import} is implemented as a Python script, in the root folder of the application.
+It reads in an XML file as input, parse the information, and stores the applicable data into the database for future viewing.
+The XML file must conform to the schema in Figure 1.
+Otherwise, no data will be imported
+\emph{Import} is password protected, and only site administrators may run this script.
+
+\subsection*{Export}
+\emph{Export} is implemented as a Python script, in the root folder of the application.
+It takes the data stored in the database and writes into a new XML file conforming to the schema in Figure 1.
+\emph{Export} does not require administrator access.
+
+% Show picture of data model
+\newpage
+\includegraphics*[width=4in,height=7in]{dataModelDiagram.png}
+\newline
+\footnotesize
+Figure 2. A diagram of our data model % note under the picture
+\normalsize
+\newpage
+
+\newpage
+\section*{Testing}
+\subsection*{unittest}
+
+\newpage
+\section*{Other}
+% Other
+%Proof-read your report. Get another group to read it. Read it aloud.
+%Create diagrams with captions.
+%Create sections and subsections effectively.
+
+\end{document}  
