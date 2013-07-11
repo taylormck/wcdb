@@ -24,7 +24,7 @@ def base(request):
     #                          {},
     #                          context_instance=RequestContext(request))
 
-def imports(request):
+def importScript(request):
     information = {}
     if request.method == 'POST':
         try:
@@ -54,7 +54,7 @@ def html_decode(s):
         s = s.replace(code[1], code[0])
     return s
     
-def exports(request):
+def exportScript(request):
     dogs = ET.tostring(EXP.exportXML())
     t = loader.get_template("export.xml")
     information = {"cats" : dogs}

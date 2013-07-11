@@ -28,8 +28,8 @@ urlpatterns = patterns('',
     url(r'organization3/$', 'views.organization3', name='organization3'),
     
     # Import/Expert pages
-    (r'^import.html$', 'views.imports'),
-    (r'^export.html', 'views.exports')
+    (r'^import/$', 'views.importScript'),
+    (r'^export/$', 'views.exportScript')
     
     # Examples:
     # url(r'^$', 'wcdb.views.home', name='home'),
