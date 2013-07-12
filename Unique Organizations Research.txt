@@ -113,7 +113,10 @@ Name: Valve
 ID: HLFLIF
 Kind: Privately owned Software company
 History:
-Founded by a long-time Microsoft employees
+Founded on August 24, 1996 by long-time Microsoft employees Gabe Newell and Mike Harrington as an L.L.C. based in Washington.
+They began working on their game Half-Life in 1996 and launched the game in 1998.
+The game's success allowed them to continue on and make sequels and other side projects that wold be greatly received by the public.
+The company's success would later allow it to become heavily involved with charity events such as Child's Play, a children's charity group, and the relief for Japan during the 2011 earthquake.
 
 Contact Information:
 http://www.valvesoftware.com/
