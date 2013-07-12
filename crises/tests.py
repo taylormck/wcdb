@@ -44,6 +44,19 @@ NIFCrisis = """
     </Crisis>
 """
 
+CFFOrg = """
+    <Organization ID="ORG_COFIFO" Name="The Community First Foundation">
+        <Crises>
+            <Crisis ID="CRI_AURSHO"/>
+        </Crises>
+        <Kind>Charity</Kind>
+        <Location>United States</Location>
+        <History>
+            <li>This is a story all about how...</li>
+        </History>
+    </Organization>
+"""
+
 class TestImportScript(TestCase):
     # TODO must make sure to make proper XML strings for these
     def test_parsevalidate_01(TestCase):
@@ -108,7 +121,14 @@ class TestImportScript(TestCase):
         assert(testCrisisCopy.kind == 'Natural Disaster')
         
     def test_parseOrganization_01(TestCase):
-        pass
+        testElement = et.fromstring(NIFCrisis)
+        testDict = {}
+        testOrg = parseCrisis(testElement, testDict)
+        try:
+            testOrgCopy = cm.Organization.objects.get(id="CORG_COFIFO")
+        except ObjectDoesNotExist:
+            assert(False)
+        assert(testOrg == testOrgCopy)
         
     def test_parseOrganization_02(TestCase):
         pass
