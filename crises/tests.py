@@ -84,7 +84,6 @@ class TestImportScript(TestCase):
         assert(testCrisis is not testCrisisCopy)
         assert(testCrisis == testCrisisCopy)
 
-
     def test_parseCrisis_02(TestCase):
         pass
         

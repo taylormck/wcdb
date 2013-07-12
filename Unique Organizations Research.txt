@@ -25,11 +25,13 @@ The company has a history of ignoring warnings and worker lawsuits of unsafe wor
 Contact Information:
 +56 2 223 9116
 Location: Santiago, Chile
+Citation:
+http://en.wikipedia.org/wiki/Compa%C3%B1%C3%ADa_Minera_San_Esteban_Primera
 
 Name: Lashkar-e-Taiba
 ID: ORG_LASHTA
 Kind: Islamist terrorist organization
-History:
+History:   
 It is one of the largest and most active Islamist terrorist organizations in South Asia operating mainly from Pakistan.
 Founded in 1990 by Hafez Saeed, Abdullah Azzam, and Zafar Iqbal in Afghansitan's Kunar province and gained prominence as an offshoot of a previously established preaching group.
 In the early 2000's several countries including the United States and the UK declared the group a terrorist organization.
@@ -39,14 +41,87 @@ After the 2008 Mumbai attacks Pakistan was pressured by the US and India to laun
 Contact Information:
 Probably don't want to contact these guys
 Location: Pakistan
+Citation:
+http://en.wikipedia.org/wiki/Lashkar-e-Taiba
 
-
-Name: Pakistan ISI
-Kind:
+Name: Child Protective Services
+ID: ORG_WWCPSE
+Kind: Child Protection
 History:
+The Texas Department of Family and Protective Services (DFPS) is responsible for investigating charges of abuse, neglect or exploitation of children, elderly adults and adults with disabilities. It was created effective February 1, 2004 by House Bill 2292 of the 78th Texas Legislature (2003) as the first new agency in a major reorganization of Texas's health and human services system.[1] Prior to this time the agency had been called the Texas Department of Protective and Regulatory Services (PRS).[2][3] The change was made to help "consolidate organizational structures and functions, eliminate duplicative administrative systems, and streamline processes and procedures that guide the delivery of health and human services to Texans."
 Contact Information:
+http://www.dfps.state.tx.us/child_protection/
+Location: Austin, Texas
+Citation:
+
+Common
+
+External Links:
+http://www.dfps.state.tx.us/child_protection/
+http://en.wikipedia.org/wiki/Texas_Department_of_Family_and_Protective_Services
+
+
+Citation:
+Wikipedia
+Texas Department of Family and Protective Services
 
 Name: Fundamentalist Church of Jesus Christ of Latter Day Saints
-Kind:
+ID: ORG_FCLATT
+Kind: Church
 History:
+The Fundamentalist Church of Jesus Christ of Latter-Day Saints (FLDS Church, known to some as Mormon Fundamentalists) is one of the largest fundamentalist denominations[3][4] and one of the largest organizations in the United States whose members practice polygamy.[5] The FLDS Church emerged in the early twentieth century when its founding members left The Church of Jesus Christ of Latter-day Saints (LDS Church). The split occurred largely because of the LDS Church's suspension of the practice of polygamy and its decision to excommunicate its members who would continue the practice.
+The FLDS Church is estimated to have 6,000 - 10,000 members residing in the sister cities of Hildale, Utah and Colorado City, Arizona; Eldorado, Texas; Westcliffe, Colorado; Mancos, Colorado; Creston and Bountiful, British Columbia; and Pringle, South Dakota.[6] There are also developing communities near Benjamín Hill, Sonora (south of Nogales in the state of Sonora) and Ensenada, Baja California (south of Tijuana). n 2003, the church received increased attention from the state of Utah when police officer Rodney Holm, a member of the church, was convicted of unlawful sexual conduct with a 16- or 17-year-old and one count of bigamy for his marriage to and impregnation of plural wife Ruth Stubbs. The conviction was the first legal action against a member of the FLDS Church since the Short Creek raid.
+
 Contact Information:
+Citation:
+http://en.wikipedia.org/wiki/Fundamentalist_Church_of_Jesus_Christ_of_Latter-Day_Saints
+
+Non Unique Organizations
+
+Name: Federal Bureau of Investigation
+ID: FEDBOI
+Kind: Government agency
+History:
+Established in 1908 as the Bureau of Investigation later changed to Fedar Bureau of Investigation in 1935.
+J. Edgar Hoover served as director of the of FBI from 1924-1972 and was responsible for creating the FBI Laboratory.
+The FBI were responsible for apprehending or killing a multitude of notorious criminals who carried out kidnappings, robberies and other such crimes throughout the country.
+They went on to become heavily involved in many of the Nations greatest and worst incidents.
+
+Contact Information:
+http://www.fbi.gov/
+
+Citation:
+http://www.fbi.gov/
+https://en.wikipedia.org/wiki/Federal_Bureau_of_Investigation#History
+
+Name: Central Intelligence Agency
+ID: CENTIA
+Kind: Government agency
+History:
+Created by Congress with the passage of the Nationaly Security Act of 1947, signed into law by President Harry Truman.
+It was inspired by the OSS's success during World War II, and after it was dissolved was proposed to Roosevelt as a possible new organization that would be directly supervised by the president.
+The CIA played a much bigger role during the Cold War going as far as to overthrow a foreign government for the first time during the 1953 Iranian coup d'etat at Churchill' request.
+
+Contact Information:
+https://www.cia.gov/index.html
+
+Citation:
+https://www.cia.gov/index.html
+http://en.wikipedia.org/wiki/Central_Intelligence_Agency
+
+Name: Valve
+ID: HLFLIF
+Kind: Privately owned Software company
+History:
+Founded on August 24, 1996 by long-time Microsoft employees Gabe Newell and Mike Harrington as an L.L.C. based in Washington.
+They began working on their game Half-Life in 1996 and launched the game in 1998.
+The game's success allowed them to continue on and make sequels and other side projects that wold be greatly received by the public.
+The company's success would later allow it to become heavily involved with charity events such as Child's Play, a children's charity group, and the relief for Japan during the 2011 earthquake.
+
+Contact Information:
+http://www.valvesoftware.com/
+
+Citations:
+http://en.wikipedia.org/wiki/Valve_Corporation
+
+
