@@ -1,6 +1,7 @@
 \documentclass[12pt]{report}
 
-\usepackage[pdftex]{graphicx} % for pictures
+\usepackage{graphicx} % for pictures
+\usepackage{wrapfig} % for wrapping text around figures
 
 \usepackage{color}
 \usepackage{listings}
@@ -57,17 +58,6 @@ This site can be a good source for anyone looking to get informed and help.
 We can provide contact information for people and organizations involved in helping the victims of crises around the world.
 People who want to help can look to our site for the best ways to get involved, whether it be donating to the right charities or volunteering at a local site.
 
-\newpage
-\section*{Design}
-\subsection*{XML Schema}
-\hfill
-
-
-Our class has been divided into separate groups for this project, but most groups have agreed upon a shared schema for XML.
-The schema as of the latest version is printed here, but the latest version can be found with this link.\\
-
-
-\href{https://github.com/aaronj1335/cs373-wcdb1-schema/blob/master/WorldCrises.xsd.xml}{Updated schema on Github}\\
 
 \newpage
 \section*{Implementation}
@@ -115,15 +105,15 @@ wcdb/
         xml/
 \end{lstlisting}
 \footnotesize Figure 1. The Folder Layout \normalsize
-\hfill
+\hfill\\
 
 
 The root folder \emph{must} be named \emph{wcdb}.
-If downloading from \emph{Github}, it is necessary to rename the cloned folder to \emph{wcdb}.
+If downloading from Github, rename \emph{wcdb}.
 Inside the \emph{wcdb} folder, there are three folders \emph{crises}, \emph{scripts}, and \emph{static}.\\
 
 
-The \emph{crisis} folder contains the \emph{crisis} application and the standard \emph{Django} files,
+The \emph{crisis} folder contains the \emph{crisis} application and the standard Django files,
 including \emph{models.py}, which has details about the table structure, and \emph{tests.py}, which contains
 most of our unit tests.\\
 
@@ -158,10 +148,22 @@ The \emph{crisis}, \emph{organization}, and \emph{person} pages are our static p
 They hold information that will be filled into the template by Django.
 The static pages are still being delivered by Django.\\
 
-
+\newpage
 \subsection*{Data Model}
 \hfill
 
+
+% Show picture of data model
+\begin{wrapfigure}[22]{r}{0.48\textwidth}
+\vspace{-20pt}
+\begin{flushright}
+\includegraphics*[width=0.5\textwidth,height=4in]{dataModelDiagram.png}
+\newline
+\footnotesize
+Figure 2. A diagram of our data model % note under the picture
+\end{flushright}
+\end{wrapfigure}
+\normalsize
 
 The core of our data model starts with the tables \emph{Crisis}, \emph{Organizations}, \emph{Person}.
 These three tables all have a many to many relation between each other.
@@ -199,39 +201,38 @@ It takes the data stored in the database and writes into a new XML file conformi
 Any user may export the data in this database by clicking the \emph{Export} link from the navigation bar.
 
 
-% Show picture of data model
+\newpage
+\section*{Design}
+\subsection*{XML Schema}
 \hfill
 
 
-\includegraphics*[width=3in,height=5in]{dataModelDiagram.png}
-\newline
-\footnotesize
-Figure 2. A diagram of our data model % note under the picture
-\normalsize
-\newpage
+Our class has been divided into separate groups for this project, but most groups have agreed upon a shared schema for XML.
+The schema as of the latest version is printed here, but the latest version can be found with this link.\\
 
 
+\href{https://github.com/aaronj1335/cs373-wcdb1-schema/blob/master/WorldCrises.xsd.xml}{Updated schema on Github}\\
 \section*{Testing}
 \hfill
 
 
-Testing is done using tools provided by \emph{Django} and \emph{unittest}.
+Testing is done using tools provided by Django and unittest.
 To run the tests, run the command \textbf{python manage.py test}.
-This command will run the unit tests using \emph{SQLite3}.
-\emph{SQLite3} was used for faster unit testing.
-\emph{MySQL} should be used for testing in later phases of development to ensure the code is runing properly on our production environment.
-The ideal solution is to create two testing environments, the first of which runs unit tests on \emph{SQLite3} for performance purposes,
-and another to run tests on \emph{MySQL} before pushing to ensure there are no differences between the two that could cause errors.
+This command will run the unit tests using SQLite3.
+SQLite3 was used for faster unit testing.
+MySQL should be used for testing in later phases of development to ensure the code is runing properly on our production environment.
+The ideal solution is to create two testing environments, the first of which runs unit tests on SQLite3 for performance purposes,
+and another to run tests on MySQL before pushing to ensure there are no differences between the two that could cause errors.
 
 
-\subsection*{unittest}
-\hfill
-
-
-\emph{Django} extends the standard unittesting framework, and provides several hundred tests against the back end.
+Django extends the standard unittesting framework, and provides several hundred tests against the back end.
 In addition, we've added a number of unit tests to test our scripts \emph{importScript} and \emph{export}.
+There are plans to implement further testing for each view, but for now we are only showing static pages,
+and the views are easily checked manually.
 
 
+
+\newpage
 \section*{Future Goals}
 
 
