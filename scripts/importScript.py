@@ -5,6 +5,7 @@ import sys
 import crises.models as info
 import datetime
 import dateutil.parser as date
+import StringIO
 
 from genxmlif import GenXmlIfError
 from minixsv import pyxsval 
@@ -15,19 +16,21 @@ class BadXMLException(Exception):
 class ValdiationFailedException(Exception):
     pass
 
-def validateXML(file_chosen):
+def validateXML(file_cho):
     #TODO: WRITE THIS METHOD
     
     #STILL BROKEN the file needs to be  string thats the name of a file I believe 
     #Documentation for method http://www.leuthe-net.de/MiniXsv.html scroll down and see the method 
-    #what ben had last night file_chosen = ''.join(x for x in file_cho)
+    file_chosen = ''.join(x for x in file_cho)
+    with open("WorldCrisis.xsd.xml", "r") as f:
+        xsd = ''.join(x for x in f.readlines())
     #Might need to move WordlCrisis.xsd.xml into scripts but I believe it worked last night in the wcdb folder
     try:
-        pyxsval.parseAndValidateXmlInput (file_chosen, xsdFile="WorldCrisis.xsd.xml", validateSchema=0)
+        pyxsval.parseAndValidateXmlInputString(file_chosen, xsdText=xsd, validateSchema=0)
    #if XML file did not follow the schema 
     except pyxsval.XsvalError, errstr:
         print "Validation aborted!"
-    return False
+        return False
    #if a parsing error
     except GenXmlIfError, errstr:
         print "Parsing aborted!"
@@ -45,10 +48,10 @@ def parseXML(file_chosen):
     with open(toParse, 'r') as f:
     '''
     
-    if not validateXML(file_chosen):
-        raise ValdiationFailedException()
-    
     xmlInfo = file_chosen.readlines()
+    
+    if not validateXML(xmlInfo):
+        raise ValdiationFailedException()
 
     # Disallow entities for now 
     # because we're using XSD
