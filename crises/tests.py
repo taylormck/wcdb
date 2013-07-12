@@ -9,6 +9,7 @@ function will have to do.
 import StringIO
 import xml.etree.ElementTree as et
 from django.test import TestCase
+from django.db.models.base import ObjectDoesNotExist
 import crises.models as cm
 from scripts.importScript import *
 
@@ -80,15 +81,31 @@ class TestImportScript(TestCase):
         testElement = et.fromstring(NIFCrisis)
         testDict = {}
         testCrisis = parseCrisis(testElement, testDict)
-        testCrisisCopy = cm.Crisis.objects.get(id="CRI_NRINFL")
-        assert(testCrisis is not testCrisisCopy)
+        try:
+            testCrisisCopy = cm.Crisis.objects.get(id="CRI_NRINFL")
+        except ObjectDoesNotExist:
+            assert(False)
         assert(testCrisis == testCrisisCopy)
 
     def test_parseCrisis_02(TestCase):
-        pass
+        try:
+            while True:
+                testCrisisCopy = cm.Crisis.objects.get(id="CRI_NRINFL")
+                testCrisisCopy.delete()
+                assert(False)
+        except ObjectDoesNotExist:
+            pass
         
     def test_parseCrisis_03(TestCase):
-        pass
+        testElement = et.fromstring(NIFCrisis)
+        testDict = {}
+        testCrisis = parseCrisis(testElement, testDict)
+        try:
+            testCrisisCopy = cm.Crisis.objects.get(id="CRI_NRINFL")
+        except ObjectDoesNotExist:
+            assert(False)
+        assert(testCrisis == testCrisisCopy)
+        assert(testCrisisCopy.kind == 'Natural Disaster')
         
     def test_parseOrganization_01(TestCase):
         pass
@@ -134,6 +151,3 @@ class TestImportScript(TestCase):
 
     def test_xmlToModels_03(TestCase):
         pass
-
-class TestExportScript(TestCase):
-    pass
