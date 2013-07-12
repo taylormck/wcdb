@@ -37,7 +37,9 @@ def importScript(request):
         except KeyError:
             pass
         except IMP.BadXMLException:
-            information = {"tree" : "Upload Failed!"}
+            information = {"tree" : "Upload Failed - Bad XML File!"}
+        except IMP.ValdiationFailedException:
+            information = {"tree" : "Upload Failed - Invalid XML File!"}
     return render_to_response("import.html", information, context_instance=RequestContext(request))
     
     
