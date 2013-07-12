@@ -10,7 +10,6 @@
     <style type="text/css">
     body {
         background-color: #383838;
-        padding-top: 60px;
         padding-bottom: 40px;
     }
     .sidebar-nav {
@@ -33,6 +32,7 @@
     }
     
     #content {
+        min-height: 500px;
         background-color: #eeeeee;
         padding-left: 15px;
         padding-right: 15px;
@@ -62,8 +62,17 @@
 </head>
 
 <body>
+    <!-- navbar across the top -->
+    <div class="navbar navbar-inverse" style="border-radius: 0px;">
+        <div class="navbar-inner">
+            <ul class="nav">
+                <li>Future navbar</li>
+            </ul>
+        </div>
+    </div>
+
     <!-- This is our common navbar -->
-    <div class="container-fluid">
+    <div class="container-fluid" style="padding-top: 60px;">
         <div class="row-fluid">
             <div class="span2">
                 <div class="well sidebar-nav">
