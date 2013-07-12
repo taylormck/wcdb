@@ -29,11 +29,9 @@ def validateXML(file_cho):
         pyxsval.parseAndValidateXmlInputString(file_chosen, xsdText=xsd, validateSchema=0)
    #if XML file did not follow the schema 
     except pyxsval.XsvalError, errstr:
-        print "Validation aborted!"
         return False
    #if a parsing error
     except GenXmlIfError, errstr:
-        print "Parsing aborted!"
         return False
 
     return True
