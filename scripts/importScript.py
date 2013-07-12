@@ -50,14 +50,15 @@ def parseXML(file_chosen):
     
     xmlInfo = file_chosen.readlines()
     
-    if not validateXML(xmlInfo):
-        raise ValdiationFailedException()
-
     # Disallow entities for now 
     # because we're using XSD
     for line in xmlInfo:
         if "!ENTITY" in line:
             raise BadXMLException("Bad XML File")
+    
+    if not validateXML(xmlInfo):
+        raise ValdiationFailedException()
+
     try:
         tree = ET.fromstringlist(xmlInfo)
         return tree
