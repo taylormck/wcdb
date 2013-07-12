@@ -4,6 +4,8 @@ when you run "manage.py test".
 
 We will definitely want to add many many more tests, but for now, 3 per
 function will have to do.
+
+
 """
 # --- imports ---
 import StringIO
@@ -15,7 +17,7 @@ from scripts.importScript import *
 from scripts.export import *
 
 NIFCrisis = """
-    <Crisis ID="CRI_NRINFL" Name="2013 Northern India Floods">
+    <Crisis ID="CRI_AURSHO" Name="2013 Northern India Floods">
         <Kind>Natural Disaster</Kind>
         <Date>2013-06-14</Date>
         <Time>00:00:00</Time>
@@ -71,12 +73,12 @@ JEHPerson = """
     </Person>
 """
 
-TestFile = "<WorldCrises>" + NIFCrisis + CFFOrg + JEHPerson + "</WorldCrises>"
+TestFile = "<WorldCrises>"+"\n"+ NIFCrisis +"\n"+ JEHPerson+"\n" +CFFOrg +"\n" + "</WorldCrises>"
 
 class TestImportScript(TestCase):
     # TODO must make sure to make proper XML strings for these
     def test_parsevalidate_01(TestCase):
-        assert not validateXML(TestFile)
+        assert validateXML(TestFile)
         
     def test_parsevalidate_02(TestCase):
         assert not validateXML(NIFCrisis)
@@ -115,15 +117,16 @@ class TestImportScript(TestCase):
         testDict = {}
         testCrisis = parseCrisis(testElement, testDict)
         try:
-            testCrisisCopy = cm.Crisis.objects.get(id="CRI_NRINFL")
+            testCrisisCopy = cm.Crisis.objects.get(id="CRI_AURSHO")
         except ObjectDoesNotExist:
             assert(False)
         assert(testCrisis == testCrisisCopy)
+        assert(testCrisis.name == "2013 Northern India Floods")
 
     def test_parseCrisis_02(TestCase):
         try:
             while True:
-                testCrisisCopy = cm.Crisis.objects.get(id="CRI_NRINFL")
+                testCrisisCopy = cm.Crisis.objects.get(id="CRI_AURSHO")
                 testCrisisCopy.delete()
                 assert(False)
         except ObjectDoesNotExist:
@@ -134,11 +137,10 @@ class TestImportScript(TestCase):
         testDict = {}
         testCrisis = parseCrisis(testElement, testDict)
         try:
-            testCrisisCopy = cm.Crisis.objects.get(id="CRI_NRINFL")
-        except ObjectDoesNotExist:
+            testCrisisCopy = cm.Crisis.objects.get(id="CRI_AURSH")
             assert(False)
-        assert(testCrisis == testCrisisCopy)
-        assert(testCrisisCopy.kind == 'Natural Disaster')
+        except ObjectDoesNotExist:
+            pass
         
     def test_parseOrganization_01(TestCase):
         testElement = et.fromstring(CFFOrg)
@@ -149,45 +151,81 @@ class TestImportScript(TestCase):
         except ObjectDoesNotExist:
             assert(False)
         assert(testOrg == testOrgCopy)
+        assert(testOrg.kind == "Charity")
         
     def test_parseOrganization_02(TestCase):
-        pass
+        testElement = et.fromstring(CFFOrg)
+        testDict = {}
+        parseOrganization(testElement, testDict)
+        try:
+            testOrgCopy = cm.Organization.objects.get(id="ORG_COFIFO")
+        except ObjectDoesNotExist:
+            assert(False)
+        assert(testDict["ORG_COFIFO"] == testOrgCopy)
         
     def test_parseOrganization_03(TestCase):
-        pass
+        testElement = et.fromstring(CFFOrg)
+        testDict = {}
+        testOrg = parseOrganization(testElement, testDict)
+        try:
+            while True:
+                testOrg.delete()
+                testOrgCopy = cm.Organization.objects.get(id="CRI_COFIFO")
+                assert(False)
+        except ObjectDoesNotExist:
+            pass
         
     def test_parsePerson_01(TestCase):
-        pass
+        testElement = et.fromstring(JEHPerson)
+        testDict = {}
+        testPer = parsePerson(testElement, testDict)
+        try:
+            testPerCopy = cm.Person.objects.get(id="PER_JAEAHO")
+        except ObjectDoesNotExist:
+            assert(False)
+        assert(testPer == testPerCopy)
+        assert(testPer.kind == "Mass Murderer")
         
     def test_parsePerson_02(TestCase):
-        pass
+        testElement = et.fromstring(JEHPerson)
+        testDict = {}
+        parsePerson(testElement, testDict)
+        try:
+            testPerCopy = cm.Person.objects.get(id="PER_JAEAHO")
+        except ObjectDoesNotExist:
+            assert(False)
+        assert(testDict["PER_JAEAHO"] == testPerCopy)
         
     def test_parsePerson_03(TestCase):
-        pass
-        
-    def test_parseCommon_01(TestCase):
-        pass
-        
-    def test_parseCommon_02(TestCase):
-        pass
-        
-    def test_parseCommon_03(TestCase):
-        pass
-        
-    def test_parseListType_01(TestCase):
-        pass
-        
-    def test_parseListType_02(TestCase):
-        pass
-        
-    def test_parseListType_03(TestCase):
-        pass
-        
-    def test_xmlToModels_01(TestCase):
-        pass
+        testElement = et.fromstring(JEHPerson)
+        testDict = {}
+        testPer = parsePerson(testElement, testDict)
+        try:
+            testPer.delete()
+            testPerCopy = cm.Person.objects.get(id="PER_JAEAHO")
+            assert(False)
+        except ObjectDoesNotExist:
+            pass
 
-    def test_xmlToModels_02(TestCase):
-        pass
+"""
+class TestExportScript(TestCase):
+    def test_everything(TestCase):
+        testXML = StringIO.StringIO(TestFile)
+        
+        parse = parseXML(testXML)
+        root = et.fromstring(TestFile)
 
-    def test_xmlToModels_03(TestCase):
-        pass
+        assert(et.tostring(parse) == et.tostring(root))
+        
+        xmlToModels(parse)
+        node = exportXML()
+        
+        assert(node.tag == root.tag)
+        nodeList = []
+        rootList = []
+        root_iter = root.iter()
+        for node_child in node.iter():
+            nodeList += (node_child,)
+        for root_child in root.iter():
+            rootList += (root_child,)
+"""
