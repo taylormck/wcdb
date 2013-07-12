@@ -3,6 +3,8 @@ import os
 import sys
 
 DEBUG = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 300
 TEMPLATE_DEBUG = DEBUG
 
 # Root folder of the project
@@ -143,7 +145,10 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'wcdb',
     'crises',
+    'password_required',
     )
+    
+PASSWORD_REQUIRED_PASSWORD = 'downing'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

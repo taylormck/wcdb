@@ -31,6 +31,7 @@ urlpatterns = patterns('',
     url(r'^import/$', 'views.importScript', name='importScript'),
     url(r'^export/$', 'views.exportScript', name='exportScript'),
     
+     url(r'^password_required/$', 'password_required.views.login'),
     # Examples:
     # url(r'^$', 'wcdb.views.home', name='home'),
     # url(r'^wcdb/', include('wcdb.foo.urls')),
