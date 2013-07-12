@@ -82,12 +82,13 @@ Citation
 wikipedia
 
 Summary:
-born January 12, 1961)[1] is a Pakistani Canadian resident of Chicago, USA who is an immigration service businessman and a former military physician. In 2011, he was convicted of providing support to the militant group Lashkar-e-Taiba and of allegedly plotting an attack on the Danish newspaper Jyllands-Posten.[2] He was however not found guilty of involvement in the 2008 Mumbai attacks, a charge for which he was originally detained.
+born January 12, 1961 is a Pakistani Canadian resident of Chicago, USA who is an immigration service businessman and a former military physician. In 2011, he was convicted of providing support to the militant group Lashkar-e-Taiba and of allegedly plotting an attack on the Danish newspaper Jyllands-Posten.[2] He was however not found guilty of involvement in the 2008 Mumbai attacks, a charge for which he was originally detained.
 
 
 Name:Jimmy Lee Dykes
 ID: PER_JDYKES
 Crisis: 2013 Alabama bunker hostage crisis
+Organization: none
 Kind: Kidnapper
 Location: Midland City, Alabama
 
@@ -100,3 +101,44 @@ http://en.wikipedia.org/wiki/2013_Alabama_bunker_hostage_crisis
 Citation:
 huffingtonpost
 wikipedia
+
+
+
+NON-Unique people below
+
+Name: Captain Richard Pillips
+ID: PER_CAPRIC
+Crisis: Piracy in Somalia
+Organization: None
+Kind: Captain/Hostage
+Location: Underhill, Vermont
+
+Common
+External Links
+http://en.wikipedia.org/wiki/Captain_Richard_Phillips#Captain_Richard_Phillips
+http://www.wcax.com/story/22211575/capt-richard-phillips-shares-his-story-of-survival
+
+Summary:
+Captain Richard Phillips married Andrea Coggio in 1987. They have two children, Mariah and Daniel, and reside in Underhill, Vermont. He is of Irish ancestry.Phillips is a 1979 graduate of the Massachusetts Maritime Academy and became captain of the MV Maersk Alabama in 2009. Was involved in the hijacking of the Maersk Alabama.
+
+Citation:
+WACX
+Wikipedia
+
+Name: Anders Behring Breivik
+ID: ANDVIK
+Crisis: Oslo Shootings
+Kind: Mass Shooter
+Location: Oslo and Utøya, Norway
+
+Common
+
+External Links
+http://en.wikipedia.org/wiki/Anders_Behring_Breivik
+
+Summary: born 13 February 1979 is the perpetrator of the 2011 Norway attacks. On 24 August 2012, Oslo District Court found Breivik sane and guilty of murdering 77 people. He was sentenced to 21 years of preventive detention, a special form of prison sentence, with a minimum of 10 years and the possibility of extension for as long as he is deemed a danger to society; he will probably remain in prison for life.
+
+Citation:
+Wikipedia
+
+
