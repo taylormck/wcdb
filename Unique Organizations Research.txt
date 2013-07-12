@@ -13,6 +13,7 @@ Phone: 720-898-5900
 http://www.communityfirstfoundation.org/index.cfm
 Address: 6870 West 52nd Avenue, Suite 103 Arvada, Colorado 80002 
 Location: Colorado
+Map: https://maps.google.com/maps?client=ubuntu&channel=cs&ie=UTF-8&q=community+first+foundation&fb=1&gl=us&hq=community+first+foundation&cid=0,0,11184614234713773697&ei=WGzfUavkH-eBygHSgYHADQ&sqi=2&ved=0CIMBEPwSMAA
 
 Name: San Estaban Mining Company
 ID: ORG_SEMINE
@@ -52,15 +53,11 @@ The Texas Department of Family and Protective Services (DFPS) is responsible for
 Contact Information:
 http://www.dfps.state.tx.us/child_protection/
 Location: Austin, Texas
-Citation:
-
+Map: https://maps.google.com/maps?client=ubuntu&channel=cs&ie=UTF-8&q=child+protective+services+texas+headquarters&fb=1&gl=us&hq=child+protective+services+texas+headquarters&hnear=0x8644b599a0cc032f:0x5d9b464bd469d57a,Austin,+TX&cid=0,0,8635438358010870897&ei=-WzfUZGFCemdyQGv8IHQAQ&ved=0CIEBEPwSMAM
 Common
-
 External Links:
 http://www.dfps.state.tx.us/child_protection/
 http://en.wikipedia.org/wiki/Texas_Department_of_Family_and_Protective_Services
-
-
 Citation:
 Wikipedia
 Texas Department of Family and Protective Services
@@ -71,7 +68,6 @@ Kind: Church
 History:
 The Fundamentalist Church of Jesus Christ of Latter-Day Saints (FLDS Church, known to some as Mormon Fundamentalists) is one of the largest fundamentalist denominations[3][4] and one of the largest organizations in the United States whose members practice polygamy.[5] The FLDS Church emerged in the early twentieth century when its founding members left The Church of Jesus Christ of Latter-day Saints (LDS Church). The split occurred largely because of the LDS Church's suspension of the practice of polygamy and its decision to excommunicate its members who would continue the practice.
 The FLDS Church is estimated to have 6,000 - 10,000 members residing in the sister cities of Hildale, Utah and Colorado City, Arizona; Eldorado, Texas; Westcliffe, Colorado; Mancos, Colorado; Creston and Bountiful, British Columbia; and Pringle, South Dakota.[6] There are also developing communities near Benjamín Hill, Sonora (south of Nogales in the state of Sonora) and Ensenada, Baja California (south of Tijuana). n 2003, the church received increased attention from the state of Utah when police officer Rodney Holm, a member of the church, was convicted of unlawful sexual conduct with a 16- or 17-year-old and one count of bigamy for his marriage to and impregnation of plural wife Ruth Stubbs. The conviction was the first legal action against a member of the FLDS Church since the Short Creek raid.
-
 Contact Information:
 Citation:
 http://en.wikipedia.org/wiki/Fundamentalist_Church_of_Jesus_Christ_of_Latter-Day_Saints
@@ -86,13 +82,12 @@ Established in 1908 as the Bureau of Investigation later changed to Fedar Bureau
 J. Edgar Hoover served as director of the of FBI from 1924-1972 and was responsible for creating the FBI Laboratory.
 The FBI were responsible for apprehending or killing a multitude of notorious criminals who carried out kidnappings, robberies and other such crimes throughout the country.
 They went on to become heavily involved in many of the Nations greatest and worst incidents.
-Location: Washington, D.C
 Contact Information:
 http://www.fbi.gov/
-
 Citation:
 http://www.fbi.gov/
 https://en.wikipedia.org/wiki/Federal_Bureau_of_Investigation#History
+Maps: https://maps.google.com/maps?client=ubuntu&channel=cs&ie=UTF-8&q=fbi+headquarters&fb=1&gl=us&hq=fbi+headquarters&cid=0,0,673694098317906410&ei=Pm3fUfuwEMHYywHN5oGoAw&sqi=2&ved=0CJ8BEPwSMAM
 
 Name: Central Intelligence Agency
 ID: CENTIA
@@ -101,10 +96,8 @@ History:
 Created by Congress with the passage of the Nationaly Security Act of 1947, signed into law by President Harry Truman.
 It was inspired by the OSS's success during World War II, and after it was dissolved was proposed to Roosevelt as a possible new organization that would be directly supervised by the president.
 The CIA played a much bigger role during the Cold War going as far as to overthrow a foreign government for the first time during the 1953 Iranian coup d'etat at Churchill' request.
-Location: Washington, D.C
 Contact Information:
 https://www.cia.gov/index.html
-
 Citation:
 https://www.cia.gov/index.html
 http://en.wikipedia.org/wiki/Central_Intelligence_Agency
@@ -117,11 +110,9 @@ Founded on August 24, 1996 by long-time Microsoft employees Gabe Newell and Mike
 They began working on their game Half-Life in 1996 and launched the game in 1998.
 The game's success allowed them to continue on and make sequels and other side projects that wold be greatly received by the public.
 The company's success would later allow it to become heavily involved with charity events such as Child's Play, a children's charity group, and the relief for Japan during the 2011 earthquake.
-Location: Bellevue, WA
 Contact Information:
 http://www.valvesoftware.com/
-
 Citations:
 http://en.wikipedia.org/wiki/Valve_Corporation
-
+Maps: https://maps.google.com/maps?client=ubuntu&channel=cs&q=Bellevue,+Washington&ie=UTF-8&hq=&hnear=0x54906bcfa3a66041:0xbacf5482ead00765,Bellevue,+WA&gl=us&ei=xG3fUYeoJMLpygHSk4GgBA&ved=0CJMBELYD
 
