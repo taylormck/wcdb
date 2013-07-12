@@ -12,9 +12,10 @@ from django.test import TestCase
 from django.db.models.base import ObjectDoesNotExist
 import crises.models as cm
 from scripts.importScript import *
+from scripts.export import *
 
 NIFCrisis = """
-    <Crisis ID=\"CRI_NRINFL\" Name=\"2013 Northern India Floods\">
+    <Crisis ID="CRI_NRINFL" Name="2013 Northern India Floods">
         <Kind>Natural Disaster</Kind>
         <Date>2013-06-14</Date>
         <Time>00:00:00</Time>
@@ -24,20 +25,20 @@ NIFCrisis = """
                 <li>The Times of India</li>
             </Citations>
             <ExternalLinks>
-                <li href=\"http://en.wikipedia.org/wiki/2013_North_India_floods\">Wikipedia</li>
+                <li href="http://en.wikipedia.org/wiki/2013_North_India_floods">Wikipedia</li>
             </ExternalLinks>
             <Images>
-                <li embed=\"http://images.jagran.com/ukhand-ss-02-07-13.jpg\" text=\"This is the alt element of the image.\"/>
-                <li embed=\"http://timesofindia.indiatimes.com/photo/15357310.cms\"/>\
+                <li embed="http://images.jagran.com/ukhand-ss-02-07-13.jpg" text="This is the alt element of the image."/>
+                <li embed="http://timesofindia.indiatimes.com/photo/15357310.cms"/>
             </Images>
             <Videos>
-                <li embed=\"//www.youtube.com/embed/qV3s7Sa6B6w\"/>
+                <li embed="//www.youtube.com/embed/qV3s7Sa6B6w"/>
             </Videos>
             <Maps>
-                <li embed=\"[fake]\"/>
+                <li embed="[fake]"/>
             </Maps>
             <Feeds>
-                <li embed=\"[WHATEVER A FEED URL LOOKS LIKE]\"/>
+                <li embed="[WHATEVER A FEED URL LOOKS LIKE]"/>
             </Feeds>
             <Summary>Lorem ipsum...</Summary>
         </Common>
@@ -57,15 +58,28 @@ CFFOrg = """
     </Organization>
 """
 
+JEHPerson = """
+    <Person ID="PER_JAEAHO" Name="James Eagen Holmes">
+        <Crises>
+            <Crisis ID="CRI_AURSHO"/>
+        </Crises>
+        <Kind>Mass Murderer</Kind>
+        <Location>Aurora, CO, USA</Location>
+        <Common>
+            <Summary>I have nothing nice to say about this man.</Summary>
+        </Common>
+    </Person>
+"""
+
+TestFile = "<WorldCrises>" + NIFCrisis + CFFOrg + JEHPerson + "</WorldCrises>"
+
 class TestImportScript(TestCase):
     # TODO must make sure to make proper XML strings for these
     def test_parsevalidate_01(TestCase):
-        testXML = StringIO.StringIO(NIFCrisis)
-        assert validateXML(testXML)
+        assert not validateXML(TestFile)
         
     def test_parsevalidate_02(TestCase):
-        testXML = StringIO.StringIO("<Dragon></NotDragon>")
-        assert not validateXML(testXML)
+        assert not validateXML(NIFCrisis)
         
     def test_parsevalidate_03(TestCase):
         testXML = StringIO.StringIO("<Dragon><Cooly></Cooly></Dragon>")
@@ -73,22 +87,28 @@ class TestImportScript(TestCase):
         
     def test_parseXML_01(self):
         testXML = StringIO.StringIO("<Dragon></Dragon>")
-        root = parseXML(testXML)
-        assert(root.tag == "Dragon")
+        try:
+            root = parseXML(testXML)
+            assert(False)
+        except Exception:
+            pass
 
     def test_parseXML_02(TestCase):
-        testXML = StringIO.StringIO("<Dragon><Cooly></Cooly></Dragon>")
-        root = parseXML(testXML)
-        child = root.find("Cooly")
-        assert(root.tag == "Dragon")
-        assert(child is not None)
-        assert(child.tag == "Cooly")
+        testXML = StringIO.StringIO(TestFile)
+        root = None
+        try:
+            parseXML(testXML)
+            assert(False)
+        except Exception:
+            pass
 
     def test_parseXML_03(TestCase):
-        testXML = StringIO.StringIO("<Dragon id=\"5\"></Dragon>")
-        root = parseXML(testXML)
-        assert(root.tag == "Dragon")
-        assert(root.get("id") == "5")
+        testXML = StringIO.StringIO(TestFile)
+        try:
+            parseXML(testXML)
+            assert(False)
+        except Exception:
+            pass
 
     def test_parseCrisis_01(TestCase):
         testElement = et.fromstring(NIFCrisis)
@@ -121,11 +141,11 @@ class TestImportScript(TestCase):
         assert(testCrisisCopy.kind == 'Natural Disaster')
         
     def test_parseOrganization_01(TestCase):
-        testElement = et.fromstring(NIFCrisis)
+        testElement = et.fromstring(CFFOrg)
         testDict = {}
-        testOrg = parseCrisis(testElement, testDict)
+        testOrg = parseOrganization(testElement, testDict)
         try:
-            testOrgCopy = cm.Organization.objects.get(id="CORG_COFIFO")
+            testOrgCopy = cm.Organization.objects.get(id="ORG_COFIFO")
         except ObjectDoesNotExist:
             assert(False)
         assert(testOrg == testOrgCopy)
