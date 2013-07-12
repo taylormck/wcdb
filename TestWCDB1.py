@@ -1,8 +1,6 @@
-from django.test.utils import setup_test_environment
-setup_test_environment()
-
-import crisis.tests
+import os
 
 print "testWCDB1.py"
-unittest.main()
+#unittest.main()
+os.system("python manage.py test")
 print "Done."
