@@ -9,6 +9,7 @@
     <!-- css to pad the page content away from the edges -->
     <style type="text/css">
     body {
+        background-color: #383838;
         padding-top: 60px;
         padding-bottom: 40px;
     }
@@ -17,9 +18,37 @@
     }
 
     .img-rounded {
+        padding-top: 2px;
+        padding-bottom: 2px;
         max-width: 300px;
         height: auto;
         max-height: 500px;
+        border-radius: 5px;
+    }
+
+    .sized-video {
+        max-width: 300px;
+        height: auto;
+        max-height: 500px;
+    }
+    
+    #content {
+        background-color: #eeeeee;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 5px;
+        padding-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    #media-content {
+        background-color: #eeeeee;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 5px;
+        padding-bottom: 10px;
+        border-radius: 5px;
+        min-height: 500px;
     }
 
     @media (max-width: 980px) {
@@ -62,8 +91,11 @@
                         <li><a href="{% url exportScript %}">Export</a></li>
                     </div>
                 </div>
-                <div class="span8">
+                <div class="span5" id="content">
                     {% block content %}{% endblock %}
+                </div>
+                <div class="span3" id="media-content">
+                    {% block media %}{% endblock %}
                 </div>
             </div>
         </div>

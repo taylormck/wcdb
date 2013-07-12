@@ -41,11 +41,17 @@
 
 \section*{Introduction}
 \subsection*{What is the problem?}
+\hfill
+
+
 It's often easy to forget the many crises occurring throughout the world.
 This site is designed to gather the data on every crisis, and present in a simple format.
 We gather details about victims, and information on organizations and people that want to help.
 
 \subsection*{What are the use cases?}
+\hfill
+
+
 With the increasing availability of telecommunication access and this site makes use of this to share news and help victims.
 This site can be a good source for anyone looking to get informed and help. 
 We can provide contact information for people and organizations involved in helping the victims of crises around the world.
@@ -54,26 +60,37 @@ People who want to help can look to our site for the best ways to get involved, 
 \newpage
 \section*{Design}
 \subsection*{XML Schema}
+\hfill
+
+
 Our class has been divided into separate groups for this project, but most groups have agreed upon a shared schema for XML.
-The schema as of the latest version is printed here, but the latest version can be found with this link.
-\newline
-\href{https://github.com/aaronj1335/cs373-wcdb1-schema/blob/master/WorldCrises.xsd.xml}{Updated schema on Github}
+The schema as of the latest version is printed here, but the latest version can be found with this link.\\
+
+
+\href{https://github.com/aaronj1335/cs373-wcdb1-schema/blob/master/WorldCrises.xsd.xml}{Updated schema on Github}\\
 
 \newpage
 \section*{Implementation}
+\hfill
+
 
 \subsection*{Source Code}
+\hfill
+
+
 Most of the code, including the \emph{import} and \emph{export} scripts, are done in Python.
 The website is delivered using Django and the site is designed using Twitter's Bootstrap.
 The data is stored to a MySQL server on campus.
 Most of the separate groups have already shared data.
-Our database already holds data from all of the shared groups, as well as our own.
+Our database already holds data from all of the shared groups, as well as our own.\\
 
 \subsection*{Folder Structure}
-The model of the data structure can be seen below.
+\hfill
+
+
+The model of the data structure can be seen below.\\
 
 % Here's the model of the data structure
-\hfill \newline
 \lstset{
     language=bash,
     frame=shadowbox,
@@ -98,17 +115,37 @@ wcdb/
         xml/
 \end{lstlisting}
 \footnotesize Figure 1. The Folder Layout \normalsize
+\hfill
+
 
 The root folder \emph{must} be named \emph{wcdb}.
 If downloading from \emph{Github}, it is necessary to rename the cloned folder to \emph{wcdb}.
-Inside the \emph{wcdb} folder, there are three folders \emph{crises}, \emph{scripts}, and \emph{static}.
+Inside the \emph{wcdb} folder, there are three folders \emph{crises}, \emph{scripts}, and \emph{static}.\\
+
+
 The \emph{crisis} folder contains the \emph{crisis} application and the standard \emph{Django} files,
 including \emph{models.py}, which has details about the table structure, and \emph{tests.py}, which contains
-most of our unit tests.
+most of our unit tests.\\
+
+
 The \emph{scripts} folder contains the scripts \emph{importScript} and \emph{export}.
-The \emph{importScript} is named to avoid conflicts with the \emph{Python} keyword.
+The \emph{importScript} is named to avoid conflicts with the \emph{Python} keyword.\\
+
+
 Inside the \emph{static} folder, there are the folders \emph{css}, \emph{html}, \emph{img}, \emph{js}, \emph{templates}, and \emph{xml}.
-The \emph{css} folder contains the CSS files associated with Twitter's Bootstrap.
+The \emph{css} folder contains the CSS files associated with Twitter's Bootstrap.\\
+
+
+The \emph{js} folder holds javascript files from Twitter's Bootstrap.
+We currently use this javascript to animate our navigation sidebar.
+When you hover your mouse over one of the links, its row will highlight.
+The \emph{templates} folder holds just a single HTML file for now that is not in use.
+Later, this folder will be used to hold templated HTML data that will be used recurringly throughout the site.
+The \emph{xml} folder currently holds several XML that were temporarily used during development.
+The only important file is \emph{WorldCrisis.xsd.xml}.
+This file is the schema we test our XML data against in our \emph{importScript} and \emph{export}.\\
+
+
 The \emph{html} folder contains all of our content pages.
 The file \emph{base.html} is similar to a template.
 It contains most of the HTML data that can be seen on the site, with several blocks filled in with content from other pages.
@@ -116,9 +153,16 @@ The other pages, excluding \emph{export.html} and \emph{export.xml} all extend \
 When Django is rendering a page, it will start by rendering data from the page it extends.
 Since all of our pages extend \emph{base.html}, all of our pages use the html found there.
 When Django is filling in content from \emph{base.html} and encouters a block,
-it will fill in this block with data from the first page it was rendering.
+it will fill in this block with data from the page it was first passed.
+The \emph{crisis}, \emph{organization}, and \emph{person} pages are our static pages.
+They hold information that will be filled into the template by Django.
+The static pages are still being delivered by Django.\\
+
 
 \subsection*{Data Model}
+\hfill
+
+
 The core of our data model starts with the tables \emph{Crisis}, \emph{Organizations}, \emph{Person}.
 These three tables all have a many to many relation between each other.
 We have a \emph{Common} table to hold data these three models can all have.
@@ -128,7 +172,11 @@ The database will never write an \emph{AbstractListType}, but abstract types are
 The types \emph{CommonListType} and \emph{CrisisListType} both inherit from \emph{AbstractListType}.
 \emph{CrisisListType} will hold data for \emph{Crisis} objects, and \emph{CommonListType} will hold data for \emph{Common}.
 
+
 \subsection*{Import}
+\hfill
+
+
 \emph{Import} is implemented as a Python script, in the \emph{scripts} folder.
 It is named \emph{importScript.py} to avoid naming conflits with the \emph{Python} keyword.
 It reads in an XML file as input, parse the information, and stores the applicable data into the database for future viewing.
@@ -139,15 +187,22 @@ Running import is done on the website.
 There is a link in the navbar that reads \emph{Import}.
 From this page, an administrator may select a file and upload the information.
 
+
 \subsection*{Export}
+\hfill
+
+
 \emph{Export} is implemented as a Python script, in the \emph{scripts} folder.
 It is named \emph{export.py}, though may likely be renamed during a later stage to match \emph{importScript.py}.
 It takes the data stored in the database and writes into a new XML file conforming to the schema in Figure 1.
 \emph{Export} does not require administrator access.
 Any user may export the data in this database by clicking the \emph{Export} link from the navigation bar.
 
+
 % Show picture of data model
-\hfill \newline \newline
+\hfill
+
+
 \includegraphics*[width=3in,height=5in]{dataModelDiagram.png}
 \newline
 \footnotesize
@@ -155,8 +210,11 @@ Figure 2. A diagram of our data model % note under the picture
 \normalsize
 \newpage
 
-\newpage
+
 \section*{Testing}
+\hfill
+
+
 Testing is done using tools provided by \emph{Django} and \emph{unittest}.
 To run the tests, run the command \textbf{python manage.py test}.
 This command will run the unit tests using \emph{SQLite3}.
@@ -165,8 +223,16 @@ This command will run the unit tests using \emph{SQLite3}.
 The ideal solution is to create two testing environments, the first of which runs unit tests on \emph{SQLite3} for performance purposes,
 and another to run tests on \emph{MySQL} before pushing to ensure there are no differences between the two that could cause errors.
 
+
 \subsection*{unittest}
+\hfill
+
+
 \emph{Django} extends the standard unittesting framework, and provides several hundred tests against the back end.
 In addition, we've added a number of unit tests to test our scripts \emph{importScript} and \emph{export}.
+
+
+\section*{Future Goals}
+
 
 \end{document}  

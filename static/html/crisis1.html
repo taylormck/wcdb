@@ -50,14 +50,15 @@
         <ul>
             <li><a href="http://en.wikipedia.org/wiki/2012_Aurora_shooting">Wikipedia</a></li>
         </ul>
-
+{% endblock %}
+{% block media %}
         <h4>Images:</h4>
         <ul class="unstyled">
             <li><img src="http://upload.wikimedia.org/wikipedia/commons/0/03/The_Century_16_theater_in_Aurora_CO_-_Shooting_location.jpg" class="img-rounded"></li>
         </ul>
 
         <h4>Videos:</h4>
-        <ul>
-            <li><embed src="http://cnettv.cnet.com/av/video/cbsnews/atlantis2/cbsnews_player_embed.swf" scale="noscale" salign="lt" type="application/x-shockwave-flash" background="#333333" width="425" height="279" allowFullScreen="true" allowScriptAccess="always" FlashVars="si=254&&contentValue=50128376&shareUrl=http://www.cbsnews.com/video/watch/?id=7415902n" /></li>
+        <ul class="unstyled">
+            <li><embed src="http://cnettv.cnet.com/av/video/cbsnews/atlantis2/cbsnews_player_embed.swf" scale="noscale" salign="lt" type="application/x-shockwave-flash" background="#333333" width="425" height="279" allowFullScreen="true" allowScriptAccess="always" FlashVars="si=254&&contentValue=50128376&shareUrl=http://www.cbsnews.com/video/watch/?id=7415902n" class="sized-video"/></li>
         </ul>
 {% endblock %}
