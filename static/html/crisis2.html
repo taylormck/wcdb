@@ -48,13 +48,36 @@
 {% endblock %}
 
 {% block media %}
-        <h4>Images:</h4>
-        <ul class="unstyled">
-            <li><img src="http://upload.wikimedia.org/wikipedia/en/1/13/Mina_San_Jos%C3%A9_-_Trapped_miners_before_rescue_-_Gobierno_de_Chile.jpg" class="img-rounded"></li>
-            <li><img src="http://upload.wikimedia.org/wikipedia/commons/0/0d/480382main_miners2.jpg" class="img-rounded"></li>
-        </ul>
+<h4>Images:</h4>
+<ul class="unstyled">
+    <li><img src="http://upload.wikimedia.org/wikipedia/en/1/13/Mina_San_Jos%C3%A9_-_Trapped_miners_before_rescue_-_Gobierno_de_Chile.jpg" class="img-rounded"></li>
+    <li><img src="http://upload.wikimedia.org/wikipedia/commons/0/0d/480382main_miners2.jpg" class="img-rounded"></li>
+</ul>
 
-        <h4>Videos:</h4>
-        <ul class="unstyled">
-        </ul>
+<h4>Videos:</h4>
+<ul class="unstyled">
+</ul>
+
+<h4>Map</h4>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript">
+      function initialize() {
+        var myLatlng = new google.maps.LatLng(-27.3667, -70.3333);
+        var mapOptions = {
+            center: myLatlng,
+            zoom: 10,
+            mapTypeId: google.maps.MapTypeId.SATELLITE
+        };
+        var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: 'Hello World!'
+        });
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+<div id="map-canvas" style="height: 400px;"></div>
 {% endblock %}
