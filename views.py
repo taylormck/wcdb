@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import Context, RequestContext, Template, loader
 
-# from lockdown.decorators import lockdown
+from password_required.decorators import password_required
 import scripts.importScript as IMP
 import scripts.export as EXP
 import xml.etree.ElementTree as ET
@@ -26,6 +26,7 @@ def base(request):
     #                          {},
     #                          context_instance=RequestContext(request))
 
+@password_required
 def importScript(request):
     information = {}
     if request.method == 'POST':
