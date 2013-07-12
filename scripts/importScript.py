@@ -22,16 +22,16 @@ def validateXML(file_chosen):
     #Documentation for method http://www.leuthe-net.de/MiniXsv.html scroll down and see the method 
     #what ben had last night file_chosen = ''.join(x for x in file_cho)
     #Might need to move WordlCrisis.xsd.xml into scripts but I believe it worked last night in the wcdb folder
-   try:
-    pyxsval.parseAndValidateXmlInput (file_chosen, xsdFile="WorldCrisis.xsd.xml", validateSchema=0)
+    try:
+        pyxsval.parseAndValidateXmlInput (file_chosen, xsdFile="WorldCrisis.xsd.xml", validateSchema=0)
    #if XML file did not follow the schema 
-   except pyxsval.XsvalError, errstr:
-    print "Validation aborted!"
+    except pyxsval.XsvalError, errstr:
+        print "Validation aborted!"
     return False
    #if a parsing error
-   except GenXmlIfError, errstr:
-    print "Parsing aborted!"
-    return False
+    except GenXmlIfError, errstr:
+        print "Parsing aborted!"
+        return False
 
     return True
 
