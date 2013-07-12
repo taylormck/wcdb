@@ -45,17 +45,17 @@
 \hfill
 
 
-It's often easy to forget the many crises occurring throughout the world.
-This site is designed to gather the data on every crisis, and present it in a simple format.
-We gather details about victims, and information about organizations and people that want to help.
+It is often easy to forget the many crises occurring throughout the world.
+This site is designed to gather the data on every crisis, and present it in a simple format to keep them in the digitally logged.
+This site gathers details about victims, along with information about organizations and people involved.
 
 \subsection*{What are the use cases?}
 \hfill
 
 
-There is increasing availability of internet access worldwide and this site makes use of this to share news and help victims.
-This site can be a good source for anyone looking to get informed and help. 
-We can provide contact information for people and organizations involved in helping the victims of crises around the world.
+There is increasing availability of internet access worldwide and this site makes use of this to share news regarding crises and bring help to victims.
+This site can be a good source for anyone who wants to be informed and has a desire to help. 
+This site can provide contact information for people and organizations involved.
 People who want to help can look to our site for the best ways to get involved, whether it be donating to the right charities or volunteering at a local site.
 
 
@@ -128,13 +128,12 @@ The css folder contains the CSS files associated with Twitter's Bootstrap.\\
 
 
 The js folder holds javascript files from Twitter's Bootstrap.
-We currently use this javascript to animate our navigation sidebar.
-When you hover your mouse over one of the links, its row will highlight.
+This javascript animates our navigation sidebar, highlighting the row when a link is hovered over.
 The templates folder holds just a single HTML file for now that is not in use.
 Later, this folder will be used to hold templated HTML data that will be used recurringly throughout the site.
 The xml folder currently holds several XML that were temporarily used during development.
 The only important file is \emph{WorldCrisis.xsd.xml}.
-This file is the schema we test our XML data against in our importScript and export.\\
+This file is the schema our XML data tests against in our importScript and export.\\
 
 
 The html folder contains all of our content pages.
@@ -168,9 +167,9 @@ Figure 2. A diagram of our data model % note under the picture
 
 The core of our data model starts with the tables \emph{Crisis}, \emph{Organizations}, \emph{Person}.
 All three tables have a many to many relation between each other.
-We have a \emph{Common} table to hold data that all three models share.
+There is a \emph{Common} table to hold data that all three models share.
 Crisis, Organizations, and Person can have 0 or 1 Common objects.
-We have an abstract model, \emph{AbstractListType}.
+There is an abstract model, \emph{AbstractListType}.
 The database will never write an AbstractListType, but abstract types are useful when scripting.
 The types \emph{CommonListType} and \emph{CrisisListType} both inherit from AbstractListType.
 CrisisListType will hold data for Crisis objects, and CommonListType will hold data for Common.
@@ -209,11 +208,11 @@ As export does not require administrator access, any user can export this databa
 \hfill
 
 
-Although our class has been divided into separate groups for this project, we have agreed to share an XML schema.
-The latest version of the schema can be found at this link.\\
+Although our class has been divided into separate groups for this project, our group agreed to share an XML schema between groups.
+The latest version of the schema can be found at this url.\\
 
-
-\href{https://github.com/aaronj1335/cs373-wcdb1-schema/blob/master/WorldCrises.xsd.xml}{Updated schema on Github}\\
+\noindent \small
+https://github.com/aaronj1335/cs373-wcdb1-schema/blob/master/WorldCrises.xsd.xml\\
 
 
 The entire XML file is wrapped in a \emph{WorldCrisis} object.
@@ -243,9 +242,9 @@ This allows us to run quick unit tests while working and ensure the site works o
 
 
 Django extends the standard unittesting framework, providing several hundred tests against the back end.
-In addition, we added a number of unit tests for our scripts importScript and export.
+In addition, a number of unit tests are added for the scripts importScript and export.
 There are plans to implement further testing for each view.
-As we are only showing static pages, the views can be checked manually.
+As the site only shows static pages, the views can be checked manually.
 
 
 \newpage
@@ -254,17 +253,17 @@ As we are only showing static pages, the views can be checked manually.
 
 
 Our primary future goal is to get the site presenting data from the database dynamically.
-Our site is inspired by IMBD and will have similar functionality.
-Some of these items we would like to have are:
+Our site is inspired by IMBD and will have similar functionality, including the following:
 \begin{itemize}
 \item Each page should have a gallery for its related images
-\item A search page, where users can search for any key and we return any relavant pages
+\item A search page, where users can search for any key
 \item Organize pages by filters, like date and location
 \item A short list of recent events on the home page based on how kind they are
 \item Improve the display of data, including charts and graphs
 \end{itemize}
 
-Some other features we would like to implement are:
+\hfill \newline
+Some other desired features:
 \begin{itemize}
 \item A  "Kindness Slider", where users can vote and rate organizations and people
 \item A proper logo for our team and site
