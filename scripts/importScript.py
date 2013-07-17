@@ -17,14 +17,9 @@ class ValdiationFailedException(Exception):
     pass
 
 def validateXML(file_cho):
-    #TODO: WRITE THIS METHOD
-    
-    #STILL BROKEN the file needs to be  string thats the name of a file I believe 
-    #Documentation for method http://www.leuthe-net.de/MiniXsv.html scroll down and see the method 
     file_chosen = ''.join(x for x in file_cho)
     with open("WorldCrisis.xsd.xml", "r") as f:
         xsd = ''.join(x for x in f.readlines())
-    #Might need to move WordlCrisis.xsd.xml into scripts but I believe it worked last night in the wcdb folder
     try:
         pyxsval.parseAndValidateXmlInputString(file_chosen, xsdText=xsd, validateSchema=0)
    #if XML file did not follow the schema 
