@@ -16,11 +16,14 @@ import crises.models as cm
 from scripts.importScript import *
 from scripts.export import *
 
+class Empty:
+    pass
+
 NIFCrisis = """
     <Crisis ID="CRI_AURSHO" Name="2013 Northern India Floods">
         <Kind>Natural Disaster</Kind>
         <Date>2013-06-14</Date>
-        <Time>00:00:00</Time>
+        <Time>09:00:00</Time>
         <Common>
             <Citations>
                 <li>The Hindustan Times</li>
@@ -65,6 +68,9 @@ JEHPerson = """
         <Crises>
             <Crisis ID="CRI_AURSHO"/>
         </Crises>
+        <Organizations>
+            <Org ID="ORG_COFIFO" />
+        </Organizations>
         <Kind>Mass Murderer</Kind>
         <Location>Aurora, CO, USA</Location>
         <Common>
@@ -155,8 +161,7 @@ class TestImportScript(TestCase):
         
     def test_parseOrganization_02(TestCase):
         testElement = et.fromstring(CFFOrg)
-        testDict = {}
-        parseOrganization(testElement, testDict)
+        testDict = {"ORG_COFIFO" : parseOrganization(testElement, {})}
         try:
             testOrgCopy = cm.Organization.objects.get(id="ORG_COFIFO")
         except ObjectDoesNotExist:
@@ -188,8 +193,7 @@ class TestImportScript(TestCase):
         
     def test_parsePerson_02(TestCase):
         testElement = et.fromstring(JEHPerson)
-        testDict = {}
-        parsePerson(testElement, testDict)
+        testDict = {"PER_JAEAHO" : parsePerson(testElement, {})}
         try:
             testPerCopy = cm.Person.objects.get(id="PER_JAEAHO")
         except ObjectDoesNotExist:
@@ -207,8 +211,52 @@ class TestImportScript(TestCase):
         except ObjectDoesNotExist:
             pass
 
-"""
+
 class TestExportScript(TestCase):
+    #this test should fail if anything else fails
+    def test_common_export(TestCase):
+        owner = Empty()
+        common = cm.Common()
+        data = cm.CommonListType()
+        data.href = "BOX"
+        data.altText = "ALTERNATIVE MUSIC"
+        data.embed = "EMBER"
+        data.text = "HIDEY HO"
+        
+        common.save()
+        data.owner_id = common.id
+        owner.common_id = common.id
+        
+        data.save()
+        
+        test = et.Element("Test")
+        
+        createCommonNode(owner,test)
+        assert(len(test.getchildren()) > 0)
+        assert(test[0].tag == "Common")
+        assert(test[0][0].tag == "ExternalLinks")
+        assert(test[0][0][0].attrib["href"] == "BOX")
+        assert(test[0][0][0].attrib["text"] == "ALTERNATIVE MUSIC")
+        assert(test[0][0][0].attrib["embed"] == "EMBER")
+        assert(test[0][0][0].text == "HIDEY HO")
+        
+    def test_crisis_export(TestCase):
+        testElement = et.fromstring(NIFCrisis)
+        testCrisis = parseCrisis(testElement, {})
+        node = createCrisisElement(testCrisis)
+        assert(testCrisis.id == node.attrib["ID"])
+        assert(testCrisis.kind == node.find("Kind").text)
+        assert(testCrisis.date.strftime("%Y-%m-%d") == node.find("Date").text)
+        assert(testCrisis.time.strftime("%H:%M:%S") == node.find("Time").text)
+        assert(testCrisis.name == node.attrib["Name"])
+        
+    def test_person_export(TestCase):
+        pass
+    
+    def test_org_export(TestCase):
+        pass
+        
+    
     def test_everything(TestCase):
         testXML = StringIO.StringIO(TestFile)
         
@@ -220,12 +268,57 @@ class TestExportScript(TestCase):
         xmlToModels(parse)
         node = exportXML()
         
-        assert(node.tag == root.tag)
-        nodeList = []
-        rootList = []
+        assert(validateXML(et.tostring(node)))
+                
         root_iter = root.iter()
-        for node_child in node.iter():
-            nodeList += (node_child,)
+        node_iter = node.iter()
+        done = [False, False]
+        prevValA = root_iter.next()
+        
+        while not done[0] or not done[1]:
+            valA = prevValA
+            valToUse = prevValA
+            valB = None
+            
+            try:
+                valB = node_iter.next()
+            except:
+                done[1] = True
+            
+            try:
+                if valB is not None and valB.tag == valA.tag:
+                    valA = root_iter.next()
+                else:
+                    valA = None
+            except:
+                done[0] = True
+            
+            #print valB, valA if valA is None else valToUse
+
+            if valA is not None:
+                prevValA = valA
+                
+            #Asserts to make sure the tags being compared are the exact same
+            if valA is not None:
+                assert(valToUse.tag == valB.tag)
+                if "ID" in valToUse.attrib:
+                    assert(valToUse.attrib["ID"] == valB.attrib["ID"])
+                if "Name" in valToUse.attrib:
+                    assert(valToUse.attrib["Name"] == valB.attrib["Name"])
+                if "href" in valToUse.attrib:
+                    assert(valToUse.attrib["href"] == valB.attrib["href"])
+                if "embed" in valToUse.attrib:
+                    assert(valToUse.attrib["embed"] == valB.attrib["embed"])
+                if "text" in valToUse.attrib:
+                    assert(valToUse.attrib["text"] == valB.attrib["text"])
+                if valToUse.text is not None and valToUse.text.strip() != "":
+                    assert(valToUse.text == valB.text)
+                
+                
+        """
         for root_child in root.iter():
             rootList += (root_child,)
-"""
+        print nodeList
+        print rootList
+        """
+

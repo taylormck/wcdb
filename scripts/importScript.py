@@ -61,6 +61,7 @@ def parseXML(file_chosen):
 def xmlToModels(eleTree):
     all_Information = []
     link_up_dict = {}
+    reference_dict = {}
     
     crises_nodes = eleTree.findall("Crisis")
     people_nodes = eleTree.findall("Person")
@@ -69,14 +70,21 @@ def xmlToModels(eleTree):
     #Must be parsed in this order due to dependencies :/ Sorry
     
     for person in people_nodes:
-        all_Information  += (parsePerson(person,link_up_dict),)
+        temp = parsePerson(person,link_up_dict)
+        all_Information  += (temp,)
+        reference_dict[temp.id] = temp
     
     for organization in organization_nodes:
-        all_Information  += (parseOrganization(organization,link_up_dict),)
+        temp = parseOrganization(organization,link_up_dict)
+        all_Information  += (temp,)
+        reference_dict[temp.id] = temp
     
     for problem in crises_nodes:
-        all_Information += (parseCrisis(problem,link_up_dict),)
+        temp = parseCrisis(problem,link_up_dict)
+        all_Information  += (temp,)
+        reference_dict[temp.id] = temp
     
+    linkUpModels(reference_dict, link_up_dict)
     
     return (all_Information, ET.tostring(eleTree))
 
@@ -96,15 +104,35 @@ def parseCrisis(crisis, lud):
     parseCommon(crisis.find("Common"), newCrisis)
     newCrisis.save()
     
+    """
     #Parse the people
     if crisis.find("People") is not None:
         for person in crisis.find("People"):
-            newCrisis.people.add(lud[person.attrib["ID"]])
+            try:
+                newCrisis.people.add(lud[person.attrib["ID"]])
+            except:
+                pass
         
     #Parse the organizations
     if crisis.find("Organizations") is not None:
         for organization in crisis.find("Organizations"):
-            newCrisis.organizations.add(lud[organization.attrib["ID"]])
+            try:
+                newCrisis.organizations.add(lud[organization.attrib["ID"]])
+            except KeyError:
+                pass
+    """
+    
+    if newCrisis.id not in lud.keys():
+        lud[newCrisis.id] = []
+    
+    if crisis.find("People") is not None:
+        for person in crisis.find("People"):
+            lud[newCrisis.id] += (person.attrib["ID"],)
+            
+    if crisis.find("Organizations") is not None:
+        for organization in crisis.find("Organizations"):
+            lud[newCrisis.id] += (organization.attrib["ID"],)
+    
     
     #Parse the list types unique to crisis
     listElemDict = {}
@@ -116,7 +144,6 @@ def parseCrisis(crisis, lud):
             for i in crisis.find(node):
                 parseListType(listElemDict[node], i, newCrisis)
 
-    lud[newCrisis.id] = newCrisis
     newCrisis.save()
     return newCrisis
 
@@ -125,8 +152,19 @@ def parsePerson(person, lud):
     newPerson.kind = person.find("Kind").text if person.find("Kind") is not None else ""
     newPerson.location = person.find("Location").text if person.find("Location") is not None else ""
     
+    if person.find("Crises") is not None:
+        for crisis in person.find("Crises"):
+            if crisis.attrib["ID"] not in lud.keys():
+                lud[crisis.attrib["ID"]] = []
+            lud[crisis.attrib["ID"]] += (newPerson.id,)
+    
+    if person.find("Organizations") is not None:
+        for org in person.find("Organizations"):
+            if org.attrib["ID"] not in lud.keys():
+                lud[org.attrib["ID"]] = []
+            lud[org.attrib["ID"]] += (newPerson.id,)
+    
     parseCommon(person.find("Common"), newPerson)
-    lud[newPerson.id] = newPerson
     newPerson.save()
     return newPerson
 
@@ -140,11 +178,27 @@ def parseOrganization(organization, lud):
     parseCommon(organization.find("Common"), newOrg)
     newOrg.save()
     
+    """
+    #Old way of parsing. Flawed in the case where Person refers to Organization
     #Parse the People
     if organization.find("People") is not None:
         for person in organization.find("People"):
-            newOrg.people.add(lud[person.attrib["ID"]])
+            try:
+                newOrg.people.add(lud[person.attrib["ID"]])
+            except KeyError:
+                pass
+    """
     
+    if organization.find("People") is not None:
+        for person in organization.find("People"):
+           lud[newOrg.id] += (person.attrib["ID"],)
+    
+    if organization.find("Crises") is not None:
+        for crisis in organization.find("Crises"):
+            if crisis.attrib["ID"] not in lud.keys():
+                lud[crisis.attrib["ID"]] = []
+            lud[crisis.attrib["ID"]] += (newOrg.id,)
+           
     #Iterates over History Types and parses them
     listElemDict = {}
     for val in info.OrganizationListType.LIST_TYPE_CHOICES:
@@ -155,7 +209,6 @@ def parseOrganization(organization, lud):
             for i in organization.find(node):
                 parseListType(listElemDict[node], i, newOrg)
         
-    lud[newOrg.id] = newOrg
     newOrg.save()
     return newOrg
 
@@ -206,6 +259,19 @@ def parseListType(listType, node, parentModel):
     listMember.context = listType
     listMember.owner_id = parentModel.id
     listMember.save()
+    
+def linkUpModels(references, links):
+    for key in links.keys():
+        model = references[key]
+        for ID in links[key]:
+            if ID.startswith("PER"):
+                model.people.add(references[ID])
+            else:
+                model.organizations.add(references[ID])
+            #print "LINKED", key, "WITH", ID
+            #print
+        model.save()
+        
     
 
     
