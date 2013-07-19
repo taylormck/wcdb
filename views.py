@@ -107,3 +107,7 @@ def organization2(request):
 def organization3(request):
     t = loader.get_template("organization3.html")
     return HttpResponse(t.render(RequestContext(request)))
+
+def crisis(request, crisis_id):
+    t = loader.get_template("crisis.html")
+    return HttpResponse(t.render(RequestContext(request)))

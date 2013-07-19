@@ -26,6 +26,9 @@ urlpatterns = patterns('',
     url(r'organization1/$', 'views.organization1', name='organization1'),
     url(r'organization2/$', 'views.organization2', name='organization2'),
     url(r'organization3/$', 'views.organization3', name='organization3'),
+
+    # Dynamic pages
+    url(r'crisis/(\w+)/$', 'views.crisis', name='crisis'),
     
     # Import/Expert pages
     url(r'^import/$', 'views.importScript', name='importScript'),
