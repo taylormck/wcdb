@@ -1,6 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import Context, RequestContext, Template, loader
+from django.forms.models import model_to_dict # convert model to dict
+from django.db.models.base import ObjectDoesNotExist
+
+import crises.models as cm
 
 from password_required.decorators import password_required
 import scripts.importScript as IMP
@@ -108,14 +112,33 @@ def organization3(request):
     t = loader.get_template("organization3.html")
     return HttpResponse(t.render(RequestContext(request)))
 
+# Dynamic pages
 def crisis(request, crisis_id):
-    t = loader.get_template("crisis.html")
-    return HttpResponse(t.render(RequestContext(request)))
+    try:
+        thisCrisis = cm.Crisis.objects.get(id=crisis_id)
+        c = RequestContext(request, model_to_dict(thisCrisis))
+        t = loader.get_template("crisis.html")
+        return HttpResponse(t.render(c))
+    except ObjectDoesNotExist:
+        t = loader.get_template("crisis.html")
+        return HttpResponse(t.render(RequestContext(request)))
 
 def organization(request, organization_id):
-    t = loader.get_template("organization.html")
-    return HttpResponse(t.render(RequestContext(request)))
+    try:
+        thisOrganization = cm.Organization.objects.get(id=organization_id)
+        c = RequestContext(request, model_to_dict(thisOrganization))
+        t = loader.get_template("organization.html")
+        return HttpResponse(t.render(c))
+    except ObjectDoesNotExist:
+        t = loader.get_template("organization.html")
+        return HttpResponse(t.render(RequestContext(request)))
 
 def person(request, person_id):
-    t = loader.get_template("person.html")
-    return HttpResponse(t.render(RequestContext(request)))
+    try:
+        thisPerson = cm.Person.objects.get(id=person_id)
+        c = RequestContext(request, model_to_dict(thisPerson))
+        t = loader.get_template("person.html")
+        return HttpResponse(t.render(c))
+    except ObjectDoesNotExist:
+        t = loader.get_template("person.html")
+        return HttpResponse(t.render(RequestContext(request)))

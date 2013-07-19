@@ -29,9 +29,14 @@ urlpatterns = patterns('',
     url(r'organization3/$', 'views.organization3', name='organization3'),
 
     # Dynamic pages
-    url(r'^crisis/(\w+)/$', views.crisis, name='crisis'),
-    url(r'^organization/(\w+)/$', views.organization, name='organization'),
-    url(r'^person/(\w+)/$', views.person, name='person'),
+    url(r'^crisis/$', views.crisis, {'crisis_id' : '' }, name='emptyCirsis'),
+    url(r'^crisis/(\w*)/$', views.crisis, name='crisis'),
+
+    url(r'^organization/$', views.organization, {'organization_id' : '' }, name='emptyOrganization'),
+    url(r'^organization/(\w*)/$', views.organization, name='organization'),
+
+    url(r'^person/$', views.person, {'person_id' : '' }, name='emptyPerson'),
+    url(r'^person/(\w*)/$', views.person, name='person'),
     
     # Import/Expert pages
     url(r'^import/$', 'views.importScript', name='importScript'),
