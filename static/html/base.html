@@ -102,6 +102,11 @@
                         <li class="nav-header">Import / Export</li>
                         <li><a href="{% url importScript %}">Import</a></li>
                         <li><a href="{% url exportScript %}">Export</a></li>
+
+                        <li class="nav-header">Dynamic Pages</li>
+                        <li><a href="{% url crisis 'CRI_AURORA' %}">Aurora Shooting</a></li>
+                        <li><a href="{% url organization 'ORG_COMFFO' %}">The Community First Foundation</a></li>
+                        <li><a href="{% url person 'PER_JAMHOL' %}">James Eagen Holmes</a></li>
                     </div>
                 </div>
                 <div class="span5" id="content">

@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import *
+import views
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -28,7 +29,9 @@ urlpatterns = patterns('',
     url(r'organization3/$', 'views.organization3', name='organization3'),
 
     # Dynamic pages
-    url(r'crisis/(\w+)/$', 'views.crisis', name='crisis'),
+    url(r'^crisis/(\w+)/$', views.crisis, name='crisis'),
+    url(r'^organization/(\w+)/$', views.organization, name='organization'),
+    url(r'^person/(\w+)/$', views.person, name='person'),
     
     # Import/Expert pages
     url(r'^import/$', 'views.importScript', name='importScript'),

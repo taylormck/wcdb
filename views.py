@@ -111,3 +111,11 @@ def organization3(request):
 def crisis(request, crisis_id):
     t = loader.get_template("crisis.html")
     return HttpResponse(t.render(RequestContext(request)))
+
+def organization(request, organization_id):
+    t = loader.get_template("organization.html")
+    return HttpResponse(t.render(RequestContext(request)))
+
+def person(request, person_id):
+    t = loader.get_template("person.html")
+    return HttpResponse(t.render(RequestContext(request)))
