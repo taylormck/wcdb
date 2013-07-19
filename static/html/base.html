@@ -71,20 +71,44 @@
     <div class="navbar navbar-fixed-top" style="border-radius: 40px;">
         <div class="navbar-inner">
             <ul class="nav">
+                <li class="active">
+                  <a href="{% url index %}">
+                    Home Page
+                  </a>
+                </li>
+                <li class ="divider-vertical"></li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    Dropdown
+                    Crises
                     <b class="caret"></b>
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a href="http://www.google.com">test</a></li>
+                    <li><a href="{% url crisis1 %}">Aurora Shooting</a></li>
+                    <li><a href="{% url crisis2 %}">Copiago Mining Accident</a></li>
+                    <li><a href="{% url crisis3 %}">Mumbai Attacks</a></li>
                   </ul>
-                <li class ="divider-vertical"></li>
                 </li>
-                <li>
-                  <a href="{% url crisis1 %}">
-                    Aurora
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Organizations
+                    <b class="caret"></b>
                   </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="{% url organization1 %}">The Community First Foundation</a></li>
+                    <li><a href="{% url organization2 %}">San Esteban Mining Company</a></li>
+                    <li><a href="{% url organization3 %}">Lashkar-e-Taiba</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    People
+                    <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="{% url person1 %}">James Eagen Holmes</a></li>
+                    <li><a href="{% url person2 %}">Luis Urzúa</a></li>
+                    <li><a href="{% url person3 %}">Ajmal Kasab</a></li>
+                  </ul>
                 </li>
             </ul>
             <form class="navbar-search pull-right">
