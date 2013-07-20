@@ -6,6 +6,27 @@
 <!-- Page content -->
 {% block content %}
 <h2>{{ name|safe }}</h2>
+
+<h4>Kind</h4>{{ kind|safe }}
+
+<h4>Date and Time:</h4>{{ time|safe }}, {{ date|safe }}
+
+<h4>Locations:</h4>
+
+<h4>Human Impact:</h4>
+
+<h4>Economic Impact:</h4>
+
+<h4>Resources Needed:</h4>
+
+<h4>Ways to Help:</h4>
+
+<h4>Links:</h4>
+<ul>
+    {% comment %}
+    I'm still not sure how to do links, will work on it on Monday
+    {% endcomment %}
+</ul>
 {% endblock %}
 
 {% block media %}

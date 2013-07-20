@@ -1,10 +1,20 @@
 {% extends 'base.html' %}
 
 <!-- Page title -->
-{% block title %}Organization{% endblock %}
+{% block title %}{{ name|safe }}{% endblock %}
 
 <!-- Page content -->
 {% block content %}
+<h2>{{ name|safe }}</h2>
+
+<h4>Kind</h4>{{ kind|safe }}
+
+<h4>Location</h4>{{ location|safe }}
+
+<h4>History</h4> 
+
+<h4>Contact Information</h4>
+
 {% endblock %}
 
 {% block media %}
