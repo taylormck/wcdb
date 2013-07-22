@@ -19,13 +19,13 @@ import sys
 # additions to context
 def getBaseContext():
     return {
-        'dcrises' : cm.Crisis.objects.order_by('date', 'time')[:10],
+        'dcrises' : cm.Crisis.objects.order_by('-date', '-time')[:10],
         'dorganizations' : cm.Organization.objects.order_by('name')[:10],
         'dpeople' : cm.Person.objects.order_by('name')[:10]
     }
 
 def getCrises():
-    return {'crises' : cm.Crisis.objects.order_by('date', 'time')}
+    return {'crises' : cm.Crisis.objects.order_by('-date', '-time')}
 
 def getOrganizations():
     return {'organizations' : cm.Organization.objects.order_by('name')}
