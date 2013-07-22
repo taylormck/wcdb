@@ -37,7 +37,7 @@ urlpatterns = patterns('',
     url(r'^person/(\w*)/$', views.person, name='person'),
 
     # Search page
-    url(r'^search/(\w*)/$', views.search, name='search'),
+    url(r'^search/$', views.search, name='search'),
     
     # Import/Export pages
     url(r'^import/$', 'views.importScript', name='importScript'),

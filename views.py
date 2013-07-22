@@ -179,10 +179,18 @@ def fourohfour(request):
     return HttpResponse(t.render(c))
 
 # Our search page
-def search(request, searchTerm):
-    people = cm.Person.objects.filter(name__icontains=searchTerm)
-    organizations = cm.Organization.objects.filter(name__icontains=searchTerm)
-    crises = cm.Crisis.objects.filter(name__icontains=searchTerm)
+def search(request):
+    people = set([])
+    organizations = set([])
+    crises = set([])
+
+    for i in request.GET.values():
+        queries = i.split()
+        for q in queries:
+            people.update(cm.Person.objects.filter(name__icontains=q))
+            organizations.update(cm.Organization.objects.filter(name__icontains=q))
+            crises.update(cm.Crisis.objects.filter(name__icontains=q))
+
     addToContext = {
         'people' : people,
         'organizations' : organizations,

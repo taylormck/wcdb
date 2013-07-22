@@ -5,18 +5,18 @@
 
 <!-- Page content -->
 {% block content %}
-<h4>Crises</h4>
-	{% if crises %}
+{% if crises %}
+	<h4>Crises</h4>
 		<ul class="unstyled">
-			{% for r in crises %}
+			{% for c in crises %}
                 <li><a href="{% url crisis c.id|safe %}">{{ c.name|safe }}</a>
 			{% endfor %}
 		</ul>
-	{% endif %}
+{% endif %}
 
-<h4>Organizations</h4>
 
-	{% if organizations %}
+{% if organizations %}
+	<h4>Organizations</h4>
 		<ul class="unstyled">
 			{% for o in organizations %}
                 <li><a href="{% url organization o.id|safe %}">{{ o.name|safe }}</a>
@@ -24,15 +24,19 @@
 		</ul>
 	{% endif %}
 
-<h4>People</h4>
-
-	{% if people %}
+{% if people %}
+	<h4>People</h4>
 		<ul class="unstyled">
 			{% for p in people %}
                 <li><a href="{% url person p.id|safe %}">{{ p.name|safe }}</a>
 			{% endfor %}
 		</ul>
-	{% endif %}
+{% endif %}
+
+{% if not crises and not organizations and not people %}
+<h4>No Search results found</h4>
+
+{% endif %}
 
 {% endblock %}
 
