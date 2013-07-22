@@ -178,12 +178,17 @@ def fourohfour(request):
     t = loader.get_template("fourohfour.html")
     return HttpResponse(t.render(c))
 
+# Our search page
 def search(request, searchTerm):
+    people = cm.Person.objects.filter(name__icontains=searchTerm)
+    organizations = cm.Organization.objects.filter(name__icontains=searchTerm)
+    crises = cm.Crisis.objects.filter(name__icontains=searchTerm)
     addToContext = {
-        'people' : cm.Person.objects.filter(name=searchTerm),
-        'organizations' : cm.Organization.objects.filter(name=searchTerm),
-        'crises' : cm.Crisis.objects.filter(name=searchTerm)
+        'people' : people,
+        'organizations' : organizations,
+        'crises' : crises
     }
+    addToContext = dict(getBaseContext(), **addToContext)
     c = RequestContext(request, addToContext)
     t = loader.get_template("search.html")
     return HttpResponse(t.render(c))
