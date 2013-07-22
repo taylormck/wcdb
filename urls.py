@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     url(r'organization1/$', 'views.organization1', name='organization1'),
     url(r'organization2/$', 'views.organization2', name='organization2'),
     url(r'organization3/$', 'views.organization3', name='organization3'),
+    url(r'loginpage/$', 'views.login', name = 'login'),
     
     # Import/Expert pages
     url(r'^import/$', 'views.importScript', name='importScript'),

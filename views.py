@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import Context, RequestContext, Template, loader
-
+from django.contrib.auth.models import User
 from password_required.decorators import password_required
 import scripts.importScript as IMP
 import scripts.export as EXP
@@ -106,4 +106,8 @@ def organization2(request):
 
 def organization3(request):
     t = loader.get_template("organization3.html")
+    return HttpResponse(t.render(RequestContext(request)))
+
+def login(request):
+    t = loader.get_template("Login.html")
     return HttpResponse(t.render(RequestContext(request)))
