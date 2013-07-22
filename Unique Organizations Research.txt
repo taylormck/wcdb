@@ -14,6 +14,8 @@ http://www.communityfirstfoundation.org/index.cfm
 Address: 6870 West 52nd Avenue, Suite 103 Arvada, Colorado 80002 
 Location: Colorado
 Map: https://maps.google.com/maps?client=ubuntu&channel=cs&ie=UTF-8&q=community+first+foundation&fb=1&gl=us&hq=community+first+foundation&cid=0,0,11184614234713773697&ei=WGzfUavkH-eBygHSgYHADQ&sqi=2&ved=0CIMBEPwSMAA
+Images:
+http://ww1.prweb.com/prfiles/2011/11/20/8980979/GFlogo_yellow_line.jpg
 
 Name: San Estaban Mining Company
 ID: ORG_SEMINE
@@ -28,8 +30,10 @@ Contact Information:
 Location: Santiago, Chile
 Citation:
 http://en.wikipedia.org/wiki/Compa%C3%B1%C3%ADa_Minera_San_Esteban_Primera
-Map:
-https://maps.google.com/maps?hl=en&q=Wiregrass+Region+near+U.S.+Highway+231+in+Midland+City,+Alabama&ie=UTF-8
+Maps:
+https://maps.google.com/maps?um=1&client=ubuntu&channel=cs&hl=en&q=San%20Esteban%20mining%20company&bav=on.2,or.r_qf.&biw=1920&bih=1032&bvm=pv.xjs.s.en_US.c75bKy5EQ0A.O,pv.xjs.s.en_US.c75bKy5EQ0A.O&ie=UTF-8&sa=N&tab=il
+Images:
+http://www.theepochtimes.com/n2/images/stories/large/2010/10/26/PHOTO2-WEB-103271942.jpg
 
 Name: Lashkar-e-Taiba
 ID: ORG_LASHTA
@@ -46,6 +50,11 @@ Probably don't want to contact these guys
 Location: Pakistan
 Citation:
 http://en.wikipedia.org/wiki/Lashkar-e-Taiba
+Maps:
+https://maps.google.com/maps?hl=en&q=lashkar-e-taiba&client=ubuntu&channel=cs&usq=lashkar-e-taiba&ie=UTF-8
+Images:
+http://www.thehindu.com/multimedia/dynamic/00065/TH13_OPED_PIC_LASHKA_65599f.jpg
+http://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Flag_of_Lashkar-e-Taiba.svg/640px-Flag_of_Lashkar-e-Taiba.svg.png
 
 Name: Child Protective Services
 ID: ORG_WWCPSE
@@ -63,6 +72,9 @@ http://en.wikipedia.org/wiki/Texas_Department_of_Family_and_Protective_Services
 Citation:
 Wikipedia
 Texas Department of Family and Protective Services
+Images:
+http://cdn.mommyish.com/files/2012/09/aabuse24.jpg
+http://media.timesrecordnews.com/media/img/photos/2012/10/24/CPS_t607.jpg
 
 Name: Fundamentalist Church of Jesus Christ of Latter Day Saints
 ID: ORG_FCLATT
@@ -75,6 +87,9 @@ Citation:
 http://en.wikipedia.org/wiki/Fundamentalist_Church_of_Jesus_Christ_of_Latter-Day_Saints
 Map:
 https://maps.google.com/maps?client=ubuntu&channel=cs&q=eldorado+texas&ie=UTF-8&hq=&hnear=0x86580aecdd206f61:0x533dba8f226cd210,Eldorado,+TX&gl=us&ei=DWrfUfebI86ajAL3-oCACA&ved=0CIsBELYD
+Images:
+http://i.dailymail.co.uk/i/pix/2008/11/25/article-0-00ED004900000578-342_468x341.jpg
+http://a57.foxnews.com/www.foxnews.com/images/366513/450/350/2_28_042308_polygamist_sect04.jpg
 
 Non Unique Organizations
 
@@ -92,6 +107,8 @@ Citation:
 http://www.fbi.gov/
 https://en.wikipedia.org/wiki/Federal_Bureau_of_Investigation#History
 Maps: https://maps.google.com/maps?client=ubuntu&channel=cs&ie=UTF-8&q=fbi+headquarters&fb=1&gl=us&hq=fbi+headquarters&cid=0,0,673694098317906410&ei=Pm3fUfuwEMHYywHN5oGoAw&sqi=2&ved=0CJ8BEPwSMAM
+Images:
+https://si0.twimg.com/profile_images/1706110925/fbi_logo_twitter.jpg
 
 Name: Central Intelligence Agency
 ID: CENTIA
@@ -105,6 +122,11 @@ https://www.cia.gov/index.html
 Citation:
 https://www.cia.gov/index.html
 http://en.wikipedia.org/wiki/Central_Intelligence_Agency
+Maps:
+https://maps.google.com/maps?hl=en&q=lashkar-e-taiba&client=ubuntu&channel=cs&usq=lashkar-e-taiba&ie=UTF-8
+Images:
+http://www.mindinvasions.com/uploads/1/1/1/3/11132778/2146179.jpg
+http://ows.edb.utexas.edu/sites/default/files/users/kdenny/cia_recruit_0327.jpg
 
 Name: Valve
 ID: HLFLIF
@@ -119,4 +141,6 @@ http://www.valvesoftware.com/
 Citations:
 http://en.wikipedia.org/wiki/Valve_Corporation
 Maps: https://maps.google.com/maps?client=ubuntu&channel=cs&q=Bellevue,+Washington&ie=UTF-8&hq=&hnear=0x54906bcfa3a66041:0xbacf5482ead00765,Bellevue,+WA&gl=us&ei=xG3fUYeoJMLpygHSk4GgBA&ved=0CJMBELYD
-
+Images:
+http://media.pcgamer.com/files/2011/04/Valve-logo-the-bald-guy.jpg
+http://cloud-2.steampowered.com/ugc/882970968484594178/93D8933FE869283FD257A4B84D456488070B1CBD/
