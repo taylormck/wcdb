@@ -14,12 +14,32 @@ from xml.dom.minidom import parseString
 
 import sys
 
+
+# Returns a dictionary containing the necessary
+# additions to context
+def getBaseContext():
+    return {
+        'dcrises' : cm.Crisis.objects.order_by('date', 'time')[:10],
+        'dorganizations' : cm.Organization.objects.order_by('name')[:10],
+        'dpeople' : cm.Person.objects.order_by('name')[:10]
+    }
+
+def getCrises():
+    return {'crises' : cm.Crisis.objects.order_by('date', 'time')}
+
+def getOrganizations():
+    return {'organizations' : cm.Organization.objects.order_by('name')}
+
+def getPeople():
+    return {'people' : cm.Person.objects.order_by('name')}
+
 class Empty():
     pass
 
 def index(request):
     t = loader.get_template("index.html")
-    return HttpResponse(t.render(RequestContext(request)))
+    c = RequestContext(request, getBaseContext())
+    return HttpResponse(t.render(c))
 
 
 def base(request):
@@ -112,11 +132,31 @@ def organization3(request):
     t = loader.get_template("organization3.html")
     return HttpResponse(t.render(RequestContext(request)))
 
+# List pages
+def listCrises(request):
+    addToContext = dict(getCrises(), **getBaseContext())
+    c = RequestContext(request, addToContext)
+    t = loader.get_template("listCrises.html")
+    return HttpResponse(t.render(c))
+
+def listOrganizations(request):
+    addToContext = dict(getOrganizations(), **getBaseContext())
+    c = RequestContext(request, addToContext)
+    t = loader.get_template("listOrganization.html")
+    return HttpResponse(t.render(c))
+
+def listPeople(request):
+    addToContext = dict(getPeople(), **getBaseContext())
+    c = RequestContext(request, addToContext)
+    t = loader.get_template("listPeople.html")
+    return HttpResponse(t.render(c))
+
 # Dynamic pages
 def crisis(request, crisis_id):
     try:
         thisCrisis = cm.Crisis.objects.get(id=crisis_id)
-        c = RequestContext(request, model_to_dict(thisCrisis))
+        addToContext = dict(model_to_dict(thisCrisis), **getBaseContext())
+        c = RequestContext(request, addToContext)
         t = loader.get_template("crisis.html")
         return HttpResponse(t.render(c))
     except ObjectDoesNotExist:
@@ -126,7 +166,8 @@ def crisis(request, crisis_id):
 def organization(request, organization_id):
     try:
         thisOrganization = cm.Organization.objects.get(id=organization_id)
-        c = RequestContext(request, model_to_dict(thisOrganization))
+        addToContext = dict(model_to_dict(thisOrganization), **getBaseContext())
+        c = RequestContext(request, addToContext)
         t = loader.get_template("organization.html")
         return HttpResponse(t.render(c))
     except ObjectDoesNotExist:
@@ -136,7 +177,8 @@ def organization(request, organization_id):
 def person(request, person_id):
     try:
         thisPerson = cm.Person.objects.get(id=person_id)
-        c = RequestContext(request, model_to_dict(thisPerson))
+        addToContext = dict(model_to_dict(thisPerson), **getBaseContext())
+        c = RequestContext(request, addToContext)
         t = loader.get_template("person.html")
         return HttpResponse(t.render(c))
     except ObjectDoesNotExist:

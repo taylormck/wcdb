@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+<!-- Page title -->
+{% block title %}Organizations{% endblock %}
+
+<!-- Page content -->
+{% block content %}
+<h2>Organizations</h2>
+
+	{% if organizations %}
+		<ul class="unstyled">
+			{% for o in organizations %}
+                <li><a href="{% url organization o.id|safe %}">{{ o.name|safe }}</a>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+{% endblock %}
+
+{% block media %}
+{% endblock %}

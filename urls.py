@@ -8,14 +8,9 @@ import views
 import crises
 
 urlpatterns = patterns('',
-    #url(r'^crises/$', 'crises.test.current_datetime', name='house')
-
-    #Index page
+    # Index page
+    # TODO do something with the index page to make it more interesting
     url(r'^$', 'views.index', name='index'),
-    url(r'base/$', 'views.base'), # template ?
-
-    # Bootstrap test
-    url(r'bootstrapTest/$', 'views.bootstrapTest'),
 
     # Static pages
     url(r'crisis1/$', 'views.crisis1', name='crisis1'),
@@ -28,24 +23,23 @@ urlpatterns = patterns('',
     url(r'organization2/$', 'views.organization2', name='organization2'),
     url(r'organization3/$', 'views.organization3', name='organization3'),
 
+    # Empty pages,
+    url(r'^crisis/$', views.listCrises, name='listCrises'),
+    url(r'^organization/$', views.listOrganizations, name='listOrganizations'),
+    url(r'^person/$', views.listPeople, name='listPeople'),
+
     # Dynamic pages
-    url(r'^crisis/$', views.crisis, {'crisis_id' : '' }, name='emptyCirsis'),
+    # This is where we present the most of our data
     url(r'^crisis/(\w*)/$', views.crisis, name='crisis'),
-
-    url(r'^organization/$', views.organization, {'organization_id' : '' }, name='emptyOrganization'),
     url(r'^organization/(\w*)/$', views.organization, name='organization'),
-
-    url(r'^person/$', views.person, {'person_id' : '' }, name='emptyPerson'),
     url(r'^person/(\w*)/$', views.person, name='person'),
     
-    # Import/Expert pages
+    # Import/Export pages
     url(r'^import/$', 'views.importScript', name='importScript'),
     url(r'^export/$', 'views.exportScript', name='exportScript'),
     
-     url(r'^password_required/$', 'password_required.views.login'),
-    # Examples:
-    # url(r'^$', 'wcdb.views.home', name='home'),
-    # url(r'^wcdb/', include('wcdb.foo.urls')),
+    # Log in page before import
+    url(r'^password_required/$', 'password_required.views.login'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

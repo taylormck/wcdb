@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+<!-- Page title -->
+{% block title %}Crises{% endblock %}
+
+<!-- Page content -->
+{% block content %}
+<h2>Latest Crises</h2>
+
+	{% if people %}
+		<ul class="unstyled">
+			{% for p in people %}
+                <li><a href="{% url organization p.id|safe %}">{{ p.name|safe }}</a>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+{% endblock %}
+
+{% block media %}
+{% endblock %}
