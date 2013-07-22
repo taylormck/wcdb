@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+<!-- Page title -->
+{% block title %}Search Results{% endblock %}
+
+<!-- Page content -->
+{% block content %
+<h4>Crises</h4>
+	{% if crises %}
+		<ul class="unstyled">
+			{% for r in crises %}
+                <li><a href="{% url crisis c.id|safe %}">{{ c.name|safe }}</a>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+{% endblock %}
+
+{% block content %}
+<h4>Organizations</h4>
+
+	{% if organizations %}
+		<ul class="unstyled">
+			{% for o in organizations %}
+                <li><a href="{% url organization o.id|safe %}">{{ o.name|safe }}</a>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+{% endblock %}
+
+{% block content %}
+<h4>People</h4>
+
+	{% if people %}
+		<ul class="unstyled">
+			{% for p in people %}
+                <li><a href="{% url person p.id|safe %}">{{ p.name|safe }}</a>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+{% endblock %}
+
+{% block media %}
+{% endblock %}
