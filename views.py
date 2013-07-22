@@ -28,6 +28,7 @@ def getBaseContext():
         'dpeople' : cm.Person.objects.order_by('name')[:10]
     }
 
+# Helper functions to get tables as context
 def getCrises():
     return {'crises' : cm.Crisis.objects.order_by('-date', '-time')}
 
@@ -36,6 +37,8 @@ def getOrganizations():
 
 def getPeople():
     return {'people' : cm.Person.objects.order_by('name')}
+
+
 
 class Empty():
     pass
