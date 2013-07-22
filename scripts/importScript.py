@@ -53,6 +53,8 @@ def parseXML(file_chosen):
 changes = False
 
 def xmlToModels(eleTree):
+    global changes
+    changes = False
     link_up_dict = {}
     reference_dict = {}
     
