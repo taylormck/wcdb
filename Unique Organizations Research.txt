@@ -28,6 +28,8 @@ Contact Information:
 Location: Santiago, Chile
 Citation:
 http://en.wikipedia.org/wiki/Compa%C3%B1%C3%ADa_Minera_San_Esteban_Primera
+Map:
+https://maps.google.com/maps?hl=en&q=Wiregrass+Region+near+U.S.+Highway+231+in+Midland+City,+Alabama&ie=UTF-8
 
 Name: Lashkar-e-Taiba
 ID: ORG_LASHTA
@@ -71,6 +73,8 @@ The FLDS Church is estimated to have 6,000 - 10,000 members residing in the sist
 Contact Information:
 Citation:
 http://en.wikipedia.org/wiki/Fundamentalist_Church_of_Jesus_Christ_of_Latter-Day_Saints
+Map:
+https://maps.google.com/maps?client=ubuntu&channel=cs&q=eldorado+texas&ie=UTF-8&hq=&hnear=0x86580aecdd206f61:0x533dba8f226cd210,Eldorado,+TX&gl=us&ei=DWrfUfebI86ajAL3-oCACA&ved=0CIsBELYD
 
 Non Unique Organizations
 

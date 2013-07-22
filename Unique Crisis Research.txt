@@ -90,6 +90,8 @@ Links:
 http://en.wikipedia.org/wiki/2013_Alabama_bunker_hostage_crisis
 Images:
 http://www.washingtonpost.com/rf/image_606w/2010-2019/WashingtonPost/2013/01/31/National-Enterprise/Images/School_Bus_Driver_Shot-0d692-2437.jpg
+Map:
+https://maps.google.com/maps?hl=en&q=Wiregrass+Region+near+U.S.+Highway+231+in+Midland+City,+Alabama&ie=UTF-8
 Citations:
 Wikipedia
 
@@ -151,7 +153,7 @@ Images:
 https://upload.wikimedia.org/wikipedia/commons/9/9b/2008_Mumbai_terror_attacks_Oberoi_Restaurant.jpg
 http://graphics8.nytimes.com/packages/images/photo/2008/11/26/20081128-INDIATIMELINE/14497036.JPG
 Maps:
-http://upload.wikimedia.org/wikipedia/commons/9/96/2008_Mumbai_attacks-fr.svg
+https://maps.google.com/maps?hl=en&q=Wiregrass+Region+near+U.S.+Highway+231+in+Midland+City,+Alabama&ie=UTF-8
 Citations:
 NYTimes
 
