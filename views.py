@@ -176,3 +176,13 @@ def fourohfour(request):
     c = RequestContext(request, addToContext)
     t = loader.get_template("fourohfour.html")
     return HttpResponse(t.render(c))
+
+def search(request, searchTerm):
+    addToContext = {
+        'people' : cm.Person.objects.filter(name=searchTerm),
+        'organizations' : cm.Organization.filter(name=searchTerm),
+        'crises' : cm.Crisis.filter(name=searchTerm)
+    }
+    c = RequestContext(request, addToContext)
+    t = loader.get_template("search.html")
+    return HttpResponse(t.render(c))
