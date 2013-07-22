@@ -149,8 +149,7 @@ def crisis(request, crisis_id):
         t = loader.get_template("crisis.html")
         return HttpResponse(t.render(c))
     except ObjectDoesNotExist:
-        t = loader.get_template("crisis.html")
-        return HttpResponse(t.render(RequestContext(request)))
+        return fourohfour(request)
 
 def organization(request, organization_id):
     try:
@@ -160,8 +159,7 @@ def organization(request, organization_id):
         t = loader.get_template("organization.html")
         return HttpResponse(t.render(c))
     except ObjectDoesNotExist:
-        t = loader.get_template("organization.html")
-        return HttpResponse(t.render(RequestContext(request)))
+        return fourohfour(request)
 
 def person(request, person_id):
     try:
@@ -171,5 +169,10 @@ def person(request, person_id):
         t = loader.get_template("person.html")
         return HttpResponse(t.render(c))
     except ObjectDoesNotExist:
-        t = loader.get_template("person.html")
-        return HttpResponse(t.render(RequestContext(request)))
+        return fourohfour(request)
+
+def fourohfour(request):
+    addToContext = getBaseContext()
+    c = RequestContext(request, addToContext)
+    t = loader.get_template("fourohfour.html")
+    return HttpResponse(t.render(c))

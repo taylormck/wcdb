@@ -18,6 +18,11 @@
         background-color: #383838;
         padding-bottom: 40px;
     }
+
+    .nav-header {
+        color: #444444;
+    }
+
     .sidebar-nav {
         padding-bottom: 9px 0;
     }
@@ -92,6 +97,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="{% url listCrises  %}">View all crises</a>
                         <li role="presentation" class="divider"></li>
+                        <li class="nav-header">Most Recent</li>
                         {% for c in dcrises %}
                             <li><a href="{% url crisis c.id|safe %}">{{ c.name|safe }}</a>
                         {% endfor %}

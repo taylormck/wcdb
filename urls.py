@@ -25,7 +25,7 @@ urlpatterns = patterns('',
     url(r'organization2/$', 'views.organization2', name='organization2'),
     url(r'organization3/$', 'views.organization3', name='organization3'),
 
-    # Empty pages,
+    # List pages,
     url(r'^crisis/$', views.listCrises, name='listCrises'),
     url(r'^organization/$', views.listOrganizations, name='listOrganizations'),
     url(r'^person/$', views.listPeople, name='listPeople'),
@@ -48,4 +48,8 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
+
+    # Four oh four page
+    # MUST BE LAST
+    url(r'^.*/$', views.fourohfour, name='fourohfour'),
 )
