@@ -148,13 +148,12 @@ def listPeople(request):
 def crisis(request, crisis_id):
     try:
         thisCrisis = cm.Crisis.objects.get(id=crisis_id)
-        addToContext = dict(model_to_dict(thisCrisis), **getBaseContext())
+        addToContext = dict({'crisis' : thisCrisis}, **getBaseContext())
         c = RequestContext(request, addToContext)
         t = loader.get_template("crisis.html")
         return HttpResponse(t.render(c))
     except ObjectDoesNotExist:
-        t = loader.get_template("crisis.html")
-        return HttpResponse(t.render(RequestContext(request)))
+        return fourohfour(request)
 
 def organization(request, organization_id):
     try:
@@ -164,8 +163,7 @@ def organization(request, organization_id):
         t = loader.get_template("organization.html")
         return HttpResponse(t.render(c))
     except ObjectDoesNotExist:
-        t = loader.get_template("organization.html")
-        return HttpResponse(t.render(RequestContext(request)))
+        return fourohfour(request)
 
 def person(request, person_id):
     try:
@@ -175,9 +173,8 @@ def person(request, person_id):
         t = loader.get_template("person.html")
         return HttpResponse(t.render(c))
     except ObjectDoesNotExist:
-        t = loader.get_template("person.html")
-        return HttpResponse(t.render(RequestContext(request)))
-        
+        return fourohfour(request)
+      
 def login(request):
      t = loader.get_template("index.html")
      if request.method == 'POST': # If the form has been submitted...
@@ -202,3 +199,33 @@ def login(request):
 
      return render(request, 'Login.html', {
         'form': form,})
+
+# Our four oh four page
+def fourohfour(request):
+    addToContext = getBaseContext()
+    c = RequestContext(request, addToContext)
+    t = loader.get_template("fourohfour.html")
+    return HttpResponse(t.render(c))
+
+# Our search page
+def search(request):
+    people = set([])
+    organizations = set([])
+    crises = set([])
+
+    for i in request.GET.values():
+        queries = i.split()
+        for q in queries:
+            people.update(cm.Person.objects.filter(name__icontains=q))
+            organizations.update(cm.Organization.objects.filter(name__icontains=q))
+            crises.update(cm.Crisis.objects.filter(name__icontains=q))
+
+    addToContext = {
+        'people' : people,
+        'organizations' : organizations,
+        'crises' : crises
+    }
+    addToContext = dict(getBaseContext(), **addToContext)
+    c = RequestContext(request, addToContext)
+    t = loader.get_template("search.html")
+    return HttpResponse(t.render(c))
