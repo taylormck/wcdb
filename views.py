@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django import forms
 from django.shortcuts import render_to_response
 from django.template import Context, RequestContext, Template, loader
 from django.contrib.auth.models import User
@@ -7,6 +8,8 @@ import scripts.importScript as IMP
 import scripts.export as EXP
 import xml.etree.ElementTree as ET
 from xml.dom.minidom import parseString
+from django.shortcuts import render
+from models import LoginForm
 
 import sys
 
@@ -109,5 +112,26 @@ def organization3(request):
     return HttpResponse(t.render(RequestContext(request)))
 
 def login(request):
-    t = loader.get_template("Login.html")
-    return HttpResponse(t.render(RequestContext(request)))
+     t = loader.get_template("organization3.html")
+     if request.method == 'POST': # If the form has been submitted...
+        form = LoginForm(request.POST) # A form bound to the POST data
+        if form.is_valid(): # All validation rules pass
+            # Process the data in form.cleaned_data
+            # ...
+            #firstname = form.cleaned_data['firstname']
+            #lastname = form.cleaned_data['lastname']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            username = form.cleaned_data['username']
+            firstname = form.cleaned_data['firstname']
+            lastname = form.cleaned_data['lastname']
+            user = User.objects.create_user(username, email, password)
+            user.last_name = lastname
+            user.first_name = firstname
+            user.save()
+            return HttpResponse(t.render(RequestContext(request))) # Redirect after POST
+     else:
+        form = LoginForm() # An unbound form
+
+     return render(request, 'Login.html', {
+        'form': form,})
