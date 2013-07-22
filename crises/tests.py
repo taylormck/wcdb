@@ -121,7 +121,7 @@ class TestImportScript(TestCase):
     def test_parseCrisis_01(TestCase):
         testElement = et.fromstring(NIFCrisis)
         testDict = {}
-        testCrisis = parseCrisis(testElement, testDict)
+        testCrisis = parseCrisis(testElement)
         try:
             testCrisisCopy = cm.Crisis.objects.get(id="CRI_AURSHO")
         except ObjectDoesNotExist:
@@ -141,7 +141,7 @@ class TestImportScript(TestCase):
     def test_parseCrisis_03(TestCase):
         testElement = et.fromstring(NIFCrisis)
         testDict = {}
-        testCrisis = parseCrisis(testElement, testDict)
+        testCrisis = parseCrisis(testElement)
         try:
             testCrisisCopy = cm.Crisis.objects.get(id="CRI_AURSH")
             assert(False)
@@ -151,7 +151,7 @@ class TestImportScript(TestCase):
     def test_parseOrganization_01(TestCase):
         testElement = et.fromstring(CFFOrg)
         testDict = {}
-        testOrg = parseOrganization(testElement, testDict)
+        testOrg = parseOrganization(testElement)
         try:
             testOrgCopy = cm.Organization.objects.get(id="ORG_COFIFO")
         except ObjectDoesNotExist:
@@ -161,7 +161,7 @@ class TestImportScript(TestCase):
         
     def test_parseOrganization_02(TestCase):
         testElement = et.fromstring(CFFOrg)
-        testDict = {"ORG_COFIFO" : parseOrganization(testElement, {})}
+        testDict = {"ORG_COFIFO" : parseOrganization(testElement)}
         try:
             testOrgCopy = cm.Organization.objects.get(id="ORG_COFIFO")
         except ObjectDoesNotExist:
@@ -171,7 +171,7 @@ class TestImportScript(TestCase):
     def test_parseOrganization_03(TestCase):
         testElement = et.fromstring(CFFOrg)
         testDict = {}
-        testOrg = parseOrganization(testElement, testDict)
+        testOrg = parseOrganization(testElement)
         try:
             while True:
                 testOrg.delete()
@@ -183,7 +183,7 @@ class TestImportScript(TestCase):
     def test_parsePerson_01(TestCase):
         testElement = et.fromstring(JEHPerson)
         testDict = {}
-        testPer = parsePerson(testElement, testDict)
+        testPer = parsePerson(testElement)
         try:
             testPerCopy = cm.Person.objects.get(id="PER_JAEAHO")
         except ObjectDoesNotExist:
@@ -193,7 +193,7 @@ class TestImportScript(TestCase):
         
     def test_parsePerson_02(TestCase):
         testElement = et.fromstring(JEHPerson)
-        testDict = {"PER_JAEAHO" : parsePerson(testElement, {})}
+        testDict = {"PER_JAEAHO" : parsePerson(testElement)}
         try:
             testPerCopy = cm.Person.objects.get(id="PER_JAEAHO")
         except ObjectDoesNotExist:
@@ -203,7 +203,7 @@ class TestImportScript(TestCase):
     def test_parsePerson_03(TestCase):
         testElement = et.fromstring(JEHPerson)
         testDict = {}
-        testPer = parsePerson(testElement, testDict)
+        testPer = parsePerson(testElement)
         try:
             testPer.delete()
             testPerCopy = cm.Person.objects.get(id="PER_JAEAHO")
@@ -242,7 +242,7 @@ class TestExportScript(TestCase):
         
     def test_crisis_export(TestCase):
         testElement = et.fromstring(NIFCrisis)
-        testCrisis = parseCrisis(testElement, {})
+        testCrisis = parseCrisis(testElement)
         node = createCrisisElement(testCrisis)
         assert(testCrisis.id == node.attrib["ID"])
         assert(testCrisis.kind == node.find("Kind").text)

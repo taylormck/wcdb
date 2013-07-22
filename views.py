@@ -48,7 +48,7 @@ def importScript(request):
         try:
             xml = IMP.parseXML(request.FILES['xmlFile'])
             data = IMP.xmlToModels(xml)
-            information = dict({"tree" : [data[0], data[1]]}, **information)
+            information = dict({"tree" : data}, **information)
         except KeyError:
             pass
         except IMP.BadXMLException:
