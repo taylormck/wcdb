@@ -37,7 +37,7 @@ urlpatterns = patterns('',
     url(r'^person/(\w*)/$', views.person, name='person'),
     
     # Login page for user profiles
-    url(r'loginpage/$', 'views.login', name = 'login'),
+    url(r'loginpage/$', 'views.createuser', name = 'createuser'),
 
     # Search page
     url(r'^search/$', views.search, name='search'),

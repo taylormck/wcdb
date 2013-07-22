@@ -14,7 +14,7 @@ import scripts.export as EXP
 import xml.etree.ElementTree as ET
 from xml.dom.minidom import parseString
 from django.shortcuts import render
-from models import LoginForm
+from models import CreateUser
 
 import sys
 
@@ -175,10 +175,10 @@ def person(request, person_id):
     except ObjectDoesNotExist:
         return fourohfour(request)
       
-def login(request):
+def createuser(request):
      t = loader.get_template("index.html")
      if request.method == 'POST': # If the form has been submitted...
-        form = LoginForm(request.POST) # A form bound to the POST data
+        form = CreateUser(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
             # Process the data in form.cleaned_data
             # ...
@@ -195,9 +195,9 @@ def login(request):
             user.save()
             return HttpResponse(t.render(RequestContext(request))) # Redirect after POST
      else:
-        form = LoginForm() # An unbound form
+        form = CreateUser() # An unbound form
 
-     return render(request, 'Login.html', {
+     return render(request, 'CreateUser.html', {
         'form': form,})
 
 # Our four oh four page
