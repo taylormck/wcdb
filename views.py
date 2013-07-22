@@ -180,8 +180,8 @@ def fourohfour(request):
 def search(request, searchTerm):
     addToContext = {
         'people' : cm.Person.objects.filter(name=searchTerm),
-        'organizations' : cm.Organization.filter(name=searchTerm),
-        'crises' : cm.Crisis.filter(name=searchTerm)
+        'organizations' : cm.Organization.objects.filter(name=searchTerm),
+        'crises' : cm.Crisis.objects.filter(name=searchTerm)
     }
     c = RequestContext(request, addToContext)
     t = loader.get_template("search.html")
