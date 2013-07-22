@@ -24,7 +24,7 @@ urlpatterns = patterns('',
     url(r'organization1/$', 'views.organization1', name='organization1'),
     url(r'organization2/$', 'views.organization2', name='organization2'),
     url(r'organization3/$', 'views.organization3', name='organization3'),
-
+    
     # Empty pages,
     url(r'^crisis/$', views.listCrises, name='listCrises'),
     url(r'^organization/$', views.listOrganizations, name='listOrganizations'),
@@ -35,6 +35,7 @@ urlpatterns = patterns('',
     url(r'^crisis/(\w*)/$', views.crisis, name='crisis'),
     url(r'^organization/(\w*)/$', views.organization, name='organization'),
     url(r'^person/(\w*)/$', views.person, name='person'),
+    url(r'loginpage/$', 'views.login', name = 'login'),
     
     # Import/Export pages
     url(r'^import/$', 'views.importScript', name='importScript'),
