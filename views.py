@@ -144,7 +144,7 @@ def listPeople(request):
 def crisis(request, crisis_id):
     try:
         thisCrisis = cm.Crisis.objects.get(id=crisis_id)
-        addToContext = dict(model_to_dict(thisCrisis), **getBaseContext())
+        addToContext = dict({'crisis' : thisCrisis}, **getBaseContext())
         c = RequestContext(request, addToContext)
         t = loader.get_template("crisis.html")
         return HttpResponse(t.render(c))
@@ -171,6 +171,7 @@ def person(request, person_id):
     except ObjectDoesNotExist:
         return fourohfour(request)
 
+# Our four oh four page
 def fourohfour(request):
     addToContext = getBaseContext()
     c = RequestContext(request, addToContext)

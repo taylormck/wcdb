@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
 <!-- Page title -->
-{% block title %}{{ name|safe }}{% endblock %}
+{% block title %}{{ crisis.name|safe }}{% endblock %}
 
 <!-- Page content -->
 {% block content %}
-<h2>{{ name|safe }}</h2>
+<h2>{{ crisis.name|safe }}</h2>
 
 <h4>Kind</h4>{{ kind|safe }}
 
-<h4>Date and Time:</h4>{{ time|safe }}, {{ date|safe }}
+<h4>Date and Time:</h4>{{ crisis.time|safe }}, {{ crisis.date|safe }}
 
 <h4>Locations:</h4>
 
