@@ -41,15 +41,6 @@ def index(request):
     c = RequestContext(request, getBaseContext())
     return HttpResponse(t.render(c))
 
-
-def base(request):
-    t = loader.get_template("base.html")
-    c = RequestContext(request)
-    return HttpResponse(t.render(c))
-    #return render_to_response("static/html/base.html",
-    #                          {},
-    #                          context_instance=RequestContext(request))
-
 @password_required
 def importScript(request):
     information = getBaseContext()
@@ -85,8 +76,6 @@ def html_decode(s):
     
 def exportScript(request):
     rawXML = ET.tostring(EXP.exportXML())
-    # prettyXML = parseString(rawXML).toprettyxml()
-    # prettyXML = html_decode(prettyXML)
     t = loader.get_template("export.xml")
     information = dict({"XML" : rawXML}, **getBaseContext())
     c = RequestContext(request, information)

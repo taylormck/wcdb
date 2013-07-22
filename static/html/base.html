@@ -90,6 +90,8 @@
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
+                        <li><a href="{% url listCrises  %}">View all crises</a>
+                        <li role="presentation" class="divider"></li>
                         {% for c in dcrises %}
                             <li><a href="{% url crisis c.id|safe %}">{{ c.name|safe }}</a>
                         {% endfor %}
@@ -102,6 +104,8 @@
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
+                        <li><a href="{% url listOrganizations  %}">View all organizations</a>
+                        <li role="presentation" class="divider"></li>
                         {% for o in dorganizations %}
                             <li><a href="{% url organization o.id|safe %}">{{ o.name|safe }}</a>
                         {% endfor %}
@@ -114,6 +118,8 @@
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
+                        <li><a href="{% url listPeople  %}">View all people</a>
+                        <li role="presentation" class="divider"></li>
                         {% for p in dpeople %}
                             <li><a href="{% url person p.id|safe %}">{{ p.name|safe }}</a>
                         {% endfor %}
