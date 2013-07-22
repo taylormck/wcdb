@@ -52,18 +52,18 @@ def base(request):
 
 @password_required
 def importScript(request):
-    information = {}
+    information = getBaseContext()
     if request.method == 'POST':
         try:
             xml = IMP.parseXML(request.FILES['xmlFile'])
             data = IMP.xmlToModels(xml)
-            information = {"tree" : [data[0], data[1]]}
+            information = dict({"tree" : [data[0], data[1]]}, **information)
         except KeyError:
             pass
         except IMP.BadXMLException:
-            information = {"tree" : "Upload Failed - Bad XML File!"}
+            information = dict({"tree" : "Upload Failed - Bad XML File!"}, **information)
         except IMP.ValdiationFailedException:
-            information = {"tree" : "Upload Failed - Invalid XML File!"}
+            information = dict({"tree" : "Upload Failed - Invalid XML File!"}, **information)
     return render_to_response("import.html", information, context_instance=RequestContext(request))
     
     
@@ -88,7 +88,7 @@ def exportScript(request):
     # prettyXML = parseString(rawXML).toprettyxml()
     # prettyXML = html_decode(prettyXML)
     t = loader.get_template("export.xml")
-    information = {"XML" : rawXML}
+    information = dict({"XML" : rawXML}, **getBaseContext())
     c = RequestContext(request, information)
     return HttpResponse(html_decode(t.render(c)), content_type="text/xml")
     

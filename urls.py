@@ -13,6 +13,8 @@ urlpatterns = patterns('',
     url(r'^$', 'views.index', name='index'),
 
     # Static pages
+    # TODO I'm leaving these for now so we can look at them,
+    # but they should be deleted eventually
     url(r'crisis1/$', 'views.crisis1', name='crisis1'),
     url(r'crisis2/$', 'views.crisis2', name='crisis2'),
     url(r'crisis3/$', 'views.crisis3', name='crisis3'),
