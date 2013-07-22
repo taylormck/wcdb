@@ -112,7 +112,7 @@ def organization3(request):
     return HttpResponse(t.render(RequestContext(request)))
 
 def login(request):
-     t = loader.get_template("organization3.html")
+     t = loader.get_template("index.html")
      if request.method == 'POST': # If the form has been submitted...
         form = LoginForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
