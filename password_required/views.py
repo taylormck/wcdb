@@ -9,6 +9,8 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from password_required.forms import AuthenticationForm
 
+from wcdb.views import getDropdownContext
+
 @csrf_protect
 @never_cache
 def login(request, template_name='password_required_login.html',
@@ -47,7 +49,7 @@ def login(request, template_name='password_required_login.html',
         redirect_field_name: redirect_to,
         'site': current_site,
         'site_name': current_site.name,
-    }, context_instance=RequestContext(request))
+    }, context_instance=RequestContext(request, getDropdownContext()))
 
 def _clean_redirect(redirect_to):
     """

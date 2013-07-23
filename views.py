@@ -22,9 +22,8 @@ import StringIO
 import os
 
 
-# Returns a dictionary containing the necessary
-# additions to context
-def getBaseContext():
+# Returns a dictionary context for the navbar
+def getDropdownContext():
     return {
         'dcrises' : cm.Crisis.objects.order_by('-date', '-time')[:10],
         'dorganizations' : cm.Organization.objects.order_by('name')[:10],
@@ -41,8 +40,8 @@ def getOrganizations():
 def getPeople():
     return {'people' : cm.Person.objects.order_by('name')}
 
-# Add images to context
-def getCommon(common_id):
+# Add common info to context
+def getCommonContext(common_id):
     images = []
     for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.IMAGES):
         images += [(i.embed, i.altText)]
@@ -55,10 +54,65 @@ def getCommon(common_id):
     for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.VIDEOS):
         videos += [(i.embed, i.altText)]
 
+    maps = []
+    for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.MAPS):
+        maps += [(i.embed, i.altText)]
+
+    # TODO Need to get feeds working
+    # feeds = []
+    # for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.VIDEOS):
+    #     feeds += [(i.embed, i.altText)]
+
     return {
         'images' : images,
         'links' : links,
         'videos' : videos,
+        'maps' : maps,
+    }
+
+# Get info for crises
+def getCrisesContext(crisis_id):
+    locations = []
+    for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.LOCATION):
+        locations += [i.text]
+    
+    humanImpact = []
+    for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.HUMAN_IMPACT):
+        humanImpact += [i.text]
+    
+    economicImpact = []
+    for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.ECONOMIC_IMPACT):
+        economicImpact += [i.text]
+
+    resourcesNeeded = []
+    for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.RESOURCES_NEEDED):
+        resourcesNeeded += [i.text]
+
+    waysToHelp = []
+    for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.WAYS_TO_HELP):
+        waysToHelp += [i.text]
+
+    return {
+        'locations' : locations,
+        'humanImpact' : humanImpact,
+        'economicImpact' : economicImpact,
+        'resourcesNeeded' : resourcesNeeded,
+        'waysToHelp' : waysToHelp,
+    }
+
+# Get context for organizations
+def getOrganizationContext(organization_id):
+    history = []
+    for i in cm.OrganizationListType.objects.filter(owner__exact=organization_id, context=cm.OrganizationListType.HISTORY):
+        history += [i.text]
+
+    contactInfo = []
+    for i in cm.OrganizationListType.objects.filter(owner__exact=organization_id, context=cm.OrganizationListType.CONTACT_INFO):
+        contactInfo += [i.text]
+
+    return {
+        'history' : history,
+        'contactInfo' : contactInfo,
     }
 
 class Empty():
@@ -66,24 +120,28 @@ class Empty():
 
 def index(request):
     t = loader.get_template("index.html")
-    c = RequestContext(request, getBaseContext())
+    c = RequestContext(request, getDropdownContext())
     return HttpResponse(t.render(c))
 
 @password_required
 def importScript(request):
-    information = getBaseContext()
+    information = {}
     if request.method == 'POST':
         try:
             xml = IMP.parseXML(request.FILES['xmlFile'])
             data = IMP.xmlToModels(xml)
-            information = dict({"tree" : data}, **information)
+            information = {"tree" : data}
         except KeyError:
             pass
         except IMP.BadXMLException:
-            information = dict({"tree" : "Upload Failed - Bad XML File!"}, **information)
+            information = {"tree" : "Upload Failed - Bad XML File!"}
         except IMP.ValdiationFailedException:
-            information = dict({"tree" : "Upload Failed - Invalid XML File!"}, **information)
-    return render_to_response("import.html", information, context_instance=RequestContext(request))
+            information = {"tree" : "Upload Failed - Invalid XML File!"}
+    # return render_to_response("import.html", information, context_instance=RequestContext(request))
+    information = dict(getDropdownContext(), **information)
+    t = loader.get_template("import.html")
+    c = RequestContext(request, information)
+    return HttpResponse(t.render(c))
     
     
 def html_decode(s):
@@ -105,7 +163,7 @@ def html_decode(s):
 def exportScript(request):
     rawXML = ET.tostring(EXP.exportXML())
     t = loader.get_template("export.xml")
-    information = dict({"XML" : rawXML}, **getBaseContext())
+    information = dict({"XML" : rawXML}, **getDropdownContext())
     c = RequestContext(request, information)
     return HttpResponse(html_decode(t.render(c)), content_type="text/xml")
 
@@ -147,19 +205,19 @@ def organization3(request):
 
 # List pages
 def listCrises(request):
-    addToContext = dict(getCrises(), **getBaseContext())
+    addToContext = dict(getCrises(), **getDropdownContext())
     c = RequestContext(request, addToContext)
     t = loader.get_template("listCrises.html")
     return HttpResponse(t.render(c))
 
 def listOrganizations(request):
-    addToContext = dict(getOrganizations(), **getBaseContext())
+    addToContext = dict(getOrganizations(), **getDropdownContext())
     c = RequestContext(request, addToContext)
     t = loader.get_template("listOrganization.html")
     return HttpResponse(t.render(c))
 
 def listPeople(request):
-    addToContext = dict(getPeople(), **getBaseContext())
+    addToContext = dict(getPeople(), **getDropdownContext())
     c = RequestContext(request, addToContext)
     t = loader.get_template("listPeople.html")
     return HttpResponse(t.render(c))
@@ -168,8 +226,9 @@ def listPeople(request):
 def crisis(request, crisis_id):
     try:
         thisCrisis = cm.Crisis.objects.get(id=crisis_id)
-        addToContext = dict({'crisis' : thisCrisis}, **getBaseContext())
-        addToContext = dict(getCommon(thisCrisis.common_id), **addToContext)
+        addToContext = dict({'crisis' : thisCrisis}, **getDropdownContext())
+        addToContext = dict(getCommonContext(thisCrisis.common_id), **addToContext)
+        addToContext = dict(getCrisesContext(thisCrisis.id), **addToContext)
         c = RequestContext(request, addToContext)
         t = loader.get_template("crisis.html")
         return HttpResponse(t.render(c))
@@ -179,8 +238,9 @@ def crisis(request, crisis_id):
 def organization(request, organization_id):
     try:
         thisOrganization = cm.Organization.objects.get(id=organization_id)
-        addToContext = dict(model_to_dict(thisOrganization), **getBaseContext())
-        addToContext = dict(getCommon(thisOrganization.common_id), **addToContext)
+        addToContext = dict(model_to_dict(thisOrganization), **getDropdownContext())
+        addToContext = dict(getCommonContext(thisOrganization.common_id), **addToContext)
+        addToContext = dict(getOrganizationContext(thisOrganization.id), **addToContext)
         c = RequestContext(request, addToContext)
         t = loader.get_template("organization.html")
         return HttpResponse(t.render(c))
@@ -190,8 +250,8 @@ def organization(request, organization_id):
 def person(request, person_id):
     try:
         thisPerson = cm.Person.objects.get(id=person_id)
-        addToContext = dict(model_to_dict(thisPerson), **getBaseContext())
-        addToContext = dict(getCommon(thisPerson.common_id), **addToContext)
+        addToContext = dict(model_to_dict(thisPerson), **getDropdownContext())
+        addToContext = dict(getCommonContext(thisPerson.common_id), **addToContext)
         c = RequestContext(request, addToContext)
         t = loader.get_template("person.html")
         return HttpResponse(t.render(c))
@@ -225,7 +285,7 @@ def createuser(request):
 
 # Our four oh four page
 def fourohfour(request):
-    addToContext = getBaseContext()
+    addToContext = getDropdownContext()
     c = RequestContext(request, addToContext)
     t = loader.get_template("fourohfour.html")
     return HttpResponse(t.render(c))
@@ -248,7 +308,7 @@ def search(request):
         'organizations' : organizations,
         'crises' : crises
     }
-    addToContext = dict(getBaseContext(), **addToContext)
+    addToContext = dict(getDropdownContext(), **addToContext)
     c = RequestContext(request, addToContext)
     t = loader.get_template("search.html")
     return HttpResponse(t.render(c))
@@ -273,7 +333,7 @@ def unittest(request):
     }
     sys.stdout = copyout
     text.close()
-    addToContext = dict(getBaseContext(), **addToContext)
+    addToContext = dict(getDropdownContext(), **addToContext)
     c = RequestContext(request, addToContext)
     t = loader.get_template("unittest.html")
     return HttpResponse(t.render(c))

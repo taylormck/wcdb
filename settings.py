@@ -42,7 +42,7 @@ DATABASES = {
 # When testing on production server, run
 # python manage.py test production
 # and it will test on the production server
-if 'test' in sys.argv and 'production' not in sys.argv:
+if 'test' in sys.argv:
     DATABASES ['default']['ENGINE'] = 'django.db.backends.sqlite3'
     DATABASES ['default']['NAME'] = 'testdb'
 

@@ -153,7 +153,6 @@
                 <li>
                     <a href="{% url createuser %}">Create User</a>
                 </li>
-
             </ul>
             <form class="navbar-search pull-right" action="/search/" method="get">
               <input type="text" class="search-query" placeholder="Looking for something?" name="query">
@@ -173,10 +172,50 @@
             <!-- this is the center box -->
             <div class="span6" id="content">
                 {% block content %}{% endblock %}
+
+                <!-- add our links to the bottom -->
+                {% if links %}
+                    <h4>Links:</h4>
+                    <ul class="unstyled">
+                        {% for l, t in links %}
+                            <li><a href={{ l }}>{{ t }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
             </div>
 
             <!-- this is the right box -->
             <div class="span3" id="media-content">
+                <!-- list our pictures -->
+                {% if images %}
+                    <h4>Images</h4>
+                    <ul class="unstyled">
+                        {% for i, t in images %}
+                            <li><img src={{ i }} alt="{{ t }}" class="img-rounded"></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <!-- list our videos -->
+                {% if videos %}
+                    <h4>Videos</h4>
+                    <ul class="unstyled">
+                        {% for v, t in videos %}
+                            <li><a href={{ v }}>{{ t }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <!-- list our maps -->
+                {% if maps %}
+                    <h4>Maps</h4>
+                    <ul class="unstyled">
+                        {% for m, t in maps %}
+                            <li><a href={{ m }}>{{ t }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
                 {% block media %}{% endblock %}
             </div>
         </div>
