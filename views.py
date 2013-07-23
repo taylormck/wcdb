@@ -358,14 +358,9 @@ def unittest(request):
     text = StringIO.StringIO()
     copyout = sys.stdout
     sys.stdout = text
-
-    print "testWCDB1.py"
-    proc = subprocess.Popen("python manage.py test 2> tempoutfile.out", stdout=subprocess.PIPE, shell=True)
-    (out, err) = proc.communicate()
-    with open("tempoutfile.out", "r") as fi:
-        for line in fi:
-            print line
-    os.remove("tempoutfile.out")
+    
+    print "TestWCDB1.py"
+    print subprocess.check_output(["python", "manage.py", "test"], stderr=subprocess.STDOUT)
     print "Done."
     
     
