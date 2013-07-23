@@ -92,12 +92,22 @@ def getCrisesContext(crisis_id):
     for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.WAYS_TO_HELP):
         waysToHelp += [i.text]
 
+    orgs = []
+    for i in cm.Organization.objects.filter(crisis__id__exact=crisis_id):
+        orgs += [i]
+
+    peeps = []
+    for i in cm.Person.objects.filter(crisis__id__exact=crisis_id):
+        peeps += [i]
+
     return {
         'locations' : locations,
         'humanImpact' : humanImpact,
         'economicImpact' : economicImpact,
         'resourcesNeeded' : resourcesNeeded,
         'waysToHelp' : waysToHelp,
+        'orgs' : orgs,
+        'peeps' : peeps,
     }
 
 # Get context for organizations
@@ -110,10 +120,36 @@ def getOrganizationContext(organization_id):
     for i in cm.OrganizationListType.objects.filter(owner__exact=organization_id, context=cm.OrganizationListType.CONTACT_INFO):
         contactInfo += [i.text]
 
+    peeps = []
+    for i in cm.Person.objects.filter(organization__id__exact=organization_id):
+        peeps += [i]
+
+    cries = []
+    for i in cm.Crisis.objects.filter(organizations__id__exact=organization_id):
+        cries += [i]
+
     return {
         'history' : history,
         'contactInfo' : contactInfo,
+        'peeps' : peeps,
+        'cries' : cries,
     }
+
+# Get context for organizations
+def getPersonContext(person_id):
+    cries = []
+    for i in cm.Crisis.objects.filter(people__id__exact=person_id):
+        cries += [i]
+
+    orgs = []
+    for i in cm.Organization.objects.filter(people__id__exact=person_id):
+        orgs += [i]
+
+    return {
+        'orgs' : orgs,
+        'cries' : cries,
+    }
+
 
 class Empty():
     pass
@@ -252,6 +288,7 @@ def person(request, person_id):
         thisPerson = cm.Person.objects.get(id=person_id)
         addToContext = dict(model_to_dict(thisPerson), **getDropdownContext())
         addToContext = dict(getCommonContext(thisPerson.common_id), **addToContext)
+        addToContext = dict(getPersonContext(thisPerson.id), **addToContext)
         c = RequestContext(request, addToContext)
         t = loader.get_template("person.html")
         return HttpResponse(t.render(c))
