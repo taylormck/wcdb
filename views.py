@@ -220,7 +220,7 @@ def createuser(request):
      else:
         form = CreateUser() # An unbound form
 
-     return render(request, 'CreateUser.html', {
+     return render(request, 'createUser.html', {
         'form': form,})
 
 # Our four oh four page
@@ -253,7 +253,7 @@ def search(request):
     t = loader.get_template("search.html")
     return HttpResponse(t.render(c))
 
-def unit_tests(request):
+def unittest(request):
     text = StringIO.StringIO()
     copyout = sys.stdout
     sys.stdout = text
