@@ -227,25 +227,37 @@
 
                         <div class="row-fluid">
                             <div class="span12">
-                                <!-- list our videos -->
-                                {% if videos %}
-                                    <h4>Videos</h4>
-                                    <ul class="unstyled">
-                                        {% for v, t in videos %}
-                                            <li><a href={{ v }}>{{ t }}</a></li>
-                                        {% endfor %}
-                                    </ul>
-                                {% endif %}
+                                <div class="table">
+                                    <!-- list our videos -->
+                                    {% if videos %}
+                                        <h4>Videos</h4>
+                                        <ul class="unstyled">
+                                            {% for v, t in videos %}
+                                                <li>
+                                                    <a href={{ v }}>{{ t }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
 
-                                <!-- list our maps -->
-                                {% if maps %}
-                                    <h4>Maps</h4>
-                                    <ul class="unstyled">
-                                        {% for m, t in maps %}
-                                            <li><a href={{ m }}>{{ t }}</a></li>
-                                        {% endfor %}
-                                    </ul>
-                                {% endif %}
+                        <hr>
+
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div class="table">
+                                    <!-- list our maps -->
+                                    {% if maps %}
+                                        <h4>Maps</h4>
+                                        <ul class="unstyled">
+                                            {% for m, t in maps %}
+                                                <li><a href={{ m }}>{{ t }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
