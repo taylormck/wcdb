@@ -317,12 +317,14 @@ def createuser(request):
             user.last_name = lastname
             user.first_name = firstname
             user.save()
-            return HttpResponse(t.render(RequestContext(request))) # Redirect after POST
+            c = RequestContext(request, getDropdownContext())
+            return HttpResponse(t.render(c)) # Redirect after POST
      else:
         form = CreateUser() # An unbound form
 
-     return render(request, 'createUser.html', {
-        'form': form,})
+     return render(request,
+                   'createUser.html',
+                   dict({'form': form,}, **getDropdownContext()))
 
 # Our four oh four page
 def fourohfour(request):
