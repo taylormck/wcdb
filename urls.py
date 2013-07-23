@@ -45,6 +45,7 @@ urlpatterns = patterns('',
     # Import/Export pages
     url(r'^import/$', 'views.importScript', name='importScript'),
     url(r'^export/$', 'views.exportScript', name='exportScript'),
+    url(r'^test.html', 'views.unit_tests', name='unittest'),
     
     # Log in page before import
     url(r'^password_required/$', 'password_required.views.login'),

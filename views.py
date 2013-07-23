@@ -17,6 +17,9 @@ from django.shortcuts import render
 from models import CreateUser
 
 import sys
+import subprocess
+import StringIO
+import os
 
 
 # Returns a dictionary containing the necessary
@@ -249,3 +252,29 @@ def search(request):
     c = RequestContext(request, addToContext)
     t = loader.get_template("search.html")
     return HttpResponse(t.render(c))
+
+def unit_tests(request):
+    text = StringIO.StringIO()
+    copyout = sys.stdout
+    sys.stdout = text
+
+    print "testWCDB1.py"
+    proc = subprocess.Popen("python manage.py test 2> tempoutfile.out", stdout=subprocess.PIPE, shell=True)
+    (out, err) = proc.communicate()
+    with open("tempoutfile.out", "r") as fi:
+        for line in fi:
+            print line
+    os.remove("tempoutfile.out")
+    print "Done."
+    
+    
+    addToContext = {
+        'output' : text.getvalue()
+    }
+    sys.stdout = copyout
+    text.close()
+    addToContext = dict(getBaseContext(), **addToContext)
+    c = RequestContext(request, addToContext)
+    t = loader.get_template("unittest.html")
+    return HttpResponse(t.render(c))
+    
