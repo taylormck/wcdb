@@ -361,9 +361,13 @@ def unittest(request):
     copyout = sys.stdout
     sys.stdout = text
     
-    print "TestWCDB1.py"
-    print subprocess.check_output(["python", "manage.py", "test"], stderr=subprocess.STDOUT)
-    print "Done."
+    try:
+        print "TestWCDB1.py"
+        print subprocess.check_output(["python", "manage.py", "test"], stderr=subprocess.STDOUT)
+        print "Done."
+    except subprocess.CalledProcessError as e:
+        print e.output
+        print "Done."
     
     
     addToContext = {
