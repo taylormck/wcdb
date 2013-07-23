@@ -105,10 +105,6 @@ def exportScript(request):
     information = dict({"XML" : rawXML}, **getBaseContext())
     c = RequestContext(request, information)
     return HttpResponse(html_decode(t.render(c)), content_type="text/xml")
-    
-def bootstrapTest(request):
-    t = loader.get_template("bootstrapTest.html")
-    return HttpResponse(t.render(RequestContext(request)))
 
 def person1(request):
     t = loader.get_template("person1.html")
