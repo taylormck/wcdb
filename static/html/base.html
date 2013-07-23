@@ -66,6 +66,17 @@
         border-radius: 5px;
     }
 
+    hr {
+        border-width: 1px;
+        border-color: #A0A0A0;
+    }
+
+    .left-column {
+        margin-right: -1px;
+        border-right: 1px solid #A0A0A0;
+        padding-right: 10px;
+    }
+
     #right-box {
         background-color: #eeeeee;
         padding-left: 15px;
@@ -189,7 +200,7 @@
             <!-- this is the center box -->
             <div class="span6 offset3" id="content">
                 <div class="row-fluid">
-                    <div class="span6">
+                    <div class="span6 left-column">
                         {% block content %}{% endblock %}
                     </div>
 
@@ -241,11 +252,12 @@
                 </div>
 
                 {% if not crises and not organizations and not people %}
+                    <hr>
                     <div class="row-fluid">
-                        <div class="span4">
+                        <div class="span4 left-column">
                             {% block involved1 %}{% endblock %}
                         </div>
-                        <div class="span4">
+                        <div class="span4 left-column">
                             {% block involved2 %}{% endblock %}
                         </div>
 
