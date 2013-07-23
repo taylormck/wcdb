@@ -5,51 +5,54 @@
 
 <!-- Page content -->
 {% block content %}
-<h2>{{ name|safe }}</h2>
+    <h2>{{ name|safe }}</h2>
 
-<h4>Kind</h4>{{ kind|safe }}
+    <h4>Kind</h4>{{ kind|safe }}
 
-<h4>Location</h4>{{ location|safe }}
+    <h4>Location</h4>{{ location|safe }}
 
-{% if history %}
-    <h4>History</h4>
-    <ul class="unstyled">
-        {% for h in history %}
-            {{ h }}
-        {% endfor %}
-    </ul>
-{% endif %}
+    {% if history %}
+        <h4>History</h4>
+        <ul class="unstyled">
+            {% for h in history %}
+                {{ h }}
+            {% endfor %}
+        </ul>
+    {% endif %}
 
-{% if contactInfo %}
-    <h4>Contact Information</h4>
-    <ul class="unstyled">
-        {% for c in contactInfo %}
-            {{ c }}
-        {% endfor %}
-    </ul>
-{% endif %}
-
-{% if cries %}
-    <h4>Crises Involved</h4>
-    <ul class="unstyled">
-        {% for c in cries %}
-            <li><a href={% url crisis c.id %}>{{ c.name }}</a></li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
-{% if peeps %}
-    <h4>People Involved</h4>
-    <ul class="unstyled">
-        {% for p in peeps %}
-            <li><a href={% url person p.id %}>{{ p.name }}</a></li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
+    {% if contactInfo %}
+        <h4>Contact Information</h4>
+        <ul class="unstyled">
+            {% for c in contactInfo %}
+                {{ c }}
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}
 
-{% block media %}
+{% block involved1 %}
+    <h4>Crises Involved</h4>
+    {% if cries %}
+        <ul class="unstyled">
+            {% for c in cries %}
+                <li><a href={% url crisis c.id %}>{{ c.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block involved2 %}
+    <h4>People Involved</h4>
+    {% if peeps %}
+        <ul class="unstyled">
+            {% for p in peeps %}
+                <li><a href={% url person p.id %}>{{ p.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block rightBox %}
 {% endblock %}
 
 {% block leftBox %}
