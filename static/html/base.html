@@ -189,14 +189,6 @@
     <!-- This is our common layout -->
     <div class="container-fluid" style="padding-top: 60px;">
         <div class="row-fluid">
-            <!-- left spacing -->
-            <!-- <div class="span1"></div> -->
-
-            <!-- this is the left box -->
-            <!-- <div class="span2" id="left-box">
-                {% block leftBox %}{% endblock %}
-            </div> -->
-
             <!-- this is the center box -->
             <div class="span6 offset3" id="content">
                 <div class="row-fluid">
@@ -205,9 +197,16 @@
                     </div>
 
                     <div class="span6">
+
                         <div class="row-fluid">
                             <div class="span12">
-                                <!-- This presents our pictures in a carousel -->
+                                {% block metaContent %}{% endblock %}
+                            </div>
+                        </div>
+
+                        <!-- This presents our pictures in a carousel -->
+                        <div class="row-fluid">
+                            <div class="span12">
                                 {% if images %}
                                     <!-- carousel our pictures -->
                                     <div id="myCarousel" class="carousel slide">
@@ -287,11 +286,6 @@
                     </div>
                 {% endif %}
             </div>
-
-            <!-- this is the right box -->
-            <!-- <div class="span2" id="right-box">
-                {% block rightBlock %}{% endblock %}
-            </div> -->
         </div>
     </div>
 </body> 
