@@ -137,6 +137,9 @@ def getOrganizationContext(organization_id):
 
 # Get context for organizations
 def getPersonContext(person_id):
+    common = cm.Common.objects.get(person__id__exact=person_id)
+    summaries = [common.summary]
+
     cries = []
     for i in cm.Crisis.objects.filter(people__id__exact=person_id):
         cries += [i]
@@ -146,6 +149,7 @@ def getPersonContext(person_id):
         orgs += [i]
 
     return {
+        'summaries' : summaries,
         'orgs' : orgs,
         'cries' : cries,
     }
