@@ -242,19 +242,31 @@ class TestExportScript(TestCase):
         
     def test_crisis_export(TestCase):
         testElement = et.fromstring(NIFCrisis)
-        testCrisis = parseCrisis(testElement)
-        node = createCrisisElement(testCrisis)
-        assert(testCrisis.id == node.attrib["ID"])
-        assert(testCrisis.kind == node.find("Kind").text)
-        assert(testCrisis.date.strftime("%Y-%m-%d") == node.find("Date").text)
-        assert(testCrisis.time.strftime("%H:%M:%S") == node.find("Time").text)
-        assert(testCrisis.name == node.attrib["Name"])
+        testModel = parseCrisis(testElement)
+        node = createCrisisElement(testModel)
+        assert(testModel.id == node.attrib["ID"])
+        assert(testModel.kind == node.find("Kind").text)
+        assert(testModel.date.strftime("%Y-%m-%d") == node.find("Date").text)
+        assert(testModel.time.strftime("%H:%M:%S") == node.find("Time").text)
+        assert(testModel.name == node.attrib["Name"])
         
     def test_person_export(TestCase):
-        pass
+        testElement = et.fromstring(JEHPerson)
+        testModel = parsePerson(testElement)
+        node = createPersonElement(testModel)
+        assert(testModel.id == node.attrib["ID"])
+        assert(testModel.kind == node.find("Kind").text)
+        assert(testModel.location == node.find("Location").text)
+        assert(testModel.name == node.attrib["Name"])
     
     def test_org_export(TestCase):
-        pass
+        testElement = et.fromstring(CFFOrg)
+        testModel = parseOrganization(testElement)
+        node = createOrganizationElement(testModel)
+        assert(testModel.id == node.attrib["ID"])
+        assert(testModel.kind == node.find("Kind").text)
+        assert(testModel.location == node.find("Location").text)
+        assert(testModel.name == node.attrib["Name"])
         
     
     def test_everything(TestCase):
