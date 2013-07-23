@@ -39,11 +39,24 @@ def getPeople():
     return {'people' : cm.Person.objects.order_by('name')}
 
 # Add images to context
-def getImages(common_id):
+def getCommon(common_id):
     images = []
     for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.IMAGES):
         images += [(i.embed, i.altText)]
-    return images
+    
+    links = []
+    for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.EXTERNAL_LINKS):
+        links += [(i.href, i.text)]
+
+    videos = []
+    for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.VIDEOS):
+        videos += [(i.embed, i.altText)]
+
+    return {
+        'images' : images,
+        'links' : links,
+        'videos' : videos,
+    }
 
 class Empty():
     pass
@@ -157,7 +170,7 @@ def crisis(request, crisis_id):
     try:
         thisCrisis = cm.Crisis.objects.get(id=crisis_id)
         addToContext = dict({'crisis' : thisCrisis}, **getBaseContext())
-        addToContext = dict({ 'images' : getImages(thisCrisis.common_id)}, **addToContext)
+        addToContext = dict(getCommon(thisCrisis.common_id), **addToContext)
         c = RequestContext(request, addToContext)
         t = loader.get_template("crisis.html")
         return HttpResponse(t.render(c))
@@ -168,7 +181,7 @@ def organization(request, organization_id):
     try:
         thisOrganization = cm.Organization.objects.get(id=organization_id)
         addToContext = dict(model_to_dict(thisOrganization), **getBaseContext())
-        addToContext = dict({ 'images' : getImages(thisOrganization.common_id)}, **addToContext)
+        addToContext = dict(getCommon(thisOrganization.common_id), **addToContext)
         c = RequestContext(request, addToContext)
         t = loader.get_template("organization.html")
         return HttpResponse(t.render(c))
@@ -179,7 +192,7 @@ def person(request, person_id):
     try:
         thisPerson = cm.Person.objects.get(id=person_id)
         addToContext = dict(model_to_dict(thisPerson), **getBaseContext())
-        addToContext = dict({ 'images' : getImages(thisPerson.common_id)}, **addToContext)
+        addToContext = dict(getCommon(thisPerson.common_id), **addToContext)
         c = RequestContext(request, addToContext)
         t = loader.get_template("person.html")
         return HttpResponse(t.render(c))

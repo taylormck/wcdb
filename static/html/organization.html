@@ -15,6 +15,15 @@
 
 <h4>Contact Information</h4>
 
+{% if links %}
+    <h4>Links:</h4>
+    <ul class="unstyled">
+        {% for l, t in links %}
+            <li><a href={{ l }}>{{ t }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
 {% endblock %}
 
 {% block media %}
