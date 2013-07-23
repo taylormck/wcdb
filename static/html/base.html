@@ -165,19 +165,18 @@
         <div class="row-fluid">
             <!-- this is the left box -->
             <div class="span3" id="left-box">
+                {% block leftBox %}{% endblock %}
                 <h3>Stuff will go here later, we don't know what yet</h3>
             </div>
 
-                <!-- this is the center box -->
-                <div class="span6" id="content">
-                    {% block content %}{% endblock %}
-                </div>
+            <!-- this is the center box -->
+            <div class="span6" id="content">
+                {% block content %}{% endblock %}
+            </div>
 
-                <!-- this is the right box -->
-                <div class="span3" id="media-content">
-                    {% block media %}{% endblock %}
-                    <h3>Stuff will go here later, we don't know what yet</h3>
-                </div>
+            <!-- this is the right box -->
+            <div class="span3" id="media-content">
+                {% block media %}{% endblock %}
             </div>
         </div>
     </div>
