@@ -5,78 +5,91 @@
 
 <!-- Page content -->
 {% block content %}
-<h2>{{ crisis.name|safe }}</h2>
+    <h2>{{ crisis.name|safe }}</h2>
+    {% if humanImpact %}
+        <h4>Human Impact</h4>
+        <ul class="unstyled">
+            {% for h in humanImpact %}
+                <li>{{ h }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
-<h4>Kind</h4>{{ kind|safe }}
+    {% if economicImpact %}
+        <h4>Economic Impact</h4>
+        <ul class="unstyled">
+            {% for e in economicImpact %}
+                <li>{{ e }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
-<h4>Date and Time</h4>{{ crisis.time|safe }}, {{ crisis.date|safe }}
+    {% if resourcesNeeded %}
+        <h4>Resources Needed</h4>
+        <ul class="unstyled">
+            {% for r in resourcesNeeded %}
+                <li>{{ r }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
-{% if locations %}
-    <h4>Locations</h4>
-    <ul class="unstyled">
-        {% for l in locations %}
-            <li>{{ l }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
-{% if humanImpact %}
-    <h4>Human Impact</h4>
-    <ul class="unstyled">
-        {% for h in humanImpact %}
-            <li>{{ h }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
-{% if economicImpact %}
-    <h4>Economic Impact</h4>
-    <ul class="unstyled">
-        {% for e in economicImpact %}
-            <li>{{ e }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
-{% if resourcesNeeded %}
-    <h4>Resources Needed</h4>
-    <ul class="unstyled">
-        {% for r in resourcesNeeded %}
-            <li>{{ r }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
-{% if waysToHelp %}
-    <h4>Ways to Help</h4>
-    <ul class="unstyled">
-        {% for w in waysToHelp %}
-            <li>{{ w }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
-{% if orgs %}
-    <h4>Organizations Involved</h4>
-    <ul class="unstyled">
-        {% for o in orgs %}
-            <li><a href={% url organization o.id %}>{{ o.name }}</a></li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
-{% if peeps %}
-    <h4>People Involved</h4>
-    <ul class="unstyled">
-        {% for p in peeps %}
-            <li><a href={% url person p.id %}>{{ p.name }}</a></li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
+    {% if waysToHelp %}
+        <h4>Ways to Help</h4>
+        <ul class="unstyled">
+            {% for w in waysToHelp %}
+                <li>{{ w }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}
 
-{% block media %}
+{% block metaContent %}
+    <div class="fluid-row">
+        <div class="span6">
+            <h4>Kind</h4>{{ kind|safe }}
+        </div>
+        <div class="span6">
+            <h4>Date and Time</h4>{{ crisis.time|safe }}, {{ crisis.date|safe }}
+        </div>
+    </div>
+    <div class="fluid-row">
+        <div class="span12">
+            {% if locations %}
+                <h4>Locations</h4>
+                <ul class="unstyled">
+                    {% for l in locations %}
+                        <li>{{ l }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block involved1 %}
+    <h4>Organizations Involved</h4>
+    {% if orgs %}
+        <ul class="unstyled">
+            {% for o in orgs %}
+                <li><a href={% url organization o.id %}>{{ o.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block involved2 %}
+    <h4>People Involved</h4>
+    {% if peeps %}
+        <ul class="unstyled">
+            {% for p in peeps %}
+                <li><a href={% url person p.id %}>{{ p.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block rightBlock %}
 {% endblock %}
 
 {% block leftBox %}

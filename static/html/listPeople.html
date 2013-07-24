@@ -10,7 +10,7 @@
 	{% if people %}
 		<ul class="unstyled">
 			{% for p in people %}
-                <li><a href="{% url organization p.id|safe %}">{{ p.name|safe }}</a>
+                <li><a href="{% url person p.id|safe %}">{{ p.name|safe }}</a>
 			{% endfor %}
 		</ul>
 	{% endif %}

@@ -35,9 +35,9 @@
     .img-rounded {
         padding-top: 2px;
         padding-bottom: 2px;
-        max-width: 300px;
         height: auto;
-        max-height: 500px;
+        max-width: 500px;
+        max-height: 300px;
         border-radius: 5px;
     }
 
@@ -50,15 +50,32 @@
     .form-actions {
         background-color: #eeeeee;
     }
-    
+    .carousel-inner>.item>img {
+        margin: 0 auto;
+        height: 320px;
+        border-radius: 10px;
+    }
+
     #content {
-        min-height: 500px;
+        /*min-height: 500px;*/
         background-color: #eeeeee;
         padding-left: 15px;
         padding-right: 15px;
         padding-top: 5px;
         padding-bottom: 10px;
         border-radius: 5px;
+        box-shadow: -0px 0px 15px 15px #999999;
+    }
+
+    hr {
+        border-width: 1px;
+        border-color: #A0A0A0;
+    }
+
+    .left-column {
+        margin-right: -1px;
+        border-right: 1px solid #A0A0A0;
+        padding-right: 10px;
     }
 
     #right-box {
@@ -68,11 +85,11 @@
         padding-top: 5px;
         padding-bottom: 10px;
         border-radius: 5px;
-        min-height: 500px;
+        /*min-height: 500px;*/
     }
 
     #left-box {
-        min-height: 500px;
+        /*min-height: 500px;*/
         background-color: #eeeeee;
         padding-left: 15px;
         padding-right: 15px;
@@ -160,7 +177,7 @@
                 </li>
                 <a class="btn pull-right" href="{% url crisis randomCrisis.id|safe %}"> Feeling Sympathetic </a>
             </ul>
-            <form class="navbar-search pull-right" action="/search/" method="get">
+            <form class="navbar-search pull-right" action="{% url search %}" method="get">
               <input type="text" class="search-query" placeholder="Looking for something?" name="query">
             </form>
             <form class="navbar-form pull-right">
@@ -174,59 +191,100 @@
     <!-- This is our common layout -->
     <div class="container-fluid" style="padding-top: 60px;">
         <div class="row-fluid">
-            <!-- this is the left box -->
-            <div class="span3" id="left-box">
-                {% block leftBox %}{% endblock %}
-                <!-- list our pictures -->
-                {% if images %}
-                    <h4>Images</h4>
-                    <ul class="unstyled">
-                        {% for i, t in images %}
-                            <li><img src={{ i }} alt="{{ t }}" class="img-rounded"></li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-
-            </div>
-
             <!-- this is the center box -->
-            <div class="span6" id="content">
-                {% block content %}{% endblock %}
+            <div class="span6 offset3" id="content">
+                <div class="row-fluid">
+                    <div class="span6 left-column">
+                        {% block content %}{% endblock %}
+                    </div>
 
-                <!-- add our links to the bottom -->
-                {% if links %}
-                    <h4>Links:</h4>
-                    <ul class="unstyled">
-                        {% for l, t in links %}
-                            <li><a href={{ l }}>{{ t }}</a></li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
+                    <div class="span6">
 
-            </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                {% block metaContent %}{% endblock %}
+                            </div>
+                        </div>
 
-            <!-- this is the right box -->
-            <div class="span3" id="right-box">
-                <!-- list our videos -->
-                {% if videos %}
-                    <h4>Videos</h4>
-                    <ul class="unstyled">
-                        {% for v, t in videos %}
-                            <li><a href={{ v }}>{{ t }}</a></li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
+                        <!-- This presents our pictures in a carousel -->
+                        <div class="row-fluid">
+                            <div class="span12">
+                                {% if images %}
+                                    <!-- carousel our pictures -->
+                                    <div id="myCarousel" class="carousel slide">
+                                        <div class="carousel-inner">
+                                            <div class="active item"><img src={{ images.0.0 }} alt="{{ images.0.1 }}"></div>
+                                            {% for i, t in images|slice:"1:" %}
+                                                <div class="item"><img src={{ i }} alt="{{ t }}"></div>
+                                            {% endfor %}
+                                        </div>
+                                        <!-- Carousel nav buttons -->
+                                        <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                                        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
 
-                <!-- list our maps -->
-                {% if maps %}
-                    <h4>Maps</h4>
-                    <ul class="unstyled">
-                        {% for m, t in maps %}
-                            <li><a href={{ m }}>{{ t }}</a></li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-                {% block media %}{% endblock %}
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div class="table">
+                                    <!-- list our videos -->
+                                    {% if videos %}
+                                        <h4>Videos</h4>
+                                        <ul class="unstyled">
+                                            {% for v, t in videos %}
+                                                <li>
+                                                    <a href={{ v }}>{{ t }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div class="table">
+                                    <!-- list our maps -->
+                                    {% if maps %}
+                                        <h4>Maps</h4>
+                                        <ul class="unstyled">
+                                            {% for m, t in maps %}
+                                                <li><a href={{ m }}>{{ t }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                    <hr>
+                    <div class="row-fluid">
+                        <div class="span4 left-column">
+                            {% block involved1 %}{% endblock %}
+                        </div>
+                        <div class="span4 left-column">
+                            {% block involved2 %}{% endblock %}
+                        </div>
+
+                        <!-- add our links to the bottom -->
+                        <div class="span4">
+                            <h4>Links:</h4>
+                                {% if links %}
+                                <ul class="unstyled">
+                                    {% for l, t in links %}
+                                        <li><a href={{ l }}>{{ t }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
             </div>
         </div>
     </div>

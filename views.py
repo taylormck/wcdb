@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response
 from django.template import Context, RequestContext, Template, loader
 from django.forms.models import model_to_dict # convert model to dict
 from django.db.models.base import ObjectDoesNotExist
+from django.core.servers.basehttp import FileWrapper
 
 import crises.models as cm
 
@@ -13,6 +14,7 @@ import scripts.importScript as IMP
 import scripts.export as EXP
 import xml.etree.ElementTree as ET
 from xml.dom.minidom import parseString
+from xml.dom import minidom
 from django.shortcuts import render
 from models import CreateUser
 
@@ -206,10 +208,15 @@ def html_decode(s):
     
 def exportScript(request):
     rawXML = ET.tostring(EXP.exportXML())
-    t = loader.get_template("export.xml")
-    information = dict({"XML" : rawXML}, **getDropdownContext())
-    c = RequestContext(request, information)
-    return HttpResponse(html_decode(t.render(c)), content_type="text/xml")
+
+    export = StringIO.StringIO(parseString(rawXML).toprettyxml())
+
+    contentType = "text/wcdb1"
+    
+    response = HttpResponse(FileWrapper(export), content_type=contentType)
+    response['Content-Disposition'] = 'attachment; filename=export.xml'
+    
+    return response
 
 def person1(request):
     t = loader.get_template("person1.html")
@@ -365,9 +372,13 @@ def unittest(request):
     copyout = sys.stdout
     sys.stdout = text
     
-    print "TestWCDB1.py"
-    print subprocess.check_output(["python", "manage.py", "test"], stderr=subprocess.STDOUT)
-    print "Done."
+    try:
+        print "TestWCDB1.py"
+        print subprocess.check_output(["python", "manage.py", "test"], stderr=subprocess.STDOUT)
+        print "Done."
+    except subprocess.CalledProcessError as e:
+        print e.output
+        print "Done."
     
     
     addToContext = {
