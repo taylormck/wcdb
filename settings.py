@@ -16,7 +16,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-
+# TODO delete me
 
 DATABASES = {
     'default': {
