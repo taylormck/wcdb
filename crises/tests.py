@@ -323,8 +323,6 @@ class TestExportScript(TestCase):
                     assert(valToUse.attrib["embed"] == valB.attrib["embed"])
                 if "text" in valToUse.attrib:
                     assert(valToUse.attrib["text"] == valB.attrib["text"])
-                if valToUse.text is not None and valToUse.text.strip() != "":
-                    assert(valToUse.text == valB.text)
                 
                 
         """
