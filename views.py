@@ -23,14 +23,18 @@ import subprocess
 import StringIO
 import os
 
+def getRandomCrisisID():
+    allCrises = cm.Crisis.objects.order_by('?').all()
+    #allCrises.objects.order_by('?')
+    return {'randomCrisis': allCrises[0]}
 
 # Returns a dictionary context for the navbar
 def getDropdownContext():
-    return {
+    return dict({
         'dcrises' : cm.Crisis.objects.order_by('-date', '-time')[:10],
         'dorganizations' : cm.Organization.objects.order_by('name')[:10],
-        'dpeople' : cm.Person.objects.order_by('name')[:10]
-    }
+        'dpeople' : cm.Person.objects.order_by('name')[:10],
+    }, **getRandomCrisisID())
 
 # Helper functions to get tables as context
 def getCrises():

@@ -175,6 +175,7 @@
                 <li>
                     <a href="{% url createuser %}">Create User</a>
                 </li>
+                <a class="btn pull-right" href="{% url crisis randomCrisis.id|safe %}"> Feeling Sympathetic </a>
             </ul>
             <form class="navbar-search pull-right" action="{% url search %}" method="get">
               <input type="text" class="search-query" placeholder="Looking for something?" name="query">
