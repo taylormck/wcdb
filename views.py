@@ -205,11 +205,15 @@ def html_decode(s):
     for code in htmlCodes:
         s = s.replace(code[1], code[0])
     return s
+
+def prettyXML(rawXML):
+    jacked =  minidom.parseString(rawXML).toprettyxml()
+    return '\n'.join(l for l in jacked.split('\n') if l.strip())
     
 def exportScript(request):
     rawXML = ET.tostring(EXP.exportXML())
 
-    export = StringIO.StringIO(parseString(rawXML).toprettyxml())
+    export = StringIO.StringIO(prettyXML(rawXML))
 
     contentType = "text/wcdb1"
     
