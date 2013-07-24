@@ -40,9 +40,9 @@ DATABASES = {
 # When testing on production server, run
 # python manage.py test production
 # and it will test on the production server
-if 'test' in sys.argv:
-    DATABASES ['default']['ENGINE'] = 'django.db.backends.sqlite3'
-    DATABASES ['default']['NAME'] = 'testdb'
+#if 'test' in sys.argv:
+#    DATABASES ['default']['ENGINE'] = 'django.db.backends.sqlite3'
+#    DATABASES ['default']['NAME'] = 'testdb'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#allowed-hosts
