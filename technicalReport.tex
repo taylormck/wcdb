@@ -277,9 +277,114 @@ In addition, a number of unit tests are added for the scripts importScript and e
 \hfill
 
 
+The page resembles IMDB in base design.
+The navigation bar displays across the top, a dark background, and a light, centered foreground.
+Most of the information to be presented shows shows in the foreground.
+The data presents itself in rows and columns laid out in the Bootstrap grid.
+As of now, all of our pages extend the base.html page,
+which details the format of our most interesting pages, the crisis, organization, and person pages.
+There are plans to create a second base, for the simpler pages, that will eliminate the exessive
+lines and link areas.
+\\
 
-\subsection*{User Accounts}
+
+\subsection*{The Navigation Bar}
 \hfill
+
+The base.html file defines the navigation bar across the top of every page.
+The navigation bar is left light colored to contrast the dark background of the site.
+The button to the very left is the home page button, and links to the index page.
+\\
+
+
+The Crisis dropdown menu presents a list of links for the user.
+The first option is a link to view a list of all crises pages in the database.
+The rest of the of links are to the 10 most recent crises objects.
+\\
+
+
+The Organization and Person dropdown menus also present a link to pages
+that display links to all corresponding entries in the database.
+Below those links are the first ten entries, currently sorted in alphabetical order.
+\\
+
+
+The navigation bar has a link to a page labelled \emph{Create User}, which links to the
+create user page.  Entering information will add the user to the database without
+admisistrative priveledges.
+\\
+
+
+The Feeling Sympathetic button will link to a random crisis page for anyone feeling sympathetic,
+but isn't sure where they would like to start helping.
+\\
+
+
+The login area has two text fields, for username and password.
+Currently, the buttons have no effect.
+Future plans are to allow the user to log in without going to another page.
+\\
+
+
+The search bar sits to the right end of the navigation bar.
+A user may type queries into the search bar, and upon pressing Enter,
+javascript will capture the text and a search url will be requested.
+Django will then search through the database for any Crisis, Organization, or Person whose name
+contains any of the search queries as a substring.
+The results will then be listed according to their type as links.
+\\
+
+
+\subsection*{The Base Page Content Box Layout}
+\hfill
+
+All pages currently extend the layout in the base.html file,
+which defines the layout of the content.
+The content box renders in the center of the page in a lighter color than the page background.
+The box has rounded corners and a ``glowing'' shadow effect.
+This gives the content a bit of flair, and draws attention to the main focus of the page.
+\\
+
+
+The layout of the page will later be adapted into two base templates,
+in order to accomodate for two types of pages.
+As of now, there is only one base, so the second type of pages will look unfinished,
+and should be updated before release.
+The first layout pages consist of the Crisis, Organization, and Person pages.
+They have plenty of content and a good organization will make them much more readable,
+giving the site a more professional look.
+The second layout pages are the index, Import, List, and Search pages.
+They are considered incomplete as of now, and will be fixed in phase 3.
+\\
+
+
+\subsubsection*{Row and Columns}
+They layout is defined recursively on the Bootstrap grid.
+Rows may be defined within columns, and columns may be defined within rows.
+The page itself is considered a column, and the first definition is of a row.
+The rows and columns may be moved depending on the size of the screen viewing the page,
+allowing users of smaller computers, tablets, and phones to have layouts as friendly as
+a desktop user.
+\\
+
+Both layouts in this site use a single outside row, with a single column named content.
+\\
+
+
+\subsubsection*{First Layout}
+The lays the main content, including summary, economic and human impact,
+ways to help, histories, and kinds on the left.
+In crisis pages, the text fields kind, date, time, and location will appear to the right.
+Images display in a carousel to the right.
+Links to videos and maps appear below the images.
+External links and links to related pages show in the bottom of the content box.
+\\
+
+
+\subsubsection*{Second Layout}
+Much simpler than the first layout, the second layout is planned to just have the content box.
+The links may be put in columns to span left and right for convenience as well.
+\\
 
 
 \newpage
@@ -300,7 +405,7 @@ This uses the
 \subsection*{Random Button}
 \hfill 
 
-Added as the \"Feeling Symphatethic Button\", this button randomnly shows an existing crisis, not organization or people. 
+Added as the Feeling Symphatethic Button, this button randomnly shows an existing crisis, not organization or people. 
 
 \newpage
 \section*{Phase 2 Goals}

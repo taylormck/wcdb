@@ -52,3 +52,6 @@ nosetests.xml
 
 # sqlite3 database
 testdb
+
+# nfs files
+.nfs*
