@@ -46,20 +46,15 @@
 
 
 It is often easy to forget the many crises occurring throughout the world.
-This site is designed to gather the data on every crisis, and present it in a simple format to keep them in the digitally logged.
-This site gathers details about victims, along with information about organizations and people involved.
+World Crisis Database is designed as a framework to effectively gather data related to recent crises. WCD then presents the crisis data, including victims, organizations, and political players involved, in a digitally logged format in an user friendly format. 
 
 \subsection*{What are the use cases?}
 \hfill
 
 
-There is increasing availability of internet access worldwide and this site makes use of this to share news regarding crises and bring help to victims.
-This site can be a good source for anyone who wants to be informed and has a desire to help. 
-This site can provide contact information for people and organizations involved.
-People who want to help can look to our site for the best ways to get involved, whether it be donating to the right charities or volunteering at a local site.
+This site makes use of worldwide internet access by bringing news regarding crises and by promoting help for victims. This site can be a effective resource for anyone who wants to be informed on current events. Furthermore, individuals who has a desire to help can easily find contact information for people and organizations involved and from there find best ways to get involved, including infomration on how to donate to the charities or volunteer at a local site.
 
 
-\newpage
 \section*{Implementation}
 \hfill
 
@@ -68,11 +63,9 @@ People who want to help can look to our site for the best ways to get involved, 
 \hfill
 
 
-Most of the code, including the \emph{importScript} and \emph{export} scripts, are done in Python.
-The website is delivered using Django and the site is designed using Twitter's Bootstrap.
-The data is stored to a MySQL server on campus.
-Most of the separate groups have already shared data,
-and our database already holds data from all of the shared groups, as well as our own.\\
+Most of the code, including the \emph{importScript} and \emph{export} scripts, is written in Python using Django web framework. The base level CSS and javascript are built off of Twitter's Bootstrap front end framework (found at the following website http://twitter.github.io/bootstrap/). The framework provides templates for buttons, navbars, and icons along with some javascript functionality. The data is stored to a MySQL server on campus and hosted on Z at the following URL http://zweb.cs.utexas.edu/users/cs373/benbb/.
+
+Since most of the groups have already shared data, the production database already holds data most of the data including our own.\\
 
 \subsection*{Folder Structure}
 \hfill
@@ -108,27 +101,35 @@ wcdb/
 \hfill\\
 
 
-The root folder \emph{must} be named \emph{wcdb}.
-If downloading from Github, rename the root to wcdb.
-Inside the wcdb folder, there are three folders \emph{crises}, \emph{scripts}, and \emph{static}.\\
+The root folder, named \emph{wcdb}, must be renamed to wcdb when downloading from Github.
+Within the root folder, there are three subdirectories: \emph{crises}, \emph{scripts}, and \emph{static}.\\
 
 
-The crisis folder contains the crisis application and the standard Django files,
-including \emph{models.py}, which has details about the table structure, and \emph{tests.py}, which contains
-most of our unit tests.\\
+The crisis folder contains the crisis application and the standard Django files: 
+\begin{itemize}
+\item \emph{models.py} - a detail of the table structure 
+\item \emph{tests.py} - the unit tests and single acceptance as a catch for any bugs in the program.
+\end{itemize}
 
 
 The scripts folder contains the scripts \emph{importScript} and \emph{export}.
-The importScript is named to avoid conflicts with the Python keyword.
-The script export will likely be renamed to a similar convention soon.\\
+The deviation in convention to importScript is to avoid conflicts with the Python keyword import.
+In phase 3, both scripts \emph{export} will be renamed to importXML and exportXML in order to have a similar 
+convention and more appropriately describe their function.\\
 
 
-Inside the static folder, there are the folders \emph{css}, \emph{html}, \emph{img}, \emph{js}, \emph{templates}, and \emph{xml}.
+Inside the static folder, there are the following folders: \emph{css}, \emph{html}, \emph{img}, \emph{js}, \emph{templates}, and \emph{xml}.
 The css folder contains the CSS files associated with Twitter's Bootstrap.\\
 
 
-The js folder holds javascript files from Twitter's Bootstrap.
-This javascript animates our navigation sidebar, highlighting the row when a link is hovered over.
+The js folder holds javascript files from Twitter's Bootstrap. Twitter's Bootstrap has provided the following functionality to the website:
+\begin{itemize}
+\item animating the navbar down along with drop menu for each item when clicked
+\item capturing text for searches
+\item highlighting the row when a link is hovered over
+\item providing a image  carousel for each crisis 
+\end{itemize}
+
 The templates folder holds just a single HTML file for now that is not in use.
 Later, this folder will be used to hold templated HTML data that will be used recurringly throughout the site.
 The xml folder currently holds several XML that were temporarily used during development.
@@ -143,10 +144,7 @@ The other pages, excluding \emph{export.html} and \emph{export.xml} all extend b
 When Django is rendering a page, it will start by rendering data from the page it extends.
 Since all of our pages extend base.html, all of our pages use the html found there.
 When Django is filling in content from base.html and encouters a block,
-it will fill in this block with data from the page it was first passed.
-The \emph{crisis}, \emph{organization}, and \emph{person} pages are our static pages.
-They hold information that will be filled into the template by Django.
-The static pages are still being delivered by Django.\\
+it will fill in this block with data from the page it was first passed.\\
 
 \newpage
 \subsection*{Data Model}
@@ -165,40 +163,69 @@ Figure 2. A diagram of our data model % note under the picture
 \end{wrapfigure}
 \normalsize
 
-The core of our data model starts with the tables \emph{Crisis}, \emph{Organizations}, \emph{Person}.
-All three tables have a many to many relation between each other.
-There is a \emph{Common} table to hold data that all three models share.
-Crisis, Organizations, and Person can have 0 or 1 Common objects.
+The core data model starts with the tables following tables: \emph{Crisis}, \emph{Organization}, \emph{Person}.
+All three tables are connected via a many-to-many relationship between with a \emph{Common} table to hold data that all three models share.
+In the common table, Crisis, Organization, and Person can have 0 or 1 Common objects.
 There is an abstract model, \emph{AbstractListType}.
 The database will never write an AbstractListType, but abstract types are useful when scripting.
 The types \emph{CommonListType} and \emph{CrisisListType} both inherit from AbstractListType.
 CrisisListType will hold data for Crisis objects, and CommonListType will hold data for Common.
 
 
-\subsection*{Import}
+\subsection*{XML Importation}
 \hfill
 
 
-Import is implemented as a Python script, in the scripts folder.
-It is named importScript.py to avoid naming conflits with the Python keyword.
-It reads in an XML file as input, parse the information, and stores the applicable data into the database for future viewing.
-The XML file must conform to the schema.
-Otherwise, no data will be imported.
-Import is password protected, and only site administrators may run this script.
-Running import is done on the website.
-There is a link in the navbar that reads Import.
-From this page, an administrator may select a file and upload the information.
-For test use, the password is ¨\textbf{downing}¨, without the quotes.
-The cookie will expire five minutes after logging in or immediately after closing the browser.
+The XML importation functionality is implemented as a Python script named \emph{importScript.py} and is located in the \emph{scripts} folder.
+The file name was chosen specifically to avoid conflicts with Python's import keyword.
+It reads in an XML file as input, parses the information, and stores the applicable data into the database using Django's model system.\\
+
+The XML importation functionality is on a page on the website.
+This page is only accessible to site adminstraitors and those with sufficient privileges.
+A link to the page itself is found under the Adminstrative drop down menu, and is labeled ``Import''
+From the page, an administrator may select a file and upload the information.
+This file must conform to the schema as described in \emph{WorldCrisis.xsd.xml}; importation will fail otherwise.
+Any XML containing \emph{Document Type Definitions} (DTD) is rejected as a security risk.\\
+
+For testing purposes the password to gain access to the XML import functionality is currently \textbf{downing}.
+Users retain permissions to access the page through a cookie.
+This cookie will expire five minutes after logging in or immediately after closing the browser.\\
+
+\subsubsection*{\emph{Detailed Look}}
+\begin{description}
+    \item[validateXML] \hfill \\
+        This function is what parseXML uses to validate the XML.
+        It uses minixsv to validate the XML given in the parameter and returns false if an error is thrown.
+        The XML Schema used \textbf{must} be in the same folder as the script, and must be named ``WorldCrisis.xsd.xml''.
+        This function will not work otherwise.\\
+    \item[parseXML] \hfill \\
+        Parses the file given in the parameter and returns an \emph{xml.etree.ElementTree} Object.\\
+    \item[xmlToModels] \hfill \\
+        Converts an \emph{xml.etree.ElementTree} to Django database models, as well as stores them in the database.
+        The database must be properly configured for this function to properly store and create the models.\\\\
+        \emph{link\_up\_dict} -
+            The keys for this dictionary are always strings whose contents are the IDs of either crises or organizations.
+            The corresponding value for any given key is a list of IDs from crises, persons or organizations that reference the key.\\\\
+        \emph{reference\_dict} - 
+            The keys for this dictionary are the IDs of crises, persons or organizations stored as strings.
+            The value for the key is the model the ID references.\\\\
+    \item[addReferences] \hfill \\
+        Fills \emph{link\_up\_dict} as outlined in \textbf{xmlToModels}.\\
 
 
-\subsection*{Export}
+    \item[linkUpModels] \hfill \\
+        Associates the models stored in \emph{reference\_dict} with the models in \emph{link\_up\_dict} and writes them to the database.
+\end{description}
+
+
+\subsection*{XML Exportation}
 \hfill
 
 
 Export is implemented as a Python script in the scripts folder.
 (It is named export.py, although it will be renamed during a later stage to be consistent with importScript.py.)
 Export the data stored in the database and writes it into a new XML file conforming to the schema.
+The user is prompted to download the XML file automatically. 
 As export does not require administrator access, any user can export this database by clicking the Export link from the navigation bar.
 
 
@@ -215,9 +242,9 @@ The latest version of the schema can be found at this url.\\
 https://github.com/aaronj1335/cs373-wcdb1-schema/blob/master/WorldCrises.xsd.xml\\
 
 
-The entire XML file is wrapped in a \emph{WorldCrisis} object.
+Theentire XML file is wrapped in a \emph{WorldCrisis} object.
 Within the WorldCrisis object, there are one or many \emph{Crisis}, \emph{Organization}, and \emph{Person} elements.
-Each of those elements have uniquely typed key types, named \emph{CrisisKey}, \emph{OrgKey}, and \emph{PersonKey}.
+Each of those elements have type key types, named \emph{CrisisKey}, \emph{OrgKey}, and \emph{PersonKey}.
 There are wrappers for containers of these objects that can contain a list,
 i.e., a Crises container for multiple Crisis objects, etc.
 Furthermore, there are type definitions for each type: \emph{CrisisType}, \emph{PersonType}, \emph{OrgType}.\\
@@ -233,9 +260,9 @@ There is a \emph{ListType} definition that contains a list of XML tokens to faci
 
 
 Testing is done using tools provided by Django and unittest.
-To run the tests, run the command \textbf{python manage.py test}.
-This command will run the unit tests using SQLite3 to take advantage of faster unit testing.
-MySQL should be used for testing in later phases of development to ensure the code is running properly on our production environment.
+To run the tests, run the command \textbf{python manage.py test}, which will run the unit tests using MySQL.
+Initial test used SQLite. Since MySQL is used in production, all tests have been shifted to this database platform in order to ensure the code 
+is running properly on our production environment.
 The ideal solution is to create two testing environments: one that runs unit tests on SQLite3 for performance purposes,
 the second runs tests on MySQL before pushing.
 This allows us to run quick unit tests while working and ensure the site works on our production environment.
@@ -243,33 +270,76 @@ This allows us to run quick unit tests while working and ensure the site works o
 
 Django extends the standard unittesting framework, providing several hundred tests against the back end.
 In addition, a number of unit tests are added for the scripts importScript and export.
-There are plans to implement further testing for each view.
-As the site only shows static pages, the views can be checked manually.
 
 
 \newpage
-\section*{Future Goals}
+\section*{Page Design}
 \hfill
 
 
-Our primary future goal is to get the site presenting data from the database dynamically.
-Our site is inspired by IMBD and will have similar functionality, including the following:
+
+\subsection*{User Accounts}
+\hfill
+
+
+\newpage
+\section*{Features}
+\hfill
+
+
+\subsection*{User Accounts}
+\hfill
+
+To gain access to the WCD website without admin access, there is a create user page where potential users sign up to the WCD website. Those that signup to webpage via this portal will be given access to view all crises, organizations, and people enterred in database. Admin privileges are defaulted to false, which gives all site functionality except for allowing non admins to import XML in to the database. For those who may need admin privileges, accounts can be manually updated outside of the create users page. 
+
+\subsection*{Search}
+\hfill
+
+This uses the
+
+\subsection*{Random Button}
+\hfill 
+
+Added as the \"Feeling Symphatethic Button\", this button randomnly shows an existing crisis, not organization or people. 
+
+\newpage
+\section*{Phase 2 Goals}
+\hfill
+
+
+The primary future goal for phase 2 was to get the site presenting data from the database dynamically. This has been completed.\\ 
+
+
+Also at the end of Phase 1, the site has been modeled after IMBD website with emphasis on adding the specific functionality found in the site. The following list below details the the specifications and their status into into the WCD website functionality:
 \begin{itemize}
-\item Each page should have a gallery for its related images
-\item A search page, where users can search for any key
-\item Organize pages by filters, like date and location
-\item A short list of recent events on the home page based on how kind they are
-\item Improve the display of data, including charts and graphs
+\item Each page should have a gallery for its related images (completed)
+\item A search page, where users can search for any key (completed)
+\item Organize pages by filters, like date and location (phase 3 issue)
+\item A short list of recent events on the home page based on how \"kind\" they are (a measure for total impact) (phase 3 issue)
+\item Improve the display of data, including charts and graphs (phase 3 issue)
 \end{itemize}
 
 \hfill \newline
 Some other desired features:
 \begin{itemize}
-\item A  "Kindness Slider", where users can vote and rate organizations and people
+\item A Kindness Slider, where users can vote and rate organizations and people
 \item A proper logo for our team and site
 \item A random crisis action, to show people random crises
 \item A ¨sympathy button¨ for crises
 \item User profiles
+\end{itemize}
+
+
+\newpage
+\section*{Phase 3 Goals}
+\hfill
+
+Under Phase 3, we plan to add the following goals:
+\begin{itemize}
+\item Construct SQL queries to submit to Piazza
+\item Improve randomize button to pull from non-crises
+\item Coordinate with other teams to get XML data into a single db
+\item Generate cd 
 \end{itemize}
 
 
