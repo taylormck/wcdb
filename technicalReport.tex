@@ -1,5 +1,6 @@
 \documentclass[12pt]{report}
 
+\usepackage{comment}
 \usepackage{graphicx} % for pictures
 \usepackage{wrapfig} % for wrapping text around figures
 
@@ -222,11 +223,30 @@ This cookie will expire five minutes after logging in or immediately after closi
 \hfill
 
 
-Export is implemented as a Python script in the scripts folder.
-(It is named export.py, although it will be renamed during a later stage to be consistent with importScript.py.)
-Export the data stored in the database and writes it into a new XML file conforming to the schema.
-The user is prompted to download the XML file automatically. 
-As export does not require administrator access, any user can export this database by clicking the Export link from the navigation bar.
+As with the importation functionality, the XML exportation functionality is implemented as a Python script in the \emph{scripts} folder and is named \emph{export.py}.
+The script pulls the data stored in the database and then writes it to a new XML file using \emph{xml.dom.minidom}.
+The user is then prompted to download the file.\\
+
+This file should always validate against the schema outlined in the Design section.
+Currently, the user must manually verify that the file generated validates.
+This will be fixed in subsequent versions of the website.\\
+
+Export does not require administrator access.
+Any user can export this database by clicking the Export link from the navigation bar.\\\\
+
+\subsubsection*{\emph{Detailed Look}}
+\begin{description}
+    \item[exportXML] \hfill \\
+        This function is what is run from \emph{views.py} to generate the XML.
+        It calls the various \emph{parse} functions found in \emph{export.py} to pull data from the database.
+        It returns an \emph{xml.etree.ElementTree} node with the tag ``WorldCrises''.\\\\\\\\
+        
+    \item[get\_all\_elements] \hfill \\
+        This function is essentially the inverse of linkUpModels from above.
+        It pulls the relevant data from the database, using the parameters specified.
+        It then creates XML nodes containing the IDs of all objects related to it.
+        Finally, it adds those XML nodes to the parent node passed in as \emph{parent}.\\
+\end{description}
 
 
 \newpage
@@ -396,12 +416,12 @@ The links may be put in columns to span left and right for convenience as well.
 \hfill
 
 To gain access to the WCD website without admin access, there is a create user page where potential users sign up to the WCD website. Those that signup to webpage via this portal will be given access to view all crises, organizations, and people enterred in database. Admin privileges are defaulted to false, which gives all site functionality except for allowing non admins to import XML in to the database. For those who may need admin privileges, accounts can be manually updated outside of the create users page. 
-
+\begin{comment}
 \subsection*{Search}
 \hfill
 
 This uses the
-
+\end{comment}
 \subsection*{Random Button}
 \hfill 
 
