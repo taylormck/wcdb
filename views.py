@@ -10,8 +10,8 @@ import crises.models as cm
 
 from django.contrib.auth.models import User
 from password_required.decorators import password_required
-import scripts.importScript as IMP
-import scripts.export as EXP
+import scripts.importXML as IMP
+import scripts.exportXML as EXP
 import xml.etree.ElementTree as ET
 from xml.dom.minidom import parseString
 from xml.dom import minidom
