@@ -153,6 +153,7 @@ INSTALLED_APPS = (
     'wcdb',
     'crises',
     'password_required',
+    'crispy_forms',
     )
     
 PASSWORD_REQUIRED_PASSWORD = 'downing'

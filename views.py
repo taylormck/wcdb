@@ -16,7 +16,7 @@ import xml.etree.ElementTree as ET
 from xml.dom.minidom import parseString
 from xml.dom import minidom
 from django.shortcuts import render
-from models import CreateUser
+from models import *
 
 import sys
 import subprocess
@@ -313,7 +313,8 @@ def person(request, person_id):
         return HttpResponse(t.render(c))
     except ObjectDoesNotExist:
         return fourohfour(request)
-      
+        
+#creating a user page
 def createuser(request):
      t = loader.get_template("index.html")
      if request.method == 'POST': # If the form has been submitted...
@@ -340,6 +341,21 @@ def createuser(request):
      return render(request,
                    'createUser.html',
                    dict({'form': form,}, **getDropdownContext()))
+     
+#logining in a user
+def login(request):
+  t = loader.get_template("index.html")
+  if request.method == 'POST':
+    form = Login(request.POST)
+    if form.is_valid():
+      username = form.cleaned_data['username']
+      password = form.cleaned_data['password']
+      c = RequestContext(request, getDropdownContext())
+      return HttpResponse(t.render(c)) # Redirect after POST
+  else:
+    form = Login() #unbound form
+    
+  return render(request, 'Login.html', dict({'form': form,}, **getDropdownContext()))
 
 # Our four oh four page
 def fourohfour(request):
