@@ -24,6 +24,9 @@ NIFCrisis = """
         <Kind>Natural Disaster</Kind>
         <Date>2013-06-14</Date>
         <Time>09:00:00</Time>
+        <HumanImpact>
+            <li>STUFF</li>
+        </HumanImpact>
         <Common>
             <Citations>
                 <li>The Hindustan Times</li>
@@ -37,7 +40,7 @@ NIFCrisis = """
                 <li embed="http://timesofindia.indiatimes.com/photo/15357310.cms"/>
             </Images>
             <Videos>
-                <li embed="//www.youtube.com/embed/qV3s7Sa6B6w"/>
+                <li embed="http://www.youtube.com/embed/qV3s7Sa6B6w"/>
             </Videos>
             <Maps>
                 <li embed="[fake]"/>
@@ -83,6 +86,7 @@ TestFile = "<WorldCrises>"+"\n"+ NIFCrisis +"\n"+ JEHPerson+"\n" +CFFOrg +"\n" +
 
 class TestImportScript(TestCase):
     # TODO must make sure to make proper XML strings for these
+
     def test_parsevalidate_01(TestCase):
         assert validateXML(TestFile)
         
@@ -211,19 +215,52 @@ class TestImportScript(TestCase):
         except ObjectDoesNotExist:
             pass
             
-    def test_importMerge_01(TestCase):
-        testElement = et.fromstring(JEHPerson)
+            
+    def test_importMerge_01_DoNotUpdate(TestCase):
+        setMerge(True)
+        testElement = et.fromstring(NIFCrisis)
         
-        parsePerson(testElement)
-        testPer = parsePerson(testElement)
+        parseCrisis(testElement)
+        testCri = parseCrisis(testElement)       
+        setMerge(False)
+        assert cm.CommonListType.objects.count() == 8
         
         
     
-    def test_importMerge_02(TestCase):
-        pass
+    def test_importMerge_02_AddNew(TestCase):
+        setMerge(True)
+        testElement = et.fromstring(NIFCrisis)
+        
+
+        parseCrisis(testElement)
+        
+        
+        elementT = et.Element("li")
+        elementT.attrib["href"] = "LOL NO"
+        testElement.find("Common").find("Maps").append(elementT)
+        
+
+        testCri = parseCrisis(testElement)       
+        setMerge(False)
+        
+        assert cm.CommonListType.objects.count() == 9
+        
     
-    def test_importMerge_03(TestCase):
-        pass
+    def test_importMerge_03_MergeOff(TestCase):
+        setMerge(False)
+        testElement = et.fromstring(NIFCrisis)
+        
+
+        parseCrisis(testElement)
+        
+        elementT = et.Element("li")
+        elementT.attrib["href"] = "LOL NO"
+        testElement.find("Common").find("Maps").append(elementT)
+        
+        testCri = parseCrisis(testElement)
+        
+        assert cm.CommonListType.objects.count() == 8
+
 
 
 class TestExportScript(TestCase):

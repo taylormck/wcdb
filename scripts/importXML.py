@@ -51,6 +51,16 @@ def parseXML(file_chosen):
         raise BadXMLException("Parse Failed")
         
 changes = False
+_merge = False
+
+def setMerge(val):
+    oldMerge = _merge
+    global _merge
+    if val:
+        _merge = True
+    else:
+        _merge = False
+    return oldMerge
 
 def xmlToModels(eleTree):
     global changes
@@ -92,11 +102,12 @@ def parseGeneric(nodes,parseFunction,ref,lud):
 # ===================================
 
 def parseCrisis(crisis):
-    try:
-        return info.Crisis.objects.get(id=crisis.attrib["ID"])
-    except ObjectDoesNotExist:
-        global changes
-        changes = True
+    if not _merge:
+        try:
+            return info.Crisis.objects.get(id=crisis.attrib["ID"])
+        except ObjectDoesNotExist:
+            global changes
+            changes = True
         
     #Add all the basic info
     newCrisis = info.Crisis(id=crisis.attrib["ID"], name=crisis.attrib["Name"])
@@ -169,9 +180,19 @@ def parseOrganization(organization):
 def parseCommon(common, parentModel):
     if common is None:
         return
+
+    try:
+        if type(parentModel) is info.Crisis:
+            filterChoice = {"crisis__id__exact" : parentModel.id}
+        elif type(parentModel) is info.Person:
+            filterChoice = {"person__id__exact" : parentModel.id}
+        else:
+            filterChoice = {"organization__id__exact" : parentModel.id}
+        container = info.Common.objects.get(**filterChoice)
+    except ObjectDoesNotExist:
+        container = info.Common()
+        container.save()
     
-    container = info.Common()
-    container.save()
     container.summary = common.find("Summary").text if common.find("Summary") is not None else ""
     
     listElemDict = {}
@@ -186,17 +207,15 @@ def parseCommon(common, parentModel):
     parentModel.common_id = container.id
     container.save()
 
-def parseListType(listType, node, parentModel):
-    _merge = True
-    
+def parseListType(listType, node, parentModel):   
     if type(parentModel) is info.Crisis:
-        listType = info.CrisisListType
+        listClass = info.CrisisListType
     elif type(parentModel) is info.Organization:
-        listType = info.OrganizationListType
+        listClass = info.OrganizationListType
     else:
-        listType = info.CommonListType
-    
-    listMember = listType()
+        listClass = info.CommonListType
+   
+    listMember = listClass()
     
     try:
         listMember.href = node.attrib["href"]
@@ -213,22 +232,25 @@ def parseListType(listType, node, parentModel):
     except KeyError:
         listMember.altText = ""
     
+    listMember.text = node.text if node.text is not None else ""  
+    
     if _merge:
-        commonObjects = listType.objects.filter(owner__exact=parentModel.id)
-        hrefMatches = commonObjects.filter(href__exact=listMember.href).count()
-        embedMatches = commonObjects.filter(embed__exact=listMember.embed).count()
+        commonObjects = listClass.objects.filter(owner__exact=parentModel.id)
+        hrefMatches = commonObjects.filter(href__contains=listMember.href).count()
+        embedMatches = commonObjects.filter(embed__contains=listMember.embed).count()
+        textMatches = commonObjects.filter(text__contains=listMember.text).count()
         obj = None
         
-        if (listMember.href != "" and hrefMatches):
-            obj = commonObjects.filter(href__exact=listMember.href)[0]
-        elif (listMember.href != "" and embedMatches):
-            obj = commonObjects.filter(embed__exact=listMember.embed)[0]
+        if (listMember.href != "" and hrefMatches > 0):
+            obj = commonObjects.filter(href__contains=listMember.href)[0]
+        elif (listMember.embed != "" and embedMatches > 0):
+            obj = commonObjects.filter(embed__contains=listMember.embed)[0]
+        elif (listMember.text != "" and textMatches > 0):
+            obj = commonObjects.filter(text__contains=listMember.text)[0]
         
         if obj is not None:
             listMember.id = obj.id
-        
-    
-    listMember.text = node.text if node.text is not None else ""    
+      
     listMember.context = listType
     listMember.owner_id = parentModel.id
     listMember.save()
