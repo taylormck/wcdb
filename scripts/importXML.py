@@ -187,12 +187,16 @@ def parseCommon(common, parentModel):
     container.save()
 
 def parseListType(listType, node, parentModel):
+    _merge = True
+    
     if type(parentModel) is info.Crisis:
-        listMember = info.CrisisListType()
+        listType = info.CrisisListType
     elif type(parentModel) is info.Organization:
-        listMember = info.OrganizationListType()
+        listType = info.OrganizationListType
     else:
-        listMember = info.CommonListType()
+        listType = info.CommonListType
+    
+    listMember = listType()
     
     try:
         listMember.href = node.attrib["href"]
@@ -208,7 +212,22 @@ def parseListType(listType, node, parentModel):
         listMember.altText = node.attrib["text"]
     except KeyError:
         listMember.altText = ""
+    
+    if _merge:
+        commonObjects = listType.objects.filter(owner__exact=common.id)
+        hrefMatches = commonObjects.filter(href__exact=listMember.href).count()
+        embedMatches = commonObjects.filter(embed__exact=listMember.embed).count()
+        obj = None
         
+        if (listMember.href != "" and hrefMatches):
+            obj = commonObjects.filter(href__exact=listMember.href)[0]
+        elif (listMember.href != "" and embedMatches):
+            obj = commonObjects.filter(embed__exact=listMember.embed)[0]
+        
+        if obj is not None:
+            listMember.id = obj.id
+        
+    
     listMember.text = node.text if node.text is not None else ""    
     listMember.context = listType
     listMember.owner_id = parentModel.id
