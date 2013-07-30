@@ -214,7 +214,7 @@ def parseListType(listType, node, parentModel):
         listMember.altText = ""
     
     if _merge:
-        commonObjects = listType.objects.filter(owner__exact=common.id)
+        commonObjects = listType.objects.filter(owner__exact=parentModel.id)
         hrefMatches = commonObjects.filter(href__exact=listMember.href).count()
         embedMatches = commonObjects.filter(embed__exact=listMember.embed).count()
         obj = None
