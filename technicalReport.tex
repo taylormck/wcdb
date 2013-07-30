@@ -47,13 +47,13 @@
 
 
 It is often easy to forget the many crises occurring throughout the world.
-World Crisis Database is designed as a framework to effectively gather data related to recent crises. WCD then presents the crisis data, including victims, organizations, and political players involved, in a digitally logged format in an user friendly format. 
+World Crisis Database is designed as a framework to effectively gather data related to recent crises. WCD then presents the crisis data, including victims, organizations, and political players involved, in a user friendly, digitally logged format. 
 
 \subsection*{What are the use cases?}
 \hfill
 
 
-This site makes use of worldwide internet access by bringing news regarding crises and by promoting help for victims. This site can be a effective resource for anyone who wants to be informed on current events. Furthermore, individuals who has a desire to help can easily find contact information for people and organizations involved and from there find best ways to get involved, including infomration on how to donate to the charities or volunteer at a local site.
+This site makes use of worldwide internet access by bringing news regarding crises and by promoting help for victims. This site can be a effective resource for anyone who wants to be informed on current events. Furthermore, individuals who have a desire to help can easily find contact information for people and organizations involved and from there find the best ways to get involved, including infomration on how to donate to the charities or volunteer at a local site.
 
 
 \section*{Implementation}
@@ -66,7 +66,7 @@ This site makes use of worldwide internet access by bringing news regarding cris
 
 Most of the code, including the \emph{importScript} and \emph{export} scripts, is written in Python using Django web framework. The base level CSS and javascript are built off of Twitter's Bootstrap front end framework (found at the following website http://twitter.github.io/bootstrap/). The framework provides templates for buttons, navbars, and icons along with some javascript functionality. The data is stored to a MySQL server on campus and hosted on Z at the following URL http://zweb.cs.utexas.edu/users/cs373/benbb/.
 
-Since most of the groups have already shared data, the production database already holds data most of the data including our own.\\
+Due to the fact that groups pooled data in Phase 1, the production database already holds most of the data including our own.\\
 
 \subsection*{Folder Structure}
 \hfill
@@ -125,15 +125,15 @@ The css folder contains the CSS files associated with Twitter's Bootstrap.\\
 
 The js folder holds javascript files from Twitter's Bootstrap. Twitter's Bootstrap has provided the following functionality to the website:
 \begin{itemize}
-\item animating the navbar down along with drop menu for each item when clicked
+\item animating the navbar, along with drop down menu, for each item when clicked
 \item capturing text for searches
 \item highlighting the row when a link is hovered over
-\item providing a image  carousel for each crisis 
+\item providing an image carousel for each crisis 
 \end{itemize}
 
 The templates folder holds just a single HTML file for now that is not in use.
 Later, this folder will be used to hold templated HTML data that will be used recurringly throughout the site.
-The xml folder currently holds several XML that were temporarily used during development.
+The xml folder currently holds several XML files that were used during development.
 The only important file is \emph{WorldCrisis.xsd.xml}.
 This file is the schema our XML data tests against in our importScript and export.\\
 
@@ -164,8 +164,8 @@ Figure 2. A diagram of our data model % note under the picture
 \end{wrapfigure}
 \normalsize
 
-The core data model starts with the tables following tables: \emph{Crisis}, \emph{Organization}, \emph{Person}.
-All three tables are connected via a many-to-many relationship between with a \emph{Common} table to hold data that all three models share.
+The core data model starts with the following tables: \emph{Crisis}, \emph{Organization}, \emph{Person}.
+All three tables are connected via a many-to-many relationships with a \emph{Common} table to hold data that all three models share.
 In the common table, Crisis, Organization, and Person can have 0 or 1 Common objects.
 There is an abstract model, \emph{AbstractListType}.
 The database will never write an AbstractListType, but abstract types are useful when scripting.
@@ -262,7 +262,7 @@ The latest version of the schema can be found at this url.\\
 https://github.com/aaronj1335/cs373-wcdb1-schema/blob/master/WorldCrises.xsd.xml\\
 
 
-Theentire XML file is wrapped in a \emph{WorldCrisis} object.
+The entire XML file is wrapped in a \emph{WorldCrisis} object.
 Within the WorldCrisis object, there are one or many \emph{Crisis}, \emph{Organization}, and \emph{Person} elements.
 Each of those elements have type key types, named \emph{CrisisKey}, \emph{OrgKey}, and \emph{PersonKey}.
 There are wrappers for containers of these objects that can contain a list,
@@ -289,7 +289,7 @@ This allows us to run quick unit tests while working and ensure the site works o
 
 
 Django extends the standard unittesting framework, providing several hundred tests against the back end.
-In addition, a number of unit tests are added for the scripts importScript and export.
+In addition, a number of unit tests are added for the scripts: importScript and export.
 
 
 \newpage
@@ -299,7 +299,7 @@ In addition, a number of unit tests are added for the scripts importScript and e
 
 The page resembles IMDB in base design.
 The navigation bar displays across the top, a dark background, and a light, centered foreground.
-Most of the information to be presented shows shows in the foreground.
+Most of the information to be presented shows in the foreground.
 The data presents itself in rows and columns laid out in the Bootstrap grid.
 As of now, all of our pages extend the base.html page,
 which details the format of our most interesting pages, the crisis, organization, and person pages.
@@ -312,7 +312,7 @@ lines and link areas.
 \hfill
 
 The base.html file defines the navigation bar across the top of every page.
-The navigation bar is left light colored to contrast the dark background of the site.
+The navigation bar is light colored to contrast the dark background of the site.
 The button to the very left is the home page button, and links to the index page.
 \\
 
@@ -392,8 +392,8 @@ Both layouts in this site use a single outside row, with a single column named c
 
 
 \subsubsection*{First Layout}
-The lays the main content, including summary, economic and human impact,
-ways to help, histories, and kinds on the left.
+The main content, including summary, economic and human impact,
+ways to help, histories, and kinds are layed out on the left.
 In crisis pages, the text fields kind, date, time, and location will appear to the right.
 Images display in a carousel to the right.
 Links to videos and maps appear below the images.
@@ -435,12 +435,12 @@ Added as the Feeling Symphatethic Button, this button randomnly shows an existin
 The primary future goal for phase 2 was to get the site presenting data from the database dynamically. This has been completed.\\ 
 
 
-Also at the end of Phase 1, the site has been modeled after IMBD website with emphasis on adding the specific functionality found in the site. The following list below details the the specifications and their status into into the WCD website functionality:
+Also at the end of Phase 1, the site has been modeled after IMBD website with emphasis on adding the specific functionality found in the site. The following list below details the the specifications and their status into the WCD website functionality:
 \begin{itemize}
 \item Each page should have a gallery for its related images (completed)
 \item A search page, where users can search for any key (completed)
 \item Organize pages by filters, like date and location (phase 3 issue)
-\item A short list of recent events on the home page based on how \"kind\" they are (a measure for total impact) (phase 3 issue)
+\item A short list of recent events on the home page based on how ``kind'' they are (a measure for total impact) (phase 3 issue)
 \item Improve the display of data, including charts and graphs (phase 3 issue)
 \end{itemize}
 
