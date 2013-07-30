@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.decorators import available_attrs
 from django.utils.http import urlquote
+from django.contrib.auth.models import User
 
 def password_required(view_func=None, redirect_field_name=REDIRECT_FIELD_NAME):
     """
@@ -13,6 +14,8 @@ def password_required(view_func=None, redirect_field_name=REDIRECT_FIELD_NAME):
     redirecting to the log-in page if necessary.
     """
     def _wrapped_view(request, *args, **kwargs):
+        if request.user.is_superuser :
+          return view_func(request, *args, **kwargs)
         if request.session.get('password_required_auth', False):
             return view_func(request, *args, **kwargs)
 

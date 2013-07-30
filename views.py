@@ -18,7 +18,7 @@ from xml.dom import minidom
 from django.shortcuts import render
 from models import *
 from crispy_forms.helper import FormHelper
-
+from django.contrib.auth import authenticate, login
 import sys
 import subprocess
 import StringIO
@@ -337,6 +337,8 @@ def createuser(request):
             if adminpass == "downing" :
               user.is_superuser = True
             user.save()
+            user = authenticate(username=username, password=password)
+            login(request, user)
             c = RequestContext(request, getDropdownContext())
             return HttpResponse(t.render(c)) # Redirect after POST
      else:
@@ -347,17 +349,17 @@ def createuser(request):
                    dict({'form': form,}, **getDropdownContext()))
      
 #logining in a user
-def login(request):
+def login_user(request):
   t = loader.get_template("index.html")
   if request.method == 'POST':
-    form = Login(request.POST)
+    form = LoginUser(request.POST)
     if form.is_valid():
       username = form.cleaned_data['username']
       password = form.cleaned_data['password']
       c = RequestContext(request, getDropdownContext())
       return HttpResponse(t.render(c)) # Redirect after POST
   else:
-    form = Login() #unbound form
+    form = LoginUser() #unbound form
     
   return render(request, 'Login.html', dict({'form': form,}, **getDropdownContext()))
 

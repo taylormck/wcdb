@@ -20,7 +20,7 @@ class CreateUser(forms.Form):
       self.helper.add_input(Submit('submit', 'Submit'))
       super(CreateUser, self).__init__(*args, **kwargs)
     
-class Login(forms.Form):
+class LoginUser(forms.Form):
     username = forms.CharField(
       label = "Username",
       max_length = 80,
@@ -38,6 +38,6 @@ class Login(forms.Form):
         self.helper.form_method = 'post'
 
         self.helper.add_input(Submit('submit', 'Submit'))
-        super(Login, self).__init__(*args, **kwargs)
+        super(LoginUser, self).__init__(*args, **kwargs)
     
 

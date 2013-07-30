@@ -9,6 +9,7 @@ from django.template import RequestContext
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from password_required.forms import AuthenticationForm
+from django.contrib.auth.models import User
 
 from wcdb.views import getDropdownContext
 
@@ -21,7 +22,9 @@ def login(request, template_name='password_required_login.html',
     redirect_to = _clean_redirect(request.REQUEST.get(redirect_field_name, ''))
 
     # If the user is already logged in, redirect him immediately.
-    if request.session.get('password_required_auth', False):
+   # if request.user.is_superuser :
+     # return HttpResponseRedirect(redirect_to)
+    if request.session.get('password_equired_auth', False):
         return HttpResponseRedirect(redirect_to)
 
     if request.method == "POST":

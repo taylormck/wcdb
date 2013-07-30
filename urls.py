@@ -38,7 +38,7 @@ urlpatterns = patterns('',
     
     # User pages for user profiles
     url(r'createuser/$', 'views.createuser', name = 'createuser'),
-    url(r'login/$', 'views.login', name = 'login'),
+    url(r'login/$', 'views.login_user', name = 'loginuser'),
 
     # Search page
     url(r'^search/$', views.search, name='search'),
