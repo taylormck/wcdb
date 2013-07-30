@@ -13,8 +13,8 @@ import xml.etree.ElementTree as et
 from django.test import TestCase
 from django.db.models.base import ObjectDoesNotExist
 import crises.models as cm
-from scripts.importScript import *
-from scripts.export import *
+from scripts.importXML import *
+from scripts.exportXML import *
 
 class Empty:
     pass
@@ -210,6 +210,20 @@ class TestImportScript(TestCase):
             assert(False)
         except ObjectDoesNotExist:
             pass
+            
+    def test_importMerge_01(TestCase):
+        testElement = et.fromstring(JEHPerson)
+        
+        parsePerson(testElement)
+        testPer = parsePerson(testElement)
+        
+        
+    
+    def test_importMerge_02(TestCase):
+        pass
+    
+    def test_importMerge_03(TestCase):
+        pass
 
 
 class TestExportScript(TestCase):
