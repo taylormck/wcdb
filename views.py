@@ -17,6 +17,7 @@ from xml.dom.minidom import parseString
 from xml.dom import minidom
 from django.shortcuts import render
 from models import *
+from crispy_forms.helper import FormHelper
 
 import sys
 import subprocess
@@ -329,9 +330,12 @@ def createuser(request):
             username = form.cleaned_data['username']
             firstname = form.cleaned_data['firstname']
             lastname = form.cleaned_data['lastname']
+            adminpass = form.cleaned_data['admin']
             user = User.objects.create_user(username, email, password)
             user.last_name = lastname
             user.first_name = firstname
+            if adminpass == "downing" :
+              user.is_superuser = True
             user.save()
             c = RequestContext(request, getDropdownContext())
             return HttpResponse(t.render(c)) # Redirect after POST
