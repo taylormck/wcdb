@@ -102,6 +102,8 @@ class TestImportScript(TestCase):
         try:
             root = parseXML(testXML)
             assert(False)
+        except AssertionError:
+            raise
         except Exception:
             pass
 
@@ -110,7 +112,8 @@ class TestImportScript(TestCase):
         root = None
         try:
             parseXML(testXML)
-            assert(False)
+        except AssertionError:
+            raise
         except Exception:
             pass
 
@@ -118,7 +121,8 @@ class TestImportScript(TestCase):
         testXML = StringIO.StringIO(TestFile)
         try:
             parseXML(testXML)
-            assert(False)
+        except AssertionError:
+            raise
         except Exception:
             pass
 
