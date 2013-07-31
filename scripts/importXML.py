@@ -7,6 +7,7 @@ import datetime
 import dateutil.parser as date
 import StringIO
 from django.db.models.base import ObjectDoesNotExist
+from django.db.models import get_app, get_models
 
 from genxmlif import GenXmlIfError
 from minixsv import pyxsval 
@@ -51,7 +52,7 @@ def parseXML(file_chosen):
         raise BadXMLException("Parse Failed")
         
 changes = False
-_merge = False
+_merge = True
 
 def setMerge(val):
     global _merge
@@ -69,7 +70,6 @@ def xmlToModels(eleTree):
     
     #If we're not merging, then we're doing a total overwrite.
     if not _merge:
-        print "Is this running?"
         deleteData()
     
     link_up_dict = {}
@@ -294,9 +294,13 @@ def linkUpModels(references, links):
         model.save()
         
 def deleteData():
-    print  models.get_models()
-    print "OKAY?!"
+    app = get_app("crises")
+    for model in get_models(app):
+        for obj in model.objects.all():
+                obj.delete()
+    
 #Unused below
+"""
 def deleteData(obj):
     if type(obj) is info.Crisis:
         deleteCrisisData(obj)
@@ -306,7 +310,7 @@ def deleteData(obj):
         deleteOrganizationData(obj)
     elif type(obj) is info.Common:
         deleteCommon(obj)
-    
+"""  
 def deleteCrisisData(crisis):
     pass
 

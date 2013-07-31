@@ -83,6 +83,7 @@ JEHPerson = """
 """
 
 TestFile = "<WorldCrises>"+"\n"+ NIFCrisis +"\n"+ JEHPerson+"\n" +CFFOrg +"\n" + "</WorldCrises>"
+TestFile2 = "<WorldCrises>"+"\n"+ NIFCrisis +"\n" + "</WorldCrises>"
 
 class TestImportScript(TestCase):
     # TODO must make sure to make proper XML strings for these
@@ -118,9 +119,10 @@ class TestImportScript(TestCase):
             pass
 
     def test_parseXML_03(TestCase):
-        testXML = StringIO.StringIO(TestFile)
+        testXML = StringIO.StringIO(TestFile+"e")
         try:
             parseXML(testXML)
+            assert False
         except AssertionError:
             raise
         except Exception:
@@ -250,20 +252,35 @@ class TestImportScript(TestCase):
         assert cm.CommonListType.objects.count() == 9
         
     
-    def test_importMerge_03_MergeOff(TestCase):
-        setMerge(False)
+    def test_deleteData(TestCase):
         testElement = et.fromstring(NIFCrisis)
-        
-
         parseCrisis(testElement)
+        deleteData()
+        assert cm.Crisis.objects.count() == 0
+        assert cm.Common.objects.count() == 0
+        assert cm.CrisisListType.objects.count() == 0
         
-        elementT = et.Element("li")
-        elementT.attrib["href"] = "LOL NO"
-        testElement.find("Common").find("Maps").append(elementT)
+    def test_deleteData_MoreData(TestCase):
+        testXML = StringIO.StringIO(TestFile)
+        parse = parseXML(testXML)
+        root = et.fromstring(TestFile)
+        xmlToModels(parse)
         
-        testCri = parseCrisis(testElement)
+        app = get_app("crises")
         
-        assert cm.CommonListType.objects.count() == 8
+        for model in get_models(app):
+            try:
+                assert model.objects.count() > 0
+            except AssertionError:
+                raise Exception(model.__name__ + " failed the assertion")
+                
+        deleteData()
+
+        for model in get_models(app):
+            try:
+                assert model.objects.count() == 0
+            except AssertionError:
+                raise Exception(model.__name__ + " failed the assertion")
 
 
 
@@ -325,6 +342,7 @@ class TestExportScript(TestCase):
         
     
     def test_everything(TestCase):
+        setMerge(True)
         testXML = StringIO.StringIO(TestFile)
         
         parse = parseXML(testXML)
