@@ -272,7 +272,7 @@ class TestImportScript(TestCase):
             try:
                 assert model.objects.count() > 0
             except AssertionError:
-                raise Exception(model.__name__ + " failed the assertion")
+                raise Exception("Model " + model.__name__ + " failed the assertion")
                 
         deleteData()
 
@@ -280,7 +280,7 @@ class TestImportScript(TestCase):
             try:
                 assert model.objects.count() == 0
             except AssertionError:
-                raise Exception(model.__name__ + " failed the assertion")
+                raise Exception("Model " + model.__name__ + " failed the assertion")
 
 
 
