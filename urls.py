@@ -12,19 +12,6 @@ urlpatterns = patterns('',
     # TODO do something with the index page to make it more interesting
     url(r'^$', 'views.index', name='index'),
 
-    # Static pages
-    # TODO I'm leaving these for now so we can look at them,
-    # but they should be deleted eventually
-    url(r'crisis1/$', 'views.crisis1', name='crisis1'),
-    url(r'crisis2/$', 'views.crisis2', name='crisis2'),
-    url(r'crisis3/$', 'views.crisis3', name='crisis3'),
-    url(r'person1/$', 'views.person1', name='person1'),
-    url(r'person2/$', 'views.person2', name='person2'),
-    url(r'person3/$', 'views.person3', name='person3'),
-    url(r'organization1/$', 'views.organization1', name='organization1'),
-    url(r'organization2/$', 'views.organization2', name='organization2'),
-    url(r'organization3/$', 'views.organization3', name='organization3'),
-    
     # List pages,
     url(r'^crisis/$', views.listCrises, name='listCrises'),
     url(r'^organization/$', views.listOrganizations, name='listOrganizations'),
@@ -35,22 +22,25 @@ urlpatterns = patterns('',
     url(r'^crisis/(\w*)/$', views.crisis, name='crisis'),
     url(r'^organization/(\w*)/$', views.organization, name='organization'),
     url(r'^person/(\w*)/$', views.person, name='person'),
-    
+
     # Login page for user profiles
     url(r'loginpage/$', 'views.createuser', name = 'createuser'),
 
     # Search page
     url(r'^search/$', views.search, name='search'),
-    
+
     # Import/Export pages
     url(r'^import/$', 'views.importScript', name='importScript'),
     url(r'^export/$', 'views.exportScript', name='exportScript'),
 
     # Test page
     url(r'^test/$', 'views.unittest', name='unittest'),
-    
+
     # Log in page before import
     url(r'^password_required/$', 'password_required.views.login'),
+
+    # About us page
+    url(r'^about/$', 'views.about', name='about'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

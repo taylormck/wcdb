@@ -168,6 +168,11 @@ def getPersonContext(person_id):
 class Empty():
     pass
 
+def about(request):
+    t = loader.get_template("about.html")
+    c = RequestContext(request, getDropdownContext())
+    return HttpResponse(t.render(c))
+
 def index(request):
     t = loader.get_template("index.html")
     c = RequestContext(request, getDropdownContext())
