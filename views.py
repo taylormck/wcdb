@@ -31,8 +31,8 @@ def getRandomCrisisID():
 def getDropdownContext():
     return dict({
         'dcrises' : cm.Crisis.objects.order_by('-date', '-time')[:10],
-        'dorganizations' : cm.Organization.objects.order_by('name')[:10],
-        'dpeople' : cm.Person.objects.order_by('name')[:10],
+        'dorganizations' : cm.Organization.objects.order_by('?')[:10],
+        'dpeople' : cm.Person.objects.order_by('?')[:10],
     }, **getRandomCrisisID())
 
 # Helper functions to get tables as context
