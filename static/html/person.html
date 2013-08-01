@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'contentBase.html' %}
 
 <!-- Page title -->
 {% block title %}{{ name|safe }}{% endblock %}
 
 <!-- Page content -->
-{% block content %}      
+{% block content %}
 <h2>{{ name|safe }}</h2>
 
 <h4>Kind</h4>{{ kind|safe }}
