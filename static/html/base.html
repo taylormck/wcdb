@@ -5,6 +5,10 @@
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.css"/>
 
+    <!-- Google font css -->
+    <link href="http://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet" type="text/css">
+
     <!-- Google map js -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 
@@ -17,12 +21,15 @@
     body {
         background-color: #383838;
         background: url({{ STATIC_URL }}/img/debut_dark.png) repeat 0 0;
+        font-family: 'Droid Sans', Helvetica, Arial, sans-serif;
     }
 
-    .container {
-
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Droid Serif', Georgia, Times, serif;
     }
 
+    p {
+    }
     .nav-header {
         color: #444444;
     }
