@@ -25,7 +25,6 @@ import os
 
 def getRandomCrisisID():
     allCrises = cm.Crisis.objects.order_by('?').all()
-    #allCrises.objects.order_by('?')
     return {'randomCrisis': allCrises[0]}
 
 # Returns a dictionary context for the navbar
@@ -49,54 +48,51 @@ def getPeople():
 # Add common info to context
 def getCommonContext(common_id):
     images = []
-    for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.IMAGES):
-        images += [(i.embed, i.altText)]
-
     links = []
-    for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.EXTERNAL_LINKS):
-        links += [(i.href, i.text)]
-
     videos = []
-    for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.VIDEOS):
-        videos += [(i.embed, i.altText)]
-
     maps = []
-    for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.MAPS):
-        maps += [(i.embed, i.altText)]
+    feeds = []
 
-    # TODO Need to get feeds working
-    # feeds = []
-    # for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.VIDEOS):
-    #     feeds += [(i.embed, i.altText)]
+    for i in cm.CommonListType.objects.filter(owner__exact=common_id):
+        if (i.context == cm.CommonListType.IMAGES):
+            images += [(i.embed, i.altText)]
+        elif (i.context == cm.CommonListType.EXTERNAL_LINKS):
+            links += [(i.href, i.text)]
+        elif (i.context == cm.CommonListType.VIDEOS):
+            videos += [(i.href, i.text)]
+        elif (i.context == cm.CommonListType.MAPS):
+            videos += [(i.href, i.text)]
+        # elif (i.context == cm.CommonListType.FEEDS):
+        #     feeds += [(i.href, i.text)]
 
     return {
         'images' : images,
         'links' : links,
         'videos' : videos,
         'maps' : maps,
+        'feeds' : feeds,
     }
 
 # Get info for crises
 def getCrisesContext(crisis_id):
     locations = []
-    for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.LOCATION):
-        locations += [i.text]
-
     humanImpact = []
-    for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.HUMAN_IMPACT):
-        humanImpact += [i.text]
-
     economicImpact = []
-    for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.ECONOMIC_IMPACT):
-        economicImpact += [i.text]
-
     resourcesNeeded = []
-    for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.RESOURCES_NEEDED):
-        resourcesNeeded += [i.text]
-
     waysToHelp = []
-    for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.WAYS_TO_HELP):
-        waysToHelp += [i.text]
+
+    for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id):
+        if(i.context == cm.CrisisListType.LOCATION):
+            locations += [i.text]
+        elif(i.context == cm.CrisisListType.HUMAN_IMPACT):
+            humanImpact += [i.text]
+        elif(i.context == cm.CrisisListType.ECONOMIC_IMPACT):
+            economicImpact += [i.text]
+        elif(i.context == cm.CrisisListType.RESOURCES_NEEDED):
+            resourcesNeeded += [i.text]
+        elif(i.context == cm.CrisisListType.WAYS_TO_HELP):
+            waysToHelp += [i.text]
+
 
     orgs = []
     for i in cm.Organization.objects.filter(crisis__id__exact=crisis_id):
