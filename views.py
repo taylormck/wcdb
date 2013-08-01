@@ -10,8 +10,8 @@ import crises.models as cm
 
 from django.contrib.auth.models import User
 from password_required.decorators import password_required
-import scripts.importScript as IMP
-import scripts.export as EXP
+import scripts.importXML as IMP
+import scripts.exportXML as EXP
 import xml.etree.ElementTree as ET
 from xml.dom.minidom import parseString
 from xml.dom import minidom
@@ -51,7 +51,7 @@ def getCommonContext(common_id):
     images = []
     for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.IMAGES):
         images += [(i.embed, i.altText)]
-    
+
     links = []
     for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.EXTERNAL_LINKS):
         links += [(i.href, i.text)]
@@ -81,11 +81,11 @@ def getCrisesContext(crisis_id):
     locations = []
     for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.LOCATION):
         locations += [i.text]
-    
+
     humanImpact = []
     for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.HUMAN_IMPACT):
         humanImpact += [i.text]
-    
+
     economicImpact = []
     for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.ECONOMIC_IMPACT):
         economicImpact += [i.text]
@@ -188,8 +188,8 @@ def importScript(request):
     t = loader.get_template("import.html")
     c = RequestContext(request, information)
     return HttpResponse(t.render(c))
-    
-    
+
+
 def html_decode(s):
     """
     Returns the ASCII decoded version of the given HTML string. This does
@@ -209,17 +209,17 @@ def html_decode(s):
 def prettyXML(rawXML):
     jacked =  minidom.parseString(rawXML).toprettyxml()
     return '\n'.join(l for l in jacked.split('\n') if l.strip())
-    
+
 def exportScript(request):
     rawXML = ET.tostring(EXP.exportXML())
 
     export = StringIO.StringIO(prettyXML(rawXML))
 
     contentType = "text/wcdb1"
-    
+
     response = HttpResponse(FileWrapper(export), content_type=contentType)
     response['Content-Disposition'] = 'attachment; filename=export.xml'
-    
+
     return response
 
 def person1(request):
@@ -313,7 +313,7 @@ def person(request, person_id):
         return HttpResponse(t.render(c))
     except ObjectDoesNotExist:
         return fourohfour(request)
-      
+
 def createuser(request):
      t = loader.get_template("index.html")
      if request.method == 'POST': # If the form has been submitted...
@@ -375,7 +375,7 @@ def unittest(request):
     text = StringIO.StringIO()
     copyout = sys.stdout
     sys.stdout = text
-    
+
     try:
         print "TestWCDB1.py"
         print subprocess.check_output(["python", "manage.py", "test"], stderr=subprocess.STDOUT)
@@ -383,8 +383,8 @@ def unittest(request):
     except subprocess.CalledProcessError as e:
         print e.output
         print "Done."
-    
-    
+
+
     addToContext = {
         'output' : text.getvalue()
     }
@@ -394,4 +394,4 @@ def unittest(request):
     c = RequestContext(request, addToContext)
     t = loader.get_template("unittest.html")
     return HttpResponse(t.render(c))
-    
+
