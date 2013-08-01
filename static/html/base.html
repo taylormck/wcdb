@@ -96,7 +96,7 @@
                         <li role="presentation" class="divider"></li>
                         <li class="nav-header">Most Recent</li>
                         {% for c in dcrises %}
-                            <li><a href="{% url crisis c.id|safe %}">{{ c.name|safe }}</a>
+                            <li><a href="{% url crisis c.id|safe %}">{{ c.name|safe }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
@@ -110,7 +110,7 @@
                         <li><a href="{% url listOrganizations  %}">View all organizations</a>
                         <li role="presentation" class="divider"></li>
                         {% for o in dorganizations %}
-                            <li><a href="{% url organization o.id|safe %}">{{ o.name|safe }}</a>
+                            <li><a href="{% url organization o.id|safe %}">{{ o.name|safe }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
@@ -124,7 +124,7 @@
                         <li><a href="{% url listPeople  %}">View all people</a>
                         <li role="presentation" class="divider"></li>
                         {% for p in dpeople %}
-                            <li><a href="{% url person p.id|safe %}">{{ p.name|safe }}</a>
+                            <li><a href="{% url person p.id|safe %}">{{ p.name|safe }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
@@ -163,7 +163,7 @@
 
     <!-- This is our common layout -->
     <div class="container-fluid outer-container">
-        <div class="row-fluid">
+        <div class="row-fluid outer-container">
             <!-- this is the center box -->
             <div class="span6 offset3" id="content">
                 {% block stuff %}{% endblock %}
