@@ -9,6 +9,10 @@
     <link href="http://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet" type="text/css">
 
+    <!-- Icon fonts -->
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
     <!-- Google map js -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 
@@ -26,21 +30,15 @@
 
     h1, h2, h3, h4, h5, h6 {
         font-family: 'Droid Serif', Georgia, Times, serif;
-        text-shadow: 2px 2px 2px #cccccc;
+        text-shadow: 1px 1px 1px #cccccc;
     }
 
-    p {
-    }
     .nav-header {
         color: #444444;
     }
 
     .navbar-search {
         padding-right: 10px;
-    }
-
-    .outer-container {
-
     }
 
     .navbar-form {
@@ -171,8 +169,8 @@
     </div>
 
     <!-- This is our common layout -->
-    <div class="container-fluid outer-container">
-        <div class="row-fluid outer-container">
+    <div class="container-fluid">
+        <div class="row-fluid">
             <!-- this is the center box -->
             <div class="span6 offset3" id="content">
                 {% block stuff %}{% endblock %}
