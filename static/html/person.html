@@ -3,9 +3,13 @@
 <!-- Page title -->
 {% block title %}{{ name|safe }}{% endblock %}
 
+<!-- header -->
+{% block header %}
+    <h2>{{ name|safe }}</h2>
+{% endblock %}
+
 <!-- Page content -->
 {% block content %}
-<h2>{{ name|safe }}</h2>
 
 <h4>Kind</h4>{{ kind|safe }}
 
