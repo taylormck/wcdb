@@ -80,6 +80,8 @@ def getCrisesContext(crisis_id):
     economicImpact = []
     resourcesNeeded = []
     waysToHelp = []
+    orgs = []
+    peeps = []
 
     for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id):
         if(i.context == cm.CrisisListType.LOCATION):
@@ -93,12 +95,9 @@ def getCrisesContext(crisis_id):
         elif(i.context == cm.CrisisListType.WAYS_TO_HELP):
             waysToHelp += [i.text]
 
-
-    orgs = []
     for i in cm.Organization.objects.filter(crisis__id__exact=crisis_id):
         orgs += [i]
 
-    peeps = []
     for i in cm.Person.objects.filter(crisis__id__exact=crisis_id):
         peeps += [i]
 
@@ -115,18 +114,19 @@ def getCrisesContext(crisis_id):
 # Get context for organizations
 def getOrganizationContext(organization_id):
     history = []
-    for i in cm.OrganizationListType.objects.filter(owner__exact=organization_id, context=cm.OrganizationListType.HISTORY):
-        history += [i.text]
-
     contactInfo = []
-    for i in cm.OrganizationListType.objects.filter(owner__exact=organization_id, context=cm.OrganizationListType.CONTACT_INFO):
-        contactInfo += [i.text]
-
     peeps = []
+    cries = []
+
+    for i in cm.OrganizationListType.objects.filter(owner__exact=organization_id):
+        if (i.context == cm.OrganizationListType.HISTORY):
+            history += [i.text]
+        elif (i.context == cm.OrganizationListType.CONTACT_INFO):
+            contactInfo += [i.text]
+
     for i in cm.Person.objects.filter(organization__id__exact=organization_id):
         peeps += [i]
 
-    cries = []
     for i in cm.Crisis.objects.filter(organizations__id__exact=organization_id):
         cries += [i]
 
