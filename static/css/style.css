@@ -45,6 +45,10 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 10px;
 }
 
+.modal {
+    background-color: #eeeeee;
+}
+
 #content {
     background-color: #eeeeee;
     padding-left: 15px;
