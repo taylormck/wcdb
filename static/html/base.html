@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Bootstrap css -->
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+    <!-- Bootstrap css and js -->
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.css"/>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.js"></script>
 
     <!-- Google font css -->
     <link href="http://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet" type="text/css">
@@ -13,21 +17,9 @@
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
-    <!-- Google map js -->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-
-    <!-- Bootstrap js -->
-    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.js"></script>
-
-    <!-- Tooltip js -->
-    <script>
-        jQuery(function ($) {
-            $("a").tooltip()
-        });
-    </script>
-
-    <!-- site specific css -->
+    <!-- site specific css and js -->
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css"/>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/site.js"></script>
 
     <!-- Site title -->
     <title>WCDB | {% block title %}{% endblock %}</title>
