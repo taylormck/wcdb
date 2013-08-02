@@ -188,7 +188,7 @@ def index(request):
 def importScript(request):
     information = {}
     if request.method == 'POST':
-        oldMerge = setMerge("merge" in request.POST)
+        oldMerge = IMP.setMerge("merge" in request.POST)
         try:
             xml = IMP.parseXML(request.FILES['xmlFile'])
             data = IMP.xmlToModels(xml)
@@ -199,8 +199,7 @@ def importScript(request):
             information = {"tree" : "Upload Failed - Bad XML File!"}
         except IMP.ValdiationFailedException:
             information = {"tree" : "Upload Failed - Invalid XML File!"}
-    # return render_to_response("import.html", information, context_instance=RequestContext(request))
-    setMerge(oldMerge)
+        IMP.setMerge(oldMerge)
     information = dict(getBaseContext(), **information)
     t = loader.get_template("import.html")
     c = RequestContext(request, information)

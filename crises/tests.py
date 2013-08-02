@@ -249,7 +249,7 @@ class TestImportScript(TestCase):
         testCri = parseCrisis(testElement)       
         setMerge(False)
         
-        assert cm.CommonListType.objects.count() == 9        
+        assert cm.CommonListType.objects.count() == 9       
         
     
     def test_deleteData(TestCase):

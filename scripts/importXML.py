@@ -112,9 +112,9 @@ def parseCrisis(crisis):
     #Add all the basic info
     newCrisis = info.Crisis(id=crisis.attrib["ID"], name=crisis.attrib["Name"])
     
-    newCrisis.date = date.parse(crisis.find("Date").text) if crisis.find("Date") is not None else None
-    newCrisis.time = date.parse(crisis.find("Time").text) if crisis.find("Time") is not None else None
-    newCrisis.kind = crisis.find("Kind").text if crisis.find("Kind") is not None else ""
+    newCrisis.date = date.parse(getText(crisis.find("Date"), newCrisis.date))
+    newCrisis.time = date.parse(getText(crisis.find("Time"), newCrisis.time))
+    newCrisis.kind = getText(crisis.find("Kind"), newCrisis.kind)
     
     #Parse the common types
     parseCommon(crisis.find("Common"), newCrisis)
@@ -135,8 +135,8 @@ def parseCrisis(crisis):
 
 def parsePerson(person):
     newPerson = info.Person(id=person.attrib["ID"], name=person.attrib["Name"])
-    newPerson.kind = person.find("Kind").text if person.find("Kind") is not None else ""
-    newPerson.location = person.find("Location").text if person.find("Location") is not None else ""
+    newPerson.kind = getText(person.find("Kind"), newPerson.kind)
+    newPerson.location = getText(person.find("Location"), newPerson.location)
     
     parseCommon(person.find("Common"), newPerson)
     newPerson.save()
@@ -144,8 +144,8 @@ def parsePerson(person):
 
 def parseOrganization(organization):
     newOrg = info.Organization(id=organization.attrib["ID"], name=organization.attrib["Name"])
-    newOrg.kind = organization.find("Kind").text if organization.find("Kind") is not None else ""
-    newOrg.location = organization.find("Location").text if organization.find("Location") is not None else ""
+    newOrg.kind = getText(organization.find("Kind"), newOrg.kind)
+    newOrg.location = getText(organization.find("Location"), newOrg.location)
     
     
     #Parse the common types
@@ -181,7 +181,7 @@ def parseCommon(common, parentModel):
         container = info.Common()
         container.save()
     
-    container.summary = common.find("Summary").text if common.find("Summary") is not None else ""
+    container.summary = getText(common.find("Summary"), container.summary)
     
     listElemDict = {}
     for val in info.CommonListType.LIST_TYPE_CHOICES:
@@ -220,7 +220,7 @@ def parseListType(listType, node, parentModel):
     except KeyError:
         listMember.altText = ""
     
-    listMember.text = node.text if node.text is not None else ""  
+    listMember.text = getText(node, listMember.text)
     
     if _merge:
         commonObjects = listClass.objects.filter(owner__exact=parentModel.id)
@@ -242,6 +242,11 @@ def parseListType(listType, node, parentModel):
     listMember.context = listType
     listMember.owner_id = parentModel.id
     listMember.save()
+
+def getText(node, alternateValue=""):
+    if node is not None:
+        return node.text
+    return alternateText
 
 #Basically, sets up our link up dictionary so we can do the DB relations properly
 #owner_of_mtm = The model that owns the Many To Many objects
