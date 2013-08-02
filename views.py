@@ -22,7 +22,7 @@ import sys
 import subprocess
 import StringIO
 import os
-from random import randint
+from random import choice
 
 def getRandomCrisisID():
     allCrises = cm.Crisis.objects.all()
@@ -30,8 +30,7 @@ def getRandomCrisisID():
     if numCrises is 0:
         return {}
     else:
-        randomIndex = randint(0, numCrises)
-        return {'randomCrisis': allCrises[randomIndex]}
+        return {'randomCrisis': choice(allCrises)}
 
 # Returns a dictionary context for the navbar
 def getDropdownContext():
