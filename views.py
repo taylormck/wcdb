@@ -22,10 +22,15 @@ import sys
 import subprocess
 import StringIO
 import os
+from random import choice
 
 def getRandomCrisisID():
-    allCrises = cm.Crisis.objects.order_by('?').all()
-    return {'randomCrisis': allCrises[0]}
+    allCrises = cm.Crisis.objects.all()
+    numCrises = len(allCrises)
+    if numCrises is 0:
+        return {}
+    else:
+        return {'randomCrisis': choice(allCrises)}
 
 # Returns a dictionary context for the navbar
 def getDropdownContext():
