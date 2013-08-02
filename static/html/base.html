@@ -90,6 +90,72 @@
 </head>
 
 <body>
+    <!-- create user modal -->
+    <div id="create-user-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Create new user</h3>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal"  method = "post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="control-group">
+            <label class="control-label" for="inputEmail">Email</label>
+            <div class="controls">
+              <input type="text" id="inputEmail" placeholder="Email" name = "email">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inputPassword">Password</label>
+            <div class="controls">
+              <input type="password" id="inputPassword" placeholder="Password" name="password">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="fname">First Name</label>
+            <div class="controls">
+              <input type="text" id="fname" placeholder="First name" name="firstname">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="lname">Last Name</label>
+            <div class="controls">
+              <input type="text" id="lname" placeholder="Last name" name="lastname">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="username">User Name</label>
+            <div class="controls">
+              <input type="text" id="username" placeholder="User name" name="username">
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="controls">
+              <label class="checkbox">
+                <input type="checkbox"> Remember me
+              </label>
+              <button type="submit" class="btn">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- login modal -->
+    <div id="login-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Login</h3>
+      </div>
+      <div class="modal-body">
+            <form class="navbar-form pull-right">
+              <input type="text" class="span2">
+              <input type="text" class="span2">
+              <button type="submit" class="btn">Login</button>
+            </form>
+      </div>
+    </div>
+
     <!-- navbar across the top -->
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
@@ -155,8 +221,15 @@
                     </ul>
                 </li>
 
-                <li>
-                    <a href="{% url createuser %}">Create User</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Users
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#create-user-modal" data-toggle="modal">Create new user</a></li>
+                        <li><a href="#login-modal" data-toggle="modal">Login</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{% url crisis randomCrisis.id|safe %}"> Feeling Sympathetic? </a>
@@ -164,11 +237,6 @@
             </ul>
             <form class="navbar-search pull-right" action="{% url search %}" method="get">
               <input type="text" class="search-query" placeholder="Looking for something?" name="query">
-            </form>
-            <form class="navbar-form pull-right">
-              <input type="text" class="span2">
-              <input type="text" class="span2">
-              <button type="submit" class="btn">Login</button>
             </form>
         </div>
     </div>
