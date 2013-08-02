@@ -28,8 +28,6 @@
 		<div class="span4">
         <h2>Crises</h4>
 	        <ul class="unstyled">
-		        <li><a href="{% url listCrises %}">View all crises</a></li>
-		        <li></br></li>
 	            {% for c in dcrises %}
 	                <li><a href="{% url crisis c.id|safe %}">{{ c.name|safe }}</a></li>
 	            {% endfor %}
@@ -38,8 +36,6 @@
 		<div class="span4">
         <h2>Organizations</h4>
 	        <ul class="unstyled">
-		        <li><a href="{% url listOrganizations %}">View all organizations</a></li>
-		        <li></br></li>
 	            {% for o in dorganizations %}
 	                <li><a href="{% url organization o.id|safe %}">{{ o.name|safe }}</a></li>
 	            {% endfor %}
@@ -48,13 +44,33 @@
 		<div class="span4">
         <h2>People</h4>
 	        <ul class="unstyled">
-		        <li><a href="{% url listPeople %}">View all people</a></li>
-		        <li></br></li>
 	            {% for p in dpeople %}
 	                <li><a href="{% url person p.id|safe %}">{{ p.name|safe }}</a></li>
 	            {% endfor %}
 	        </ul>
         </div>
+    </div>
+
+    <!-- view all links -->
+    <div class="row-fluid">
+	    <div class="span4">
+	    	<ul class="unstyled">
+	    		<li><br/></li>
+		        <li><a href="{% url listCrises %}">View all crises</a></li>
+		    </ul>
+	    </div>
+	    <div class="span4">
+	    	<ul class="unstyled">
+	    		<li><br/></li>
+		        <li><a href="{% url listOrganizations %}">View all organizations</a></li>
+		    </ul>
+	    </div>
+	    <div class="span4">
+	    	<ul class="unstyled">
+	    		<li><br/></li>
+		        <li><a href="{% url listPeople %}">View all people</a></li>
+		    </ul>
+	    </div>
     </div>
 
 {% endblock %}
