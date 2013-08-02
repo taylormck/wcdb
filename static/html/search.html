@@ -1,42 +1,48 @@
-{% extends 'base.html' %}
+{% extends 'listBase.html' %}
 
 <!-- Page title -->
 {% block title %}Search Results{% endblock %}
 
 <!-- Page content -->
 {% block content %}
-{% if crises %}
-	<h4>Crises</h4>
-		<ul class="unstyled">
-			{% for c in crises %}
-                <li><a href="{% url crisis c.id|safe %}">{{ c.name|safe }}</a>
-			{% endfor %}
-		</ul>
-{% endif %}
-
-
-{% if organizations %}
-	<h4>Organizations</h4>
-		<ul class="unstyled">
-			{% for o in organizations %}
-                <li><a href="{% url organization o.id|safe %}">{{ o.name|safe }}</a>
-			{% endfor %}
-		</ul>
+	{% if crises %}
+		<div class="span4">
+			<h4>Crises</h4>
+			<ul class="unstyled">
+				{% for c in crises %}
+	                <li><a href="{% url crisis c.id|safe %}">{{ c.name|safe }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
 	{% endif %}
 
-{% if people %}
-	<h4>People</h4>
-		<ul class="unstyled">
-			{% for p in people %}
-                <li><a href="{% url person p.id|safe %}">{{ p.name|safe }}</a>
-			{% endfor %}
-		</ul>
-{% endif %}
+	{% if organizations %}
+		<div class="span4">
+			<h4>Organizations</h4>
+			<ul class="unstyled">
+				{% for o in organizations %}
+	                <li><a href="{% url organization o.id|safe %}">{{ o.name|safe }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
 
-{% if not crises and not organizations and not people %}
-<h4>No Search results found</h4>
+	{% if people %}
+		<div class="span4">
+			<h4>People</h4>
+			<ul class="unstyled">
+				{% for p in people %}
+	                <li><a href="{% url person p.id|safe %}">{{ p.name|safe }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
 
-{% endif %}
+	{% if not crises and not organizations and not people %}
+		<div class="span8">
+			<h4>No Search results found</h4>
+		</div>
+	{% endif %}
 
 {% endblock %}
 

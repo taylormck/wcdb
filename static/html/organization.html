@@ -1,15 +1,28 @@
-{% extends 'base.html' %}
+{% extends 'contentBase.html' %}
 
 <!-- Page title -->
 {% block title %}{{ name|safe }}{% endblock %}
 
+<!-- header -->
+{% block header %}
+    <h2>{{ name|safe }}</h2>
+{% endblock %}
+
 <!-- Page content -->
 {% block content %}
-    <h2>{{ name|safe }}</h2>
 
     <h4>Kind</h4>{{ kind|safe }}
 
-    <h4>Location</h4>{{ location|safe }}
+    <h4><i class="icon-map-marker"></i> Location</h4>{{ location|safe }}
+
+    {% if summaries %}
+        <h4>Summary</h4>
+        <ul class="unstyled">
+            {% for s in summaries %}
+                <li>{{ s }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
     {% if history %}
         <h4>History</h4>

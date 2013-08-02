@@ -1,17 +1,76 @@
-{% extends 'base.html' %}
+{% extends 'emptyBase.html' %}
 
 <!-- Page title -->
 {% block title %}World Crises Database{% endblock %}
 
 <!-- Page content -->
 {% block content %}
-    <h1>Great Moonstone Oxen of the First and Forsaken Oceans</h1>
-    <ul class="unstyled">
-        <li>Spencer Reynoso</li>
-        <li>Ben Bowely-Bryant</li>
-        <li>Taylor McKinney</li>
-        <li>Matt Stringer</li>
-        <li>Cesar Cantu</li>
-        <li>David Denton</li>
-    </ul>
+
+	<!-- page header -->
+    <div class="row-fluid">
+    	<div class="span8">
+			<h2><i class="icon-globe"></i> World Crises Database</h2>
+			<h2><small>The Great Moonstone Oxen of the First and Forsaken Oceans</small></h2>
+		</div>
+		<div class="span4">
+            <img class="logo" src="{{ STATIC_URL }}/img/logo.png">
+		</div>
+	</div>
+
+	<div class="row-fluid">
+		<div class="span12">
+			We need stuffs to go here
+		</div>
+	</div>
+
+	<!-- links -->
+	<div class="row-fluid">
+		<div class="span4">
+        <h2>Crises</h4>
+	        <ul class="unstyled">
+	            {% for c in dcrises %}
+	                <li><a href="{% url crisis c.id|safe %}">{{ c.name|safe }}</a></li>
+	            {% endfor %}
+	        </ul>
+        </div>
+		<div class="span4">
+        <h2>Organizations</h4>
+	        <ul class="unstyled">
+	            {% for o in dorganizations %}
+	                <li><a href="{% url organization o.id|safe %}">{{ o.name|safe }}</a></li>
+	            {% endfor %}
+	        </ul>
+        </div>
+		<div class="span4">
+        <h2>People</h4>
+	        <ul class="unstyled">
+	            {% for p in dpeople %}
+	                <li><a href="{% url person p.id|safe %}">{{ p.name|safe }}</a></li>
+	            {% endfor %}
+	        </ul>
+        </div>
+    </div>
+
+    <!-- view all links -->
+    <div class="row-fluid">
+	    <div class="span4">
+	    	<ul class="unstyled">
+	    		<li><br/></li>
+		        <li><a href="{% url listCrises %}">View all crises</a></li>
+		    </ul>
+	    </div>
+	    <div class="span4">
+	    	<ul class="unstyled">
+	    		<li><br/></li>
+		        <li><a href="{% url listOrganizations %}">View all organizations</a></li>
+		    </ul>
+	    </div>
+	    <div class="span4">
+	    	<ul class="unstyled">
+	    		<li><br/></li>
+		        <li><a href="{% url listPeople %}">View all people</a></li>
+		    </ul>
+	    </div>
+    </div>
+
 {% endblock %}

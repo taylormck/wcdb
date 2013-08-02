@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'emptyBase.html' %}
 
 {% block title %}Import{% endblock %}
 
@@ -9,7 +9,7 @@
     <input type="file" name="xmlFile" />
     <input class="btn btn-danger" type="submit" name="submit" value="Upload" />
 </form>
-XML Submitted: 
+XML Submitted:
 <p>
 {{ tree }}
 {% endblock %}

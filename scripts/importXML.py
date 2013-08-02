@@ -7,6 +7,7 @@ import datetime
 import dateutil.parser as date
 import StringIO
 from django.db.models.base import ObjectDoesNotExist
+from django.db.models import get_app, get_models
 
 from genxmlif import GenXmlIfError
 from minixsv import pyxsval 
@@ -51,10 +52,26 @@ def parseXML(file_chosen):
         raise BadXMLException("Parse Failed")
         
 changes = False
+_merge = True
+
+def setMerge(val):
+    global _merge
+    oldMerge = _merge
+    
+    if val:
+        _merge = True
+    else:
+        _merge = False
+    return oldMerge
 
 def xmlToModels(eleTree):
     global changes
-    changes = False
+    changes = not _merge
+    
+    #If we're not merging, then we're doing a total overwrite.
+    if not _merge:
+        deleteData()
+    
     link_up_dict = {}
     reference_dict = {}
     
@@ -91,13 +108,7 @@ def parseGeneric(nodes,parseFunction,ref,lud):
 #      v   HERE BE PARSERS     v
 # ===================================
 
-def parseCrisis(crisis):
-    try:
-        return info.Crisis.objects.get(id=crisis.attrib["ID"])
-    except ObjectDoesNotExist:
-        global changes
-        changes = True
-        
+def parseCrisis(crisis):        
     #Add all the basic info
     newCrisis = info.Crisis(id=crisis.attrib["ID"], name=crisis.attrib["Name"])
     
@@ -123,12 +134,6 @@ def parseCrisis(crisis):
     return newCrisis
 
 def parsePerson(person):
-    try:
-        return info.Person.objects.get(id=person.attrib["ID"])
-    except ObjectDoesNotExist:
-        global changes
-        changes = True
-        
     newPerson = info.Person(id=person.attrib["ID"], name=person.attrib["Name"])
     newPerson.kind = person.find("Kind").text if person.find("Kind") is not None else ""
     newPerson.location = person.find("Location").text if person.find("Location") is not None else ""
@@ -138,12 +143,6 @@ def parsePerson(person):
     return newPerson
 
 def parseOrganization(organization):
-    try:
-        return info.Organization.objects.get(id=organization.attrib["ID"])
-    except ObjectDoesNotExist:
-        global changes
-        changes = True
-        
     newOrg = info.Organization(id=organization.attrib["ID"], name=organization.attrib["Name"])
     newOrg.kind = organization.find("Kind").text if organization.find("Kind") is not None else ""
     newOrg.location = organization.find("Location").text if organization.find("Location") is not None else ""
@@ -169,9 +168,19 @@ def parseOrganization(organization):
 def parseCommon(common, parentModel):
     if common is None:
         return
+
+    try:
+        if type(parentModel) is info.Crisis:
+            filterChoice = {"crisis__id__exact" : parentModel.id}
+        elif type(parentModel) is info.Person:
+            filterChoice = {"person__id__exact" : parentModel.id}
+        else:
+            filterChoice = {"organization__id__exact" : parentModel.id}
+        container = info.Common.objects.get(**filterChoice)            
+    except ObjectDoesNotExist:
+        container = info.Common()
+        container.save()
     
-    container = info.Common()
-    container.save()
     container.summary = common.find("Summary").text if common.find("Summary") is not None else ""
     
     listElemDict = {}
@@ -186,13 +195,15 @@ def parseCommon(common, parentModel):
     parentModel.common_id = container.id
     container.save()
 
-def parseListType(listType, node, parentModel):
+def parseListType(listType, node, parentModel):   
     if type(parentModel) is info.Crisis:
-        listMember = info.CrisisListType()
+        listClass = info.CrisisListType
     elif type(parentModel) is info.Organization:
-        listMember = info.OrganizationListType()
+        listClass = info.OrganizationListType
     else:
-        listMember = info.CommonListType()
+        listClass = info.CommonListType
+   
+    listMember = listClass()
     
     try:
         listMember.href = node.attrib["href"]
@@ -208,8 +219,26 @@ def parseListType(listType, node, parentModel):
         listMember.altText = node.attrib["text"]
     except KeyError:
         listMember.altText = ""
+    
+    listMember.text = node.text if node.text is not None else ""  
+    
+    if _merge:
+        commonObjects = listClass.objects.filter(owner__exact=parentModel.id)
+        hrefMatches = commonObjects.filter(href__contains=listMember.href).count()
+        embedMatches = commonObjects.filter(embed__contains=listMember.embed).count()
+        textMatches = commonObjects.filter(text__contains=listMember.text).count()
+        obj = None
         
-    listMember.text = node.text if node.text is not None else ""    
+        if (listMember.href != "" and hrefMatches > 0):
+            obj = commonObjects.filter(href__contains=listMember.href)[0]
+        elif (listMember.embed != "" and embedMatches > 0):
+            obj = commonObjects.filter(embed__contains=listMember.embed)[0]
+        elif (listMember.text != "" and textMatches > 0):
+            obj = commonObjects.filter(text__contains=listMember.text)[0]
+        
+        if obj is not None:
+            listMember.id = obj.id
+      
     listMember.context = listType
     listMember.owner_id = parentModel.id
     listMember.save()
@@ -264,8 +293,35 @@ def linkUpModels(references, links):
             #print
         model.save()
         
+def deleteData():
+    app = get_app("crises")
+    for model in get_models(app):
+        for obj in model.objects.all():
+                obj.delete()
     
+#Unused below
+"""
+def deleteData(obj):
+    if type(obj) is info.Crisis:
+        deleteCrisisData(obj)
+    elif type(obj) is info.Person:
+        deletePersonData(obj)
+    elif type(obj) is info.Organization:
+        deleteOrganizationData(obj)
+    elif type(obj) is info.Common:
+        deleteCommon(obj)
+"""  
+def deleteCrisisData(crisis):
+    pass
 
+def deleteCommonData(common):
+    pass
+
+def deleteOrganizationData(org):
+    pass
+
+def deletePersonData(person):
+    pass
     
 
 """

@@ -13,8 +13,8 @@ import xml.etree.ElementTree as et
 from django.test import TestCase
 from django.db.models.base import ObjectDoesNotExist
 import crises.models as cm
-from scripts.importScript import *
-from scripts.export import *
+from scripts.importXML import *
+from scripts.exportXML import *
 
 class Empty:
     pass
@@ -24,6 +24,9 @@ NIFCrisis = """
         <Kind>Natural Disaster</Kind>
         <Date>2013-06-14</Date>
         <Time>09:00:00</Time>
+        <HumanImpact>
+            <li>STUFF</li>
+        </HumanImpact>
         <Common>
             <Citations>
                 <li>The Hindustan Times</li>
@@ -37,7 +40,7 @@ NIFCrisis = """
                 <li embed="http://timesofindia.indiatimes.com/photo/15357310.cms"/>
             </Images>
             <Videos>
-                <li embed="//www.youtube.com/embed/qV3s7Sa6B6w"/>
+                <li embed="http://www.youtube.com/embed/qV3s7Sa6B6w"/>
             </Videos>
             <Maps>
                 <li embed="[fake]"/>
@@ -80,9 +83,11 @@ JEHPerson = """
 """
 
 TestFile = "<WorldCrises>"+"\n"+ NIFCrisis +"\n"+ JEHPerson+"\n" +CFFOrg +"\n" + "</WorldCrises>"
+TestFile2 = "<WorldCrises>"+"\n"+ NIFCrisis +"\n" + "</WorldCrises>"
 
 class TestImportScript(TestCase):
     # TODO must make sure to make proper XML strings for these
+
     def test_parsevalidate_01(TestCase):
         assert validateXML(TestFile)
         
@@ -98,6 +103,8 @@ class TestImportScript(TestCase):
         try:
             root = parseXML(testXML)
             assert(False)
+        except AssertionError:
+            raise
         except Exception:
             pass
 
@@ -106,15 +113,18 @@ class TestImportScript(TestCase):
         root = None
         try:
             parseXML(testXML)
-            assert(False)
+        except AssertionError:
+            raise
         except Exception:
             pass
 
     def test_parseXML_03(TestCase):
-        testXML = StringIO.StringIO(TestFile)
+        testXML = StringIO.StringIO(TestFile+"e")
         try:
             parseXML(testXML)
-            assert(False)
+            assert False
+        except AssertionError:
+            raise
         except Exception:
             pass
 
@@ -210,6 +220,68 @@ class TestImportScript(TestCase):
             assert(False)
         except ObjectDoesNotExist:
             pass
+            
+            
+    def test_importMerge_01_DoNotUpdate(TestCase):
+        setMerge(True)
+        testElement = et.fromstring(NIFCrisis)
+        
+        parseCrisis(testElement)
+        testCri = parseCrisis(testElement)       
+        setMerge(False)
+        assert cm.CommonListType.objects.count() == 8
+        
+        
+    
+    def test_importMerge_02_AddNew(TestCase):
+        setMerge(True)
+        testElement = et.fromstring(NIFCrisis)
+        
+
+        parseCrisis(testElement)
+        
+        
+        elementT = et.Element("li")
+        elementT.attrib["href"] = "LOL NO"
+        testElement.find("Common").find("Maps").append(elementT)
+        
+
+        testCri = parseCrisis(testElement)       
+        setMerge(False)
+        
+        assert cm.CommonListType.objects.count() == 9        
+        
+    
+    def test_deleteData(TestCase):
+        testElement = et.fromstring(NIFCrisis)
+        parseCrisis(testElement)
+        deleteData()
+        assert cm.Crisis.objects.count() == 0
+        assert cm.Common.objects.count() == 0
+        assert cm.CrisisListType.objects.count() == 0
+        
+    def test_deleteData_MoreData(TestCase):
+        testXML = StringIO.StringIO(TestFile)
+        parse = parseXML(testXML)
+        root = et.fromstring(TestFile)
+        xmlToModels(parse)
+        
+        app = get_app("crises")
+        
+        for model in get_models(app):
+            try:
+                assert model.objects.count() > 0
+            except AssertionError:
+                raise Exception("Model " + model.__name__ + " failed the assertion")
+                
+        deleteData()
+
+        for model in get_models(app):
+            try:
+                assert model.objects.count() == 0
+            except AssertionError:
+                raise Exception("Model " + model.__name__ + " failed the assertion")
+
 
 
 class TestExportScript(TestCase):
@@ -270,6 +342,7 @@ class TestExportScript(TestCase):
         
     
     def test_everything(TestCase):
+        setMerge(True)
         testXML = StringIO.StringIO(TestFile)
         
         parse = parseXML(testXML)

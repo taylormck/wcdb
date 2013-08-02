@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block stuff %}
+<div class="row-fluid">
+    {% block header %}{% endblock %}
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        {% block content %}{% endblock %}
+    </div>
+
+    <div class="span6">
+
+        <div class="row-fluid">
+            <div class="span12">
+                {% block metaContent %}{% endblock %}
+            </div>
+        </div>
+
+        <!-- This presents our pictures in a carousel -->
+        <div class="row-fluid">
+            <div class="span12">
+                {% if images %}
+                <!-- carousel our pictures -->
+                <div id="myCarousel" class="carousel slide">
+                    <div class="carousel-inner">
+                        <div class="active item"><img src={{ images.0.0 }} alt="{{ images.0.1 }}"></div>
+                        {% for i, t in images|slice:"1:" %}
+                        <div class="item"><img src={{ i }} alt="{{ t }}"></div>
+                        {% endfor %}
+                    </div>
+                    <!-- Carousel nav buttons -->
+                    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="table">
+                    <!-- list our videos -->
+                    {% if videos %}
+                    <h4><i class="icon-facetime-video"></i> Videos</h4>
+                    <ul class="unstyled">
+                        {% for v, t in videos %}
+                        <li>
+                            <a href={{ v }}>{{ t }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="table">
+                    <!-- list our maps -->
+                    {% if maps %}
+                    <h4><i class="icon-globe"></i> Maps</h4>
+                    <ul class="unstyled">
+                        {% for m, t in maps %}
+                        <li><a href={{ m }}>{{ t }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span4">
+        {% block involved1 %}{% endblock %}
+    </div>
+    <div class="span4">
+        {% block involved2 %}{% endblock %}
+    </div>
+
+    <!-- add our links to the bottom -->
+    <div class="span4">
+        <h4>Links:</h4>
+        {% if links %}
+        <ul class="unstyled">
+            {% for l, t in links %}
+            <li><a href={{ l }}>{{ t }}</a></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

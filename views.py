@@ -10,8 +10,8 @@ import crises.models as cm
 
 from django.contrib.auth.models import User
 from password_required.decorators import password_required
-import scripts.importScript as IMP
-import scripts.export as EXP
+import scripts.importXML as IMP
+import scripts.exportXML as EXP
 import xml.etree.ElementTree as ET
 from xml.dom.minidom import parseString
 from xml.dom import minidom
@@ -23,18 +23,22 @@ import sys
 import subprocess
 import StringIO
 import os
+from random import choice
 
 def getRandomCrisisID():
-    allCrises = cm.Crisis.objects.order_by('?').all()
-    #allCrises.objects.order_by('?')
-    return {'randomCrisis': allCrises[0]}
+    allCrises = cm.Crisis.objects.all()
+    numCrises = len(allCrises)
+    if numCrises is 0:
+        return {}
+    else:
+        return {'randomCrisis': choice(allCrises)}
 
 # Returns a dictionary context for the navbar
-def getDropdownContext():
+def getBaseContext():
     return dict({
         'dcrises' : cm.Crisis.objects.order_by('-date', '-time')[:10],
-        'dorganizations' : cm.Organization.objects.order_by('name')[:10],
-        'dpeople' : cm.Person.objects.order_by('name')[:10],
+        'dorganizations' : cm.Organization.objects.order_by('?')[:10],
+        'dpeople' : cm.Person.objects.order_by('?')[:10],
     }, **getRandomCrisisID())
 
 # Helper functions to get tables as context
@@ -50,64 +54,64 @@ def getPeople():
 # Add common info to context
 def getCommonContext(common_id):
     images = []
-    for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.IMAGES):
-        images += [(i.embed, i.altText)]
-    
     links = []
-    for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.EXTERNAL_LINKS):
-        links += [(i.href, i.text)]
-
     videos = []
-    for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.VIDEOS):
-        videos += [(i.embed, i.altText)]
-
     maps = []
-    for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.MAPS):
-        maps += [(i.embed, i.altText)]
+    feeds = []
 
-    # TODO Need to get feeds working
-    # feeds = []
-    # for i in cm.CommonListType.objects.filter(owner__exact=common_id, context=cm.CommonListType.VIDEOS):
-    #     feeds += [(i.embed, i.altText)]
+    for i in cm.CommonListType.objects.filter(owner__exact=common_id):
+        if (i.context == cm.CommonListType.IMAGES):
+            images += [(i.embed, i.altText)]
+        elif (i.context == cm.CommonListType.EXTERNAL_LINKS):
+            links += [(i.href, i.text)]
+        elif (i.context == cm.CommonListType.VIDEOS):
+            videos += [(i.href, i.text)]
+        elif (i.context == cm.CommonListType.MAPS):
+            videos += [(i.href, i.text)]
+        # elif (i.context == cm.CommonListType.FEEDS):
+        #     feeds += [(i.href, i.text)]
 
     return {
         'images' : images,
         'links' : links,
         'videos' : videos,
         'maps' : maps,
+        'feeds' : feeds,
     }
 
 # Get info for crises
 def getCrisesContext(crisis_id):
+    common = cm.Common.objects.get(crisis__id__exact=crisis_id)
+    summaries = [common.summary]
+
     locations = []
-    for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.LOCATION):
-        locations += [i.text]
-    
     humanImpact = []
-    for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.HUMAN_IMPACT):
-        humanImpact += [i.text]
-    
     economicImpact = []
-    for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.ECONOMIC_IMPACT):
-        economicImpact += [i.text]
-
     resourcesNeeded = []
-    for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.RESOURCES_NEEDED):
-        resourcesNeeded += [i.text]
-
     waysToHelp = []
-    for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id, context=cm.CrisisListType.WAYS_TO_HELP):
-        waysToHelp += [i.text]
-
     orgs = []
+    peeps = []
+
+    for i in cm.CrisisListType.objects.filter(owner__exact=crisis_id):
+        if(i.context == cm.CrisisListType.LOCATION):
+            locations += [i.text]
+        elif(i.context == cm.CrisisListType.HUMAN_IMPACT):
+            humanImpact += [i.text]
+        elif(i.context == cm.CrisisListType.ECONOMIC_IMPACT):
+            economicImpact += [i.text]
+        elif(i.context == cm.CrisisListType.RESOURCES_NEEDED):
+            resourcesNeeded += [i.text]
+        elif(i.context == cm.CrisisListType.WAYS_TO_HELP):
+            waysToHelp += [i.text]
+
     for i in cm.Organization.objects.filter(crisis__id__exact=crisis_id):
         orgs += [i]
 
-    peeps = []
     for i in cm.Person.objects.filter(crisis__id__exact=crisis_id):
         peeps += [i]
 
     return {
+        'summaries' : summaries,
         'locations' : locations,
         'humanImpact' : humanImpact,
         'economicImpact' : economicImpact,
@@ -119,23 +123,28 @@ def getCrisesContext(crisis_id):
 
 # Get context for organizations
 def getOrganizationContext(organization_id):
+    common = cm.Common.objects.get(organization__id__exact=organization_id)
+    summaries = [common.summary]
+
     history = []
-    for i in cm.OrganizationListType.objects.filter(owner__exact=organization_id, context=cm.OrganizationListType.HISTORY):
-        history += [i.text]
-
     contactInfo = []
-    for i in cm.OrganizationListType.objects.filter(owner__exact=organization_id, context=cm.OrganizationListType.CONTACT_INFO):
-        contactInfo += [i.text]
-
     peeps = []
+    cries = []
+
+    for i in cm.OrganizationListType.objects.filter(owner__exact=organization_id):
+        if (i.context == cm.OrganizationListType.HISTORY):
+            history += [i.text]
+        elif (i.context == cm.OrganizationListType.CONTACT_INFO):
+            contactInfo += [i.text]
+
     for i in cm.Person.objects.filter(organization__id__exact=organization_id):
         peeps += [i]
 
-    cries = []
     for i in cm.Crisis.objects.filter(organizations__id__exact=organization_id):
         cries += [i]
 
     return {
+        'summaries' : summaries,
         'history' : history,
         'contactInfo' : contactInfo,
         'peeps' : peeps,
@@ -165,9 +174,14 @@ def getPersonContext(person_id):
 class Empty():
     pass
 
+def about(request):
+    t = loader.get_template("about.html")
+    c = RequestContext(request, getBaseContext())
+    return HttpResponse(t.render(c))
+
 def index(request):
     t = loader.get_template("index.html")
-    c = RequestContext(request, getDropdownContext())
+    c = RequestContext(request, getBaseContext())
     return HttpResponse(t.render(c))
 
 @password_required
@@ -185,12 +199,12 @@ def importScript(request):
         except IMP.ValdiationFailedException:
             information = {"tree" : "Upload Failed - Invalid XML File!"}
     # return render_to_response("import.html", information, context_instance=RequestContext(request))
-    information = dict(getDropdownContext(), **information)
+    information = dict(getBaseContext(), **information)
     t = loader.get_template("import.html")
     c = RequestContext(request, information)
     return HttpResponse(t.render(c))
-    
-    
+
+
 def html_decode(s):
     """
     Returns the ASCII decoded version of the given HTML string. This does
@@ -210,17 +224,17 @@ def html_decode(s):
 def prettyXML(rawXML):
     jacked =  minidom.parseString(rawXML).toprettyxml()
     return '\n'.join(l for l in jacked.split('\n') if l.strip())
-    
+
 def exportScript(request):
     rawXML = ET.tostring(EXP.exportXML())
 
     export = StringIO.StringIO(prettyXML(rawXML))
 
     contentType = "text/wcdb1"
-    
+
     response = HttpResponse(FileWrapper(export), content_type=contentType)
     response['Content-Disposition'] = 'attachment; filename=export.xml'
-    
+
     return response
 
 def person1(request):
@@ -261,19 +275,19 @@ def organization3(request):
 
 # List pages
 def listCrises(request):
-    addToContext = dict(getCrises(), **getDropdownContext())
+    addToContext = dict(getCrises(), **getBaseContext())
     c = RequestContext(request, addToContext)
     t = loader.get_template("listCrises.html")
     return HttpResponse(t.render(c))
 
 def listOrganizations(request):
-    addToContext = dict(getOrganizations(), **getDropdownContext())
+    addToContext = dict(getOrganizations(), **getBaseContext())
     c = RequestContext(request, addToContext)
     t = loader.get_template("listOrganization.html")
     return HttpResponse(t.render(c))
 
 def listPeople(request):
-    addToContext = dict(getPeople(), **getDropdownContext())
+    addToContext = dict(getPeople(), **getBaseContext())
     c = RequestContext(request, addToContext)
     t = loader.get_template("listPeople.html")
     return HttpResponse(t.render(c))
@@ -282,7 +296,7 @@ def listPeople(request):
 def crisis(request, crisis_id):
     try:
         thisCrisis = cm.Crisis.objects.get(id=crisis_id)
-        addToContext = dict({'crisis' : thisCrisis}, **getDropdownContext())
+        addToContext = dict({'crisis' : thisCrisis}, **getBaseContext())
         addToContext = dict(getCommonContext(thisCrisis.common_id), **addToContext)
         addToContext = dict(getCrisesContext(thisCrisis.id), **addToContext)
         c = RequestContext(request, addToContext)
@@ -294,7 +308,7 @@ def crisis(request, crisis_id):
 def organization(request, organization_id):
     try:
         thisOrganization = cm.Organization.objects.get(id=organization_id)
-        addToContext = dict(model_to_dict(thisOrganization), **getDropdownContext())
+        addToContext = dict(model_to_dict(thisOrganization), **getBaseContext())
         addToContext = dict(getCommonContext(thisOrganization.common_id), **addToContext)
         addToContext = dict(getOrganizationContext(thisOrganization.id), **addToContext)
         c = RequestContext(request, addToContext)
@@ -306,7 +320,7 @@ def organization(request, organization_id):
 def person(request, person_id):
     try:
         thisPerson = cm.Person.objects.get(id=person_id)
-        addToContext = dict(model_to_dict(thisPerson), **getDropdownContext())
+        addToContext = dict(model_to_dict(thisPerson), **getBaseContext())
         addToContext = dict(getCommonContext(thisPerson.common_id), **addToContext)
         addToContext = dict(getPersonContext(thisPerson.id), **addToContext)
         c = RequestContext(request, addToContext)
@@ -316,6 +330,7 @@ def person(request, person_id):
         return fourohfour(request)
         
 #creating a user page
+
 def createuser(request):
      t = loader.get_template("index.html")
      if request.method == 'POST': # If the form has been submitted...
@@ -365,7 +380,7 @@ def login_user(request):
 
 # Our four oh four page
 def fourohfour(request):
-    addToContext = getDropdownContext()
+    addToContext = getBaseContext()
     c = RequestContext(request, addToContext)
     t = loader.get_template("fourohfour.html")
     return HttpResponse(t.render(c))
@@ -388,7 +403,7 @@ def search(request):
         'organizations' : organizations,
         'crises' : crises
     }
-    addToContext = dict(getDropdownContext(), **addToContext)
+    addToContext = dict(getBaseContext(), **addToContext)
     c = RequestContext(request, addToContext)
     t = loader.get_template("search.html")
     return HttpResponse(t.render(c))
@@ -397,7 +412,7 @@ def unittest(request):
     text = StringIO.StringIO()
     copyout = sys.stdout
     sys.stdout = text
-    
+
     try:
         print "TestWCDB1.py"
         print subprocess.check_output(["python", "manage.py", "test"], stderr=subprocess.STDOUT)
@@ -405,15 +420,15 @@ def unittest(request):
     except subprocess.CalledProcessError as e:
         print e.output
         print "Done."
-    
-    
+
+
     addToContext = {
         'output' : text.getvalue()
     }
     sys.stdout = copyout
     text.close()
-    addToContext = dict(getDropdownContext(), **addToContext)
+    addToContext = dict(getBaseContext(), **addToContext)
     c = RequestContext(request, addToContext)
     t = loader.get_template("unittest.html")
     return HttpResponse(t.render(c))
-    
+
