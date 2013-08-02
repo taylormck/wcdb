@@ -16,8 +16,9 @@ import xml.etree.ElementTree as ET
 from xml.dom.minidom import parseString
 from xml.dom import minidom
 from django.shortcuts import render
-from models import CreateUser
-
+from models import *
+from crispy_forms.helper import FormHelper
+from django.contrib.auth import authenticate, login
 import sys
 import subprocess
 import StringIO
@@ -33,7 +34,7 @@ def getRandomCrisisID():
         return {'randomCrisis': choice(allCrises)}
 
 # Returns a dictionary context for the navbar
-def getDropdownContext():
+def getBaseContext():
     return dict({
         'dcrises' : cm.Crisis.objects.order_by('-date', '-time')[:10],
         'dorganizations' : cm.Organization.objects.order_by('?')[:10],
@@ -175,12 +176,12 @@ class Empty():
 
 def about(request):
     t = loader.get_template("about.html")
-    c = RequestContext(request, getDropdownContext())
+    c = RequestContext(request, getBaseContext())
     return HttpResponse(t.render(c))
 
 def index(request):
     t = loader.get_template("index.html")
-    c = RequestContext(request, getDropdownContext())
+    c = RequestContext(request, getBaseContext())
     return HttpResponse(t.render(c))
 
 @password_required
@@ -198,7 +199,7 @@ def importScript(request):
         except IMP.ValdiationFailedException:
             information = {"tree" : "Upload Failed - Invalid XML File!"}
     # return render_to_response("import.html", information, context_instance=RequestContext(request))
-    information = dict(getDropdownContext(), **information)
+    information = dict(getBaseContext(), **information)
     t = loader.get_template("import.html")
     c = RequestContext(request, information)
     return HttpResponse(t.render(c))
@@ -274,19 +275,19 @@ def organization3(request):
 
 # List pages
 def listCrises(request):
-    addToContext = dict(getCrises(), **getDropdownContext())
+    addToContext = dict(getCrises(), **getBaseContext())
     c = RequestContext(request, addToContext)
     t = loader.get_template("listCrises.html")
     return HttpResponse(t.render(c))
 
 def listOrganizations(request):
-    addToContext = dict(getOrganizations(), **getDropdownContext())
+    addToContext = dict(getOrganizations(), **getBaseContext())
     c = RequestContext(request, addToContext)
     t = loader.get_template("listOrganization.html")
     return HttpResponse(t.render(c))
 
 def listPeople(request):
-    addToContext = dict(getPeople(), **getDropdownContext())
+    addToContext = dict(getPeople(), **getBaseContext())
     c = RequestContext(request, addToContext)
     t = loader.get_template("listPeople.html")
     return HttpResponse(t.render(c))
@@ -295,7 +296,7 @@ def listPeople(request):
 def crisis(request, crisis_id):
     try:
         thisCrisis = cm.Crisis.objects.get(id=crisis_id)
-        addToContext = dict({'crisis' : thisCrisis}, **getDropdownContext())
+        addToContext = dict({'crisis' : thisCrisis}, **getBaseContext())
         addToContext = dict(getCommonContext(thisCrisis.common_id), **addToContext)
         addToContext = dict(getCrisesContext(thisCrisis.id), **addToContext)
         c = RequestContext(request, addToContext)
@@ -307,7 +308,7 @@ def crisis(request, crisis_id):
 def organization(request, organization_id):
     try:
         thisOrganization = cm.Organization.objects.get(id=organization_id)
-        addToContext = dict(model_to_dict(thisOrganization), **getDropdownContext())
+        addToContext = dict(model_to_dict(thisOrganization), **getBaseContext())
         addToContext = dict(getCommonContext(thisOrganization.common_id), **addToContext)
         addToContext = dict(getOrganizationContext(thisOrganization.id), **addToContext)
         c = RequestContext(request, addToContext)
@@ -319,7 +320,7 @@ def organization(request, organization_id):
 def person(request, person_id):
     try:
         thisPerson = cm.Person.objects.get(id=person_id)
-        addToContext = dict(model_to_dict(thisPerson), **getDropdownContext())
+        addToContext = dict(model_to_dict(thisPerson), **getBaseContext())
         addToContext = dict(getCommonContext(thisPerson.common_id), **addToContext)
         addToContext = dict(getPersonContext(thisPerson.id), **addToContext)
         c = RequestContext(request, addToContext)
@@ -327,6 +328,8 @@ def person(request, person_id):
         return HttpResponse(t.render(c))
     except ObjectDoesNotExist:
         return fourohfour(request)
+        
+#creating a user page
 
 def createuser(request):
      t = loader.get_template("index.html")
@@ -342,10 +345,15 @@ def createuser(request):
             username = form.cleaned_data['username']
             firstname = form.cleaned_data['firstname']
             lastname = form.cleaned_data['lastname']
+            adminpass = form.cleaned_data['admin']
             user = User.objects.create_user(username, email, password)
             user.last_name = lastname
             user.first_name = firstname
+            if adminpass == "downing" :
+              user.is_superuser = True
             user.save()
+            user = authenticate(username=username, password=password)
+            login(request, user)
             c = RequestContext(request, getDropdownContext())
             return HttpResponse(t.render(c)) # Redirect after POST
      else:
@@ -354,10 +362,25 @@ def createuser(request):
      return render(request,
                    'createUser.html',
                    dict({'form': form,}, **getDropdownContext()))
+     
+#logining in a user
+def login_user(request):
+  t = loader.get_template("index.html")
+  if request.method == 'POST':
+    form = LoginUser(request.POST)
+    if form.is_valid():
+      username = form.cleaned_data['username']
+      password = form.cleaned_data['password']
+      c = RequestContext(request, getDropdownContext())
+      return HttpResponse(t.render(c)) # Redirect after POST
+  else:
+    form = LoginUser() #unbound form
+    
+  return render(request, 'Login.html', dict({'form': form,}, **getDropdownContext()))
 
 # Our four oh four page
 def fourohfour(request):
-    addToContext = getDropdownContext()
+    addToContext = getBaseContext()
     c = RequestContext(request, addToContext)
     t = loader.get_template("fourohfour.html")
     return HttpResponse(t.render(c))
@@ -380,7 +403,7 @@ def search(request):
         'organizations' : organizations,
         'crises' : crises
     }
-    addToContext = dict(getDropdownContext(), **addToContext)
+    addToContext = dict(getBaseContext(), **addToContext)
     c = RequestContext(request, addToContext)
     t = loader.get_template("search.html")
     return HttpResponse(t.render(c))
@@ -404,7 +427,7 @@ def unittest(request):
     }
     sys.stdout = copyout
     text.close()
-    addToContext = dict(getDropdownContext(), **addToContext)
+    addToContext = dict(getBaseContext(), **addToContext)
     c = RequestContext(request, addToContext)
     t = loader.get_template("unittest.html")
     return HttpResponse(t.render(c))
