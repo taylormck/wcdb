@@ -3,23 +3,14 @@
 {% block title %}Import{% endblock %}
 
 {% block content %}
-<script>
-    function popup()
-    {
-        if(!jQuery("#Merge").is(':checked'))
-        {
-            var sure = confirm("Are you sure?");
-            jQuery("#Merge").checked = !sure;
-        }
-    }
-</script>
-
 <legend>XML Upload</legend>
 <form class="form-actions" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     File: <input type="file" name="xmlFile" />
     <br/>
-    <input type="checkbox" id="Merge" name="merge" onclick="popup()" checked="true"> Merge? 
+    <br/>
+    <input type="checkbox" id="Merge" name="merge" checked="true"> Merge?
+    <p class="text-error">WARNING: Unchecking this will wipe the DB.</p>
     <br/>
     <input class="btn btn-danger" type="submit" name="submit" value="Upload" />
 </form>
