@@ -432,3 +432,8 @@ def unittest(request):
     t = loader.get_template("unittest.html")
     return HttpResponse(t.render(c))
 
+def queries(request):
+    addToContext = getBaseContext()
+    c = RequestContext(request, addToContext)
+    t = loader.get_template("queries.html")
+    return HttpResponse(t.render(c))
