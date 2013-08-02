@@ -43,6 +43,9 @@ urlpatterns = patterns('',
     # About us page
     url(r'^about/$', 'views.about', name='about'),
 
+    # queries page
+    url(r'^queries/$', 'views.queries', name='queries'),
+
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
