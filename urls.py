@@ -22,9 +22,10 @@ urlpatterns = patterns('',
     url(r'^crisis/(\w*)/$', views.crisis, name='crisis'),
     url(r'^organization/(\w*)/$', views.organization, name='organization'),
     url(r'^person/(\w*)/$', views.person, name='person'),
-
-    # Login page for user profiles
-    url(r'loginpage/$', 'views.createuser', name = 'createuser'),
+    
+    # User pages for user profiles
+    url(r'createuser/$', 'views.createuser', name = 'createuser'),
+    url(r'login/$', 'views.login_user', name = 'loginuser'),
 
     # Search page
     url(r'^search/$', views.search, name='search'),
