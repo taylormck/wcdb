@@ -20,16 +20,21 @@
       Crises that took place in the morning (between 12am and 12pm)
     </div>    
     <div class="span6">
-      other team
+      show all crises with a specific type of disaster
     </div>
   </div>
   <div class="row-fluid">
     <div class="span6">
-      <pre> Just testing
+      <pre> 
+        select id, name 
+  from crises_crisis
+  where hour(time) >= 0
+  and hour(time) < 12;
       </pre>
     </div>
     <div class="span6">
-      <pre>yep
+      <pre>select name from crises_crisis
+          where kind="Natural Disaster";
       </pre>
     </div>
   </div>
@@ -40,16 +45,20 @@
       Number of crises involving Obama
     </div>    
     <div class="span6">
-      Other teams query
+      Display crises that occurred after 1990
     </div>
   </div>
   <div class="row-fluid">
     <div class="span6">
-      <pre> Just testing
+      <pre> select count(*)
+  from crises_crisis_people 
+  inner join crises_crisis;
       </pre>
     </div>
     <div class="span6">
-      <pre>yep
+      <pre>select id, name
+            from crises_crisis
+            where year(date) > 1990;
       </pre>
     </div>
   </div>
@@ -60,16 +69,27 @@
       Crises that occurred in the summer (beyond "summer" is the months June, July, and August)
     </div>    
     <div class="span6">
-      Other teams query
+      show all organizations with more than three people
     </div>
   </div>
   <div class="row-fluid">
     <div class="span6">
-      <pre> Just testing
+      <pre> select id, name
+  from crises_crisis
+  where month(date) = 6
+    or month(date) = 7
+    or month(date) = 8;
       </pre>
     </div>
     <div class="span6">
-      <pre>yep
+      <pre>select t_id as id, t_name as name
+            from (
+              select o.id as t_id, o.name as t_name, count(*) as num_people
+              from crises_organization as o
+              inner join crises_organization_people as op
+                on o.id=op.organization_id
+                  group by o.id) as t
+            where t.num_people >= 3;
       </pre>
     </div>
   </div>
@@ -80,16 +100,24 @@
       Crises whose kind value contains the word "shooting"
     </div>    
     <div class="span6">
-      Other teams query
+      people involved in crises that happened in the 21st century
     </div>
   </div>
   <div class="row-fluid">
     <div class="span6">
-      <pre> Just testing
+      <pre> select id, name
+  from crises_crisis
+  where instr(kind, 'shooting') > 0;
       </pre>
     </div>
     <div class="span6">
-      <pre>yep
+      <pre>select distinct p.id, p.name 
+            from crises_person as p 
+            inner join crises_crisis_people as cp 
+            on cp.person_id=p.id 
+            inner join crises_crisis as c 
+            on c.id=cp.crisis_id 
+            where year(date)  > 2000;
       </pre>
     </div>
   </div>
@@ -100,16 +128,23 @@
       Crises that took place in Texas (Location data should contain "Texas" or "TX")
     </div>    
     <div class="span6">
-      Other teams query
+      The total number of relations between all people and events (hint: use the linking table)
     </div>
   </div>
   <div class="row-fluid">
     <div class="span6">
-      <pre> Just testing
+      <pre> select c.id, c.name
+              from crises_crisislisttype as clt 
+              inner join crises_crisis as c
+              on c.id = clt.owner_id
+                where context = 'LO'
+                and (instr(text, 'Texas')
+                or instr(text, 'TX'));
       </pre>
     </div>
     <div class="span6">
-      <pre>yep
+      <pre>select count(*) from crises_crisis
+  where kind="Natural Disaster";
       </pre>
     </div>
   </div>
@@ -117,4 +152,3 @@
 
 
 {% endblock %}
-
