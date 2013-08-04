@@ -1,12 +1,12 @@
 -- Crises that took place between 12 am and 12 pm
-select id, name 
+select id, name
   from crises_crisis
   where hour(time) >= 0
   and hour(time) < 12;
 
 -- Number of crises involving Obama
 select count(*)
-  from crises_crisis_people 
+  from crises_crisis_people
   inner join crises_crisis;
 
 -- Crises that occurred in the summer. (Assume "summer" is the months June, July, and August)
@@ -24,19 +24,14 @@ select id, name
 
 -- Crises that took place in Texas (Location data should contain "Texas" or "TX")
 select c.id, c.name
-  from crises_crisislisttype as clt 
+  from crises_crisislisttype as clt
   inner join crises_crisis as c
     on c.id = clt.owner_id
   where context = 'LO'
     and (instr(text, 'Texas')
     or instr(text, 'TX'));
 
----------------------
--- Lesser Queries ---
----------------------
-
 -- show all crises with a specific type of disaster
-
 select name from crises_crisis
   where kind="Natural Disaster";
 
@@ -57,15 +52,15 @@ from (
 where t.num_people >= 3;
 
 -- people involved in crises that happened in the 21st century
-select distinct p.id, p.name 
-  from crises_person as p 
-    inner join crises_crisis_people as cp 
-      on cp.person_id=p.id 
-    inner join crises_crisis as c 
-      on c.id=cp.crisis_id 
+select distinct p.id, p.name
+  from crises_person as p
+    inner join crises_crisis_people as cp
+      on cp.person_id=p.id
+    inner join crises_crisis as c
+      on c.id=cp.crisis_id
     where year(date)  > 2000;
 
--- The total number of relations between all people and events (hint: use the linking table)
+-- The total number of natural disasters
 select count(*) from crises_crisis
   where kind="Natural Disaster";
 
