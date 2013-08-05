@@ -62,9 +62,9 @@
     </div>
     <div class="span6">
       <pre>
-        select id, name
-          from crises_crisis
-          where year(date) > 1990;
+      select id, name
+        from crises_crisis
+        where year(date) > 1990;
       </pre>
     </div>
   </div>
@@ -90,14 +90,18 @@
     </div>
     <div class="span6">
       <pre>
-        select t_id as id, t_name as name
-          from (
-            select o.id as t_id, o.name as t_name, count(*) as num_people
-              from crises_organization as o
-              inner join crises_organization_people as op
-                on o.id=op.organization_id
-                  group by o.id) as t
-            where t.num_people >= 3;
+      select t_id as id, t_name as name
+        from (
+          select 
+            o.id as t_id, 
+            o.name as t_name, 
+            count(*) as num_people
+          from crises_organization as o
+        inner join 
+        crises_organization_people as op
+              on o.id=op.organization_id
+          group by o.id) as t
+          where t.num_people >= 3;
       </pre>
     </div>
   </div>
@@ -123,7 +127,8 @@
       <pre>
       select distinct p.id, p.name 
         from crises_person as p 
-          inner join crises_crisis_people as cp 
+          inner join 
+          crises_crisis_people as cp 
               on cp.person_id=p.id 
               inner join crises_crisis as c 
                 on c.id=cp.crisis_id 
