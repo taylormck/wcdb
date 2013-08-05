@@ -8,6 +8,15 @@ p {
     text-indent: 15px;
 }
 
+pre {
+  margin-bottom:1.3em;
+  background:#eee;
+  border:0.1em solid #ddd;
+  padding:1.5em;
+  overflow:nowrap;
+  min-height: 260px;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Droid Serif', Georgia, Times, serif;
     text-shadow: 1px 1px 1px #cccccc;
