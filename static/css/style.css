@@ -14,7 +14,7 @@ pre {
   border:0.1em solid #ddd;
   padding:1.5em;
   overflow:nowrap;
-  min-height: 260px;
+  min-height: 100px;
 }
 
 h1, h2, h3, h4, h5, h6 {
