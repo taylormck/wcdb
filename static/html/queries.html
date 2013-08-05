@@ -2,169 +2,197 @@
 {% block title %}Queries{% endblock %}
 {% block content %}
 
-<div class="span12">
-
-  <!-- Titles -->
-  <div class="row-fluid">
-    <div class="span6">
-      <h4>Great Moonstone Queries of the First and Forsaken Oceans</h4>
-    </div>
-    <div class="span6">
-      <h4>Lesser Queries by Teams of Non Moonstone Oxen</h4>
-    </div>
-  </div>
-
-  <!-- Row 1-->
-  <div class="row-fluid">
-    <div class="span6">
-      Crises that took place in the morning (between 12am and 12pm)
+<h4>Great Moonstone Queries of the First and Forsaken Oceans</h4>
+<div class="accordion" id="accordion2">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+        Crises that took place in the morning (between 12am and 12pm)
     </div>    
-    <div class="span6">
-      show all crises with a specific type of disaster
+      </a>
     </div>
-  </div>
-  <div class="row-fluid">
-    <div class="span6">
+    <div id="collapseOne" class="accordion-body collapse in">
+      <div class="accordion-inner">
       <pre> 
-      select id, name 
-        from crises_crisis
-        where hour(time) >= 0
-        and hour(time) < 12;
+select id, name 
+  from crises_crisis
+  where hour(time) >= 0
+    and hour(time) < 12;
       </pre>
-    </div>
-    <div class="span6">
-      <pre>
-      select name from crises_crisis
-        where kind="Natural Disaster";
-      </pre>
+      </div>
     </div>
   </div>
 
-  <!-- Row 2-->
-  <div class="row-fluid">
-    <div class="span6">
-      Number of crises involving Obama
-    </div>    
-    <div class="span6">
-      Display crises that occurred after 1990
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+         Number of crises involving Obama
+      </a>
+    </div>
+    <div id="collapseTwo" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <pre>
+select count(*)
+  from crises_crisis_people 
+  inner join crises_crisis;
+        </pre>
+      </div>
     </div>
   </div>
-  <div class="row-fluid">
-    <div class="span6">
-      <pre>
-        select count(*)
-          from crises_crisis_people 
-          inner join crises_crisis;
-
-
-
-      </pre>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+        Crises that occurred in the summer (beyond "summer" is the months June, July, and August)
+      </a>
     </div>
-    <div class="span6">
-      <pre>
-      select id, name
-        from crises_crisis
-        where year(date) > 1990;
-      </pre>
-    </div>
-  </div>
-
-  <!-- Row 3 -->
-  <div class="row-fluid">
-    <div class="span6">
-      Crises that occurred in the summer (beyond "summer" is the months June, July, and August)
-    </div>    
-    <div class="span6">
-      show all organizations with more than three people
-    </div>
-  </div>
-  <div class="row-fluid">
-    <div class="span6">
+    <div id="collapseThree" class="accordion-body collapse">
+      <div class="accordion-inner">
       <pre> 
-        select id, name
-          from crises_crisis
-          where month(date) = 6
-            or month(date) = 7
-            or month(date) = 8;
-      </pre>
+select id, name from crises_crisis
+  where month(date) = 6 or month(date) = 7 or month(date) = 8;
+</pre>
+      </div>
     </div>
-    <div class="span6">
-      <pre>
-      select t_id as id, t_name as name
-        from (
-          select 
-            o.id as t_id, 
-            o.name as t_name, 
-            count(*) as num_people
-          from crises_organization as o
-        inner join 
-        crises_organization_people as op
-              on o.id=op.organization_id
-          group by o.id) as t
-          where t.num_people >= 3;
+  </div>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+        Crises whose kind value contains the word "shooting"
+      </a>
+    </div>
+    <div id="collapseFour" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <pre> 
+select id, name
+  from crises_crisis
+  where instr(kind, 'shooting') > 0;
       </pre>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive">
+        Crises that took place in Texas (Location data should contain "Texas" or "TX")
+      </a>
+    </div>
+    <div id="collapseFive" class="accordion-body collapse">
+      <div class="accordion-inner">
+      <pre> 
+select c.id, c.name
+  from crises_crisislisttype as clt 
+  inner join crises_crisis as c on c.id = clt.owner_id
+    where context = 'LO' and (instr(text, 'Texas') or instr(text, 'TX'));
+      </pre>
+      </div>
     </div>
   </div>
 
-  <!-- Row 4 -->
-  <div class="row-fluid">
-    <div class="span6">
-      Crises whose kind value contains the word "shooting"
-    </div>    
-    <div class="span6">
-      people involved in crises that happened in the 21st century
-    </div>
-  </div>
-  <div class="row-fluid">
-    <div class="span6">
-      <pre> 
-      select id, name
-        from crises_crisis
-        where instr(kind, 'shooting') > 0;
-      </pre>
-    </div>
-    <div class="span6">
-      <pre>
-      select distinct p.id, p.name 
-        from crises_person as p 
-          inner join 
-          crises_crisis_people as cp 
-              on cp.person_id=p.id 
-              inner join crises_crisis as c 
-                on c.id=cp.crisis_id 
-              where year(date)  > 2000;
-      </pre>
-    </div>
-  </div>
 
-  <!-- Row 5 -->
-  <div class="row-fluid">
-    <div class="span6">
-      Crises that took place in Texas (Location data should contain "Texas" or "TX")
-    </div>    
-    <div class="span6">
-      The total number of relations between all people and events (hint: use the linking table)
+
+
+<h4>Queries from Other Teams</h4>
+
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSix">
+        Display crises that occurred after 1990
+      </a>
+    </div>
+    <div id="collapseSix" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <pre>
+select id, name
+  from crises_crisis
+  where year(date) > 1990;
+      </pre>
+      </div>
     </div>
   </div>
-  <div class="row-fluid">
-    <div class="span6">
-      <pre> 
-      select c.id, c.name
-        from crises_crisislisttype as clt 
-          inner join crises_crisis as c
-            on c.id = clt.owner_id
-          where context = 'LO'
-            and (instr(text, 'Texas')
-            or instr(text, 'TX'));
-      </pre>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSeven">
+        Show all organizations with more than three people
+      </a>
     </div>
-    <div class="span6">
-      <pre>select count(*) from crises_crisis
-            where kind="Natural Disaster";
+    <div id="collapseSeven" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <pre>
+select t_id as id, t_name as name 
+  from ( select o.id as t_id, o.name as t_name, 
+    count(*) as num_people from crises_organization as o
+      inner join crises_organization_people as op on o.id=op.organization_id
+      group by o.id) as t where t.num_people >= 3;
+</pre>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseEight">
+        People involved in crises that happened in the 21st century
+      </a>
+    </div>
+    <div id="collapseEight" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <pre>
+select distinct p.id, p.name 
+  from crises_person as p 
+    inner join crises_crisis_people as cp on cp.person_id=p.id 
+    inner join crises_crisis as c on c.id=cp.crisis_id 
+    where year(date)  > 2000;
       </pre>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseNine">
+        The total number of relations between all people and events (hint: use the linking table)
+      </a>
+    </div>
+    <div id="collapseNine" class="accordion-body collapse">
+      <div class="accordion-inner">
+      <pre>
+select count(*) from crises_crisis
+  where kind="Natural Disaster";
+      </pre>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseNine">
+        Show all crises with a specific type of disaster
+      </a>
+    </div>
+    <div id="collapseNine" class="accordion-body collapse">
+      <div class="accordion-inner">
+      <pre>
+select name from crises_crisis
+  where kind="Natural Disaster";
+      </pre>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTen">
+        The total number of natural disasters
+      </a>
+    </div>
+    <div id="collapseTen" class="accordion-body collapse">
+      <div class="accordion-inner">
+      <pre>
+select count(*) from crises_crisis
+  where kind="Natural Disaster"
+      </pre>
+      </div>
     </div>
   </div>
 </div>
+
+
 
 
 {% endblock %}
