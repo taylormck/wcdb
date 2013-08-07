@@ -47,7 +47,7 @@
 
 
 It is often easy to forget the many crises occurring throughout the world.
-World Crisis Database is designed as a framework to effectively gather data related to recent crises. WCD then presents the crisis data, including victims, organizations, and political players involved, in a user friendly, digitally logged format. 
+World Crisis Database is designed as a framework to effectively gather data related to recent crises. WCD then presents the crisis data, including victims, organizations, and political players involved, in a user friendly, digitally logged format.
 
 \subsection*{What are the use cases?}
 \hfill
@@ -55,7 +55,7 @@ World Crisis Database is designed as a framework to effectively gather data rela
 
 This site makes use of worldwide internet access by bringing news regarding crises and by promoting help for victims. This site can be a effective resource for anyone who wants to be informed on current events. Furthermore, individuals who have a desire to help can easily find contact information for people and organizations involved and from there find the best ways to get involved, including infomration on how to donate to the charities or volunteer at a local site.
 
-
+\newpage
 \section*{Implementation}
 \hfill
 
@@ -82,9 +82,9 @@ The model of the data structure can be seen below.\\
     xleftmargin=50pt,
     xrightmargin=50pt,
     framexleftmargin=0pt,
-    tabsize=2, 
-    basicstyle=\normalsize, 
-    numbers=none, 
+    tabsize=2,
+    basicstyle=\normalsize,
+    numbers=none,
 }
 \begin{lstlisting}
 wcdb/
@@ -106,16 +106,16 @@ The root folder, named \emph{wcdb}, must be renamed to wcdb when downloading fro
 Within the root folder, there are three subdirectories: \emph{crises}, \emph{scripts}, and \emph{static}.\\
 
 
-The crisis folder contains the crisis application and the standard Django files: 
+The crisis folder contains the crisis application and the standard Django files:
 \begin{itemize}
-\item \emph{models.py} - a detail of the table structure 
+\item \emph{models.py} - a detail of the table structure
 \item \emph{tests.py} - the unit tests and single acceptance as a catch for any bugs in the program.
 \end{itemize}
 
 
 The scripts folder contains the scripts \emph{importScript} and \emph{export}.
 The deviation in convention to importScript is to avoid conflicts with the Python keyword import.
-In phase 3, both scripts \emph{export} will be renamed to importXML and exportXML in order to have a similar 
+In phase 3, both scripts \emph{export} will be renamed to importXML and exportXML in order to have a similar
 convention and more appropriately describe their function.\\
 
 
@@ -128,7 +128,7 @@ The js folder holds javascript files from Twitter's Bootstrap. Twitter's Bootstr
 \item animating the navbar, along with drop down menu, for each item when clicked
 \item capturing text for searches
 \item highlighting the row when a link is hovered over
-\item providing an image carousel for each crisis 
+\item providing an image carousel for each crisis
 \end{itemize}
 
 The templates folder holds just a single HTML file for now that is not in use.
@@ -152,17 +152,6 @@ it will fill in this block with data from the page it was first passed.\\
 \hfill
 
 
-% Show picture of data model
-\begin{wrapfigure}[22]{r}{0.48\textwidth}
-\vspace{-20pt}
-\begin{flushright}
-\includegraphics*[width=0.5\textwidth,height=4in]{dataModelDiagram.png}
-\newline
-\footnotesize
-Figure 2. A diagram of our data model % note under the picture
-\end{flushright}
-\end{wrapfigure}
-\normalsize
 
 The core data model starts with the following tables: \emph{Crisis}, \emph{Organization}, \emph{Person}.
 All three tables are connected via a many-to-many relationships with a \emph{Common} table to hold data that all three models share.
@@ -172,6 +161,13 @@ The database will never write an AbstractListType, but abstract types are useful
 The types \emph{CommonListType} and \emph{CrisisListType} both inherit from AbstractListType.
 CrisisListType will hold data for Crisis objects, and CommonListType will hold data for Common.
 
+% Show picture of data model
+\includegraphics*[width=4.5in,height=7in]{dataModelDiagram.png}
+\newline
+\footnotesize
+Figure 2. A diagram of our data model % note under the picture
+\normalsize
+\hfill\newline
 
 \subsection*{XML Importation}
 \hfill
@@ -207,7 +203,7 @@ This cookie will expire five minutes after logging in or immediately after closi
         \emph{link\_up\_dict} -
             The keys for this dictionary are always strings whose contents are the IDs of either crises or organizations.
             The corresponding value for any given key is a list of IDs from crises, persons or organizations that reference the key.\\\\
-        \emph{reference\_dict} - 
+        \emph{reference\_dict} -
             The keys for this dictionary are the IDs of crises, persons or organizations stored as strings.
             The value for the key is the model the ID references.\\\\
     \item[addReferences] \hfill \\
@@ -232,15 +228,15 @@ Currently, the user must manually verify that the file generated validates.
 This will be fixed in subsequent versions of the website.\\
 
 Export does not require administrator access.
-Any user can export this database by clicking the Export link from the navigation bar.\\\\
+Any user can export this database by clicking the Export link from the navigation bar.\\
 
 \subsubsection*{\emph{Detailed Look}}
 \begin{description}
     \item[exportXML] \hfill \\
         This function is what is run from \emph{views.py} to generate the XML.
         It calls the various \emph{parse} functions found in \emph{export.py} to pull data from the database.
-        It returns an \emph{xml.etree.ElementTree} node with the tag ``WorldCrises''.\\\\\\\\
-        
+        It returns an \emph{xml.etree.ElementTree} node with the tag ``WorldCrises''.\\
+
     \item[get\_all\_elements] \hfill \\
         This function is essentially the inverse of linkUpModels from above.
         It pulls the relevant data from the database, using the parameters specified.
@@ -254,7 +250,6 @@ Any user can export this database by clicking the Export link from the navigatio
 \subsection*{XML Schema}
 \hfill
 
-
 Although our class has been divided into separate groups for this project, our group agreed to share an XML schema between groups.
 The latest version of the schema can be found at this url.\\
 
@@ -262,7 +257,7 @@ The latest version of the schema can be found at this url.\\
 https://github.com/aaronj1335/cs373-wcdb1-schema/blob/master/WorldCrises.xsd.xml\\
 
 
-The entire XML file is wrapped in a \emph{WorldCrisis} object.
+The entire XML file is wrapped in a \emph{WorldCrises} object.
 Within the WorldCrisis object, there are one or many \emph{Crisis}, \emph{Organization}, and \emph{Person} elements.
 Each of those elements have type key types, named \emph{CrisisKey}, \emph{OrgKey}, and \emph{PersonKey}.
 There are wrappers for containers of these objects that can contain a list,
@@ -275,13 +270,22 @@ such as links, images, and videos.
 There is a \emph{ListType} definition that contains a list of XML tokens to facilitate objects with lists of data.
 
 \newpage
+% Show picture of data model
+\includegraphics*[width=4.5in,height=7in]{xmlSchemaDiagram.png}
+\newline
+\footnotesize
+Figure 3. A simplified diagram of our XML Schema % note under the picture
+\normalsize
+\hfill\newline
+
+\newpage
 \section*{Testing}
 \hfill
 
 
 Testing is done using tools provided by Django and unittest.
 To run the tests, run the command \textbf{python manage.py test}, which will run the unit tests using MySQL.
-Initial test used SQLite. Since MySQL is used in production, all tests have been shifted to this database platform in order to ensure the code 
+Initial test used SQLite. Since MySQL is used in production, all tests have been shifted to this database platform in order to ensure the code
 is running properly on our production environment.
 The ideal solution is to create two testing environments: one that runs unit tests on SQLite3 for performance purposes,
 the second runs tests on MySQL before pushing.
@@ -415,7 +419,7 @@ The links may be put in columns to span left and right for convenience as well.
 \subsection*{User Accounts}
 \hfill
 
-To gain access to the WCD website without admin access, there is a create user page where potential users sign up to the WCD website. Those that signup to webpage via this portal will be given access to view all crises, organizations, and people enterred in database. Admin privileges are defaulted to false, which gives all site functionality except for allowing non admins to import XML in to the database. For those who may need admin privileges, accounts can be manually updated outside of the create users page. 
+To gain access to the WCD website without admin access, there is a create user page where potential users sign up to the WCD website. Those that signup to webpage via this portal will be given access to view all crises, organizations, and people enterred in database. Admin privileges are defaulted to false, which gives all site functionality except for allowing non admins to import XML in to the database. For those who may need admin privileges, accounts can be manually updated outside of the create users page.
 \begin{comment}
 \subsection*{Search}
 \hfill
@@ -423,16 +427,16 @@ To gain access to the WCD website without admin access, there is a create user p
 This uses the
 \end{comment}
 \subsection*{Random Button}
-\hfill 
+\hfill
 
-Added as the Feeling Symphatethic Button, this button randomnly shows an existing crisis, not organization or people. 
+Added as the Feeling Symphatethic Button, this button randomnly shows an existing crisis, not organization or people.
 
 \newpage
 \section*{Phase 2 Goals}
 \hfill
 
 
-The primary future goal for phase 2 was to get the site presenting data from the database dynamically. This has been completed.\\ 
+The primary future goal for phase 2 was to get the site presenting data from the database dynamically. This has been completed.\\
 
 
 Also at the end of Phase 1, the site has been modeled after IMBD website with emphasis on adding the specific functionality found in the site. The following list below details the the specifications and their status into the WCD website functionality:
@@ -464,8 +468,8 @@ Under Phase 3, we plan to add the following goals:
 \item Construct SQL queries to submit to Piazza
 \item Improve randomize button to pull from non-crises
 \item Coordinate with other teams to get XML data into a single db
-\item Generate cd 
+\item Generate cd
 \end{itemize}
 
 
-\end{document}  
+\end{document}
