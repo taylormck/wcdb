@@ -110,7 +110,7 @@ def parseGeneric(nodes,parseFunction,ref,lud):
 
 def parseCrisis(crisis):        
     #Add all the basic info
-    newCrisis = fetchObject(info.Crisis, crisis)
+    newCrisis = fetchDataModelObject(info.Crisis, crisis)
     
     newCrisis.date = date.parse(getText(crisis.find("Date"), newCrisis.date))
     newCrisis.time = date.parse(getText(crisis.find("Time"), newCrisis.time))
@@ -134,7 +134,7 @@ def parseCrisis(crisis):
     return newCrisis
 
 def parsePerson(person):
-    newPerson = fetchObject(info.Person, person)
+    newPerson = fetchDataModelObject(info.Person, person)
     newPerson.kind = getText(person.find("Kind"), newPerson.kind)
     newPerson.location = getText(person.find("Location"), newPerson.location)
     
@@ -143,7 +143,7 @@ def parsePerson(person):
     return newPerson
 
 def parseOrganization(organization):
-    newOrg = fetchObject(info.Organization, organization)
+    newOrg = fetchDataModelObject(info.Organization, organization)
     newOrg.kind = getText(organization.find("Kind"), newOrg.kind)
     newOrg.location = getText(organization.find("Location"), newOrg.location)
     
@@ -250,7 +250,7 @@ def getText(node, alternateValue=""):
         alternateValue = ""
     return alternateValue
 
-def fetchObject(modelType, node):
+def fetchDataModelObject(modelType, node):
     newObj = None
     try:
         newObj = modelType.objects.get(id=node.attrib["ID"])

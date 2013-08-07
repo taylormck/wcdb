@@ -282,7 +282,7 @@ class TestImportScript(TestCase):
             except AssertionError:
                 raise Exception("Model " + model.__name__ + " failed the assertion")
                 
-    def test_text_merge(TestCase):
+    def test_text_merge_EmptyDoesNotOverwrite(TestCase):
         setMerge(True)
         testXML = StringIO.StringIO(TestFile)
         parse = parseXML(testXML)
