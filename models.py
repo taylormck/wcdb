@@ -11,6 +11,7 @@ class CreateUser(forms.Form):
     firstname = forms.CharField(label = "First name")
     lastname = forms.CharField(label = "Last name")
     admin = forms.CharField(widget=forms.PasswordInput(), label = "Password for Admin Status", required = False)
+
       
     def __init__(self, *args, **kwargs):
       super(CreateUser, self).__init__(*args, **kwargs)
@@ -19,7 +20,6 @@ class CreateUser(forms.Form):
       self.helper.form_class = 'blueForms'
       self.helper.form_method = 'post'
       self.helper.form_style = 'default'
-
       self.helper.add_input(Submit('submit', 'Submit'))
      
     
