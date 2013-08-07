@@ -1,0 +1,355 @@
+{% extends 'listBase.html' %}
+{% block title %}Queries{% endblock %}
+{% block content %}
+
+<h4>Great Moonstone Queries of the First and Forsaken Oceans</h4>
+<div class="accordion" id="accordion2">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+        Crises that took place in the morning (between 12am and 12pm)   
+      </a>
+    </div>
+    <div id="collapseOne" class="accordion-body collapse">
+      <div class="accordion-inner">
+      <pre> 
+select id, name 
+  from crises_crisis
+  where hour(time) >= 0
+    and hour(time) < 12;
+</pre>
+<pre>
+CRI_SYCLWR  Syrian Civil War
+CRI_SCHERQ  2008 Sichuan earthquake
+CRI_SWNFLU  Influenza A virus subtype H1N1
+CRI_BAGAIR  Baghdad Airstrike
+CRI_HURIKE  Hurricane Ike
+CRI_WSAFRC  Water Scarcity in Africa
+CRI_MUMBAI  2008 Mumbai attacks 
+CRI_COPMAC  2010 Copiago mining accident
+CRI_AURORA  2012 Aurora Shooting 
+CRI_WTXPLX  West Fertilizer Plant Explosion
+CRI_EGYPTR  Political Unrest in Egypt
+CRI_EUDEBT  European Sovereign-Debt Crisis
+CRI_NAPLES  Naples Waste Management Issue
+CRI_BMBOMB  Boston Marathon Bombings
+CRI_BPOILS  BP Oil Spill
+CRI_EXXVAL  Exxon Valdez Oil Spill 
+CRI_FUKUSH  Fukushima Daiichi Nuclear Disaster
+CRI_HURSAN  Hurricane Sandy
+CRI_HUMTRA  Human trafficking
+CRI_PIRATE  Piracy in Somalia
+CRI_NKCONF  North Korean Conflict
+CRI_SCMARI  South China Maritime Conflicts
+CRI_CHINAD  Democracy in China
+CRI_IRAQWR  Iraq War
+CRI_RRCOMP  2008 Raid on Religious Compound
+      </pre>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+         Number of crises involving Obama
+      </a>
+    </div>
+    <div id="collapseTwo" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <pre>
+select count(*)
+  from crises_crisis_people as cp
+  inner join crises_crisis as c
+  on cp.crisis_id=c.id
+  where cp.person_id='PER_BROBMA';
+        </pre>
+
+        <pre>
+    3
+        </pre>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+        Crises that occurred in the summer (beyond "summer" is the months June, July, and August)
+      </a>
+    </div>
+    <div id="collapseThree" class="accordion-body collapse">
+      <div class="accordion-inner">
+      <pre> 
+select id, name from crises_crisis
+  where month(date) = 6 or month(date) = 7 or month(date) = 8;
+</pre>
+<pre>
+CRI_BAGAIR  Baghdad Airstrike
+CRI_HURIKE  Hurricane Ike
+CRI_WSAFRC  Water Scarcity in Africa
+CRI_COPMAC  2010 Copiago mining accident
+CRI_AURORA  2012 Aurora Shooting 
+CRI_KATRIN  Hurricane Katrina
+CRI_HUMTRA  Human trafficking
+CRI_SCMARI  South China Maritime Conflicts
+CRI_CHINAD  Democracy in China
+CRI_AZWILD  Arizona Wildfires
+CRI_OSLOSH  Oslo Shootings
+CRI_COLSSD  Columbia Space Shuttle Disaster
+</pre>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+        Crises whose kind value contains the word "shooting"
+      </a>
+    </div>
+    <div id="collapseFour" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <pre> 
+select id, name
+  from crises_crisis
+  where instr(kind, 'shooting') > 0;
+      </pre>
+      <pre>
+CRI_ALABUN  2013 Alabama bunker hostage crisis 
+CRI_AURORA  2012 Aurora Shooting 
+CRI_SHESSG  Sandy Hook Elementary School Shooting
+      </pre>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive">
+        Crises that took place in Texas (Location data should contain "Texas" or "TX")
+      </a>
+    </div>
+    <div id="collapseFive" class="accordion-body collapse">
+      <div class="accordion-inner">
+      <pre> 
+select c.id, c.name
+  from crises_crisislisttype as clt 
+  inner join crises_crisis as c on c.id = clt.owner_id
+    where context = 'LO' and (instr(text, 'Texas') or instr(text, 'TX'));
+      </pre>
+      <pre>
+CRI_WTXPLX  West Fertilizer Plant Explosion
+CRI_HURIKE  Hurricane Ike
+CRI_RRCOMP  2008 Raid on Religious Compound
+CRI_COLSSD  Columbia Space Shuttle Disaster
+      </pre>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<h4>Queries from Other Teams</h4>
+
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSix">
+        Display crises that occurred after 1990
+      </a>
+    </div>
+    <div id="collapseSix" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <pre>
+select id, name
+  from crises_crisis
+  where year(date) > 1990;
+      </pre>
+      <pre>
+CRI_NRMACF  Northern Mali Conflict
+CRI_TURKPR  2013 protests in Turkey
+CRI_SYCLWR  Syrian Civil War
+CRI_LYCLWR  Libyan Civil War
+CRI_SCHERQ  2008 Sichuan earthquake
+CRI_SWNFLU  Influenza A virus subtype H1N1
+CRI_BAGAIR  Baghdad Airstrike
+CRI_HURIKE  Hurricane Ike
+CRI_WSAFRC  Water Scarcity in Africa
+CRI_MUMBAI  2008 Mumbai attacks 
+CRI_ALABUN  2013 Alabama bunker hostage crisis 
+CRI_COPMAC  2010 Copiago mining accident
+CRI_AURORA  2012 Aurora Shooting 
+CRI_OKCBOM  Oklahoma City Bombings
+CRI_WTXPLX  West Fertilizer Plant Explosion
+CRI_MOKTOR  Moore, Oklahoma Tornado
+CRI_SPTMEL  September 11th
+CRI_SHESSG  Sandy Hook Elementary School Shooting
+CRI_BFACTO  Savar Building Collapse
+CRI_EGYPTR  Political Unrest in Egypt
+CRI_DARFUR  War in Darfur
+CRI_TOHOQU  2011 Tohoku Earthquake and Tsunami
+CRI_EUDEBT  European Sovereign-Debt Crisis
+CRI_NAPLES  Naples Waste Management Issue
+CRI_BMBOMB  Boston Marathon Bombings
+CRI_KATRIN  Hurricane Katrina
+CRI_BPOILS  BP Oil Spill
+CRI_KKKMEM  KKK Memphis Protests
+CRI_HAIEAR  2010 Haiti Earthquake
+CRI_FUKUSH  Fukushima Daiichi Nuclear Disaster
+CRI_HURSAN  Hurricane Sandy
+CRI_HUMTRA  Human trafficking
+CRI_PIRATE  Piracy in Somalia
+CRI_FINCRI  Global financial crisis
+CRI_NKCONF  North Korean Conflict
+CRI_SCMARI  South China Maritime Conflicts
+CRI_IRAQWR  Iraq War
+CRI_AZWILD  Arizona Wildfires
+CRI_OSLOSH  Oslo Shootings
+CRI_RRCOMP  2008 Raid on Religious Compound
+CRI_COLSSD  Columbia Space Shuttle Disaster
+      </pre>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSeven">
+        Show all organizations with more than three people
+      </a>
+    </div>
+    <div id="collapseSeven" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <pre>
+select t_id as id, t_name as name 
+  from ( select o.id as t_id, o.name as t_name, 
+    count(*) as num_people from crises_organization as o
+      inner join crises_organization_people as op on o.id=op.organization_id
+      group by o.id) as t where t.num_people >= 3;
+</pre>
+<pre>
+ORG_REDCRS  Red Cross
+</pre>
+
+      </div>
+    </div>
+  </div>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseEight">
+        People involved in crises that happened in the 21st century
+      </a>
+    </div>
+    <div id="collapseEight" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <pre>
+select distinct p.id, p.name 
+  from crises_person as p 
+    inner join crises_crisis_people as cp on cp.person_id=p.id 
+    inner join crises_crisis as c on c.id=cp.crisis_id 
+    where year(date)  > 2000;
+      </pre>
+      <pre>
+PER_AMTOTO  Amadou Toumani Touré
+PER_ERDOGA  Recep Tayyip Erdogan
+PER_VPUTIN  Vladimir Putin
+PER_MURGDI  Muammar Gaddafi
+PER_HUJNTO  Hu Jintao
+PER_GHARTL  Gregory Hartl
+PER_BRADMA  Bradley Manning
+PER_JULASS  Julian Assange
+PER_MICCAM  Michel Camdessus
+PER_AJKASA  Ajmal Kasab
+PER_TAHUSS  Tahawwur Hussain Rana
+PER_JDYKES  Jimmy Lee Dykes
+PER_LUISUR  Luis Urzúa
+PER_JAMHOL  James Eagan Holmes 
+PER_DADAIR  Donald Adair
+PER_RPERRY  Rick Perry
+PER_FALLIN  Mary Fallin
+PER_OSAMAB  Osama Bin Laden
+PER_ADMLNZ  Adam Lanza
+PER_HASINA  Sheikh Hasina
+PER_POPEFR  Pope Francis
+PER_HOSMBK  Hosni Mubarak
+PER_MMORSI  Mohamed Morsi
+PER_GWBUSH  George W. Bush
+PER_MLAGWA  Martin Luther Agwai
+PER_OMARAL  Omar al-Bashir
+PER_NAOKAN  Naoto Kan
+PER_SILBER  Silvio Berlusconi
+PER_BOMBER  Dzhokhar and Tamerlan Tsarnaev
+PER_BROBMA  Barack Obama
+PER_GAILMC  Gail J. McGovern
+PER_KATBLA  Kathleen Blanco
+PER_TONYHA  Tony Hayward
+PER_EDWCYC  Edward Exalted Cyclops
+PER_JEABEL  Jean-Max Bellerive
+PER_JEAJAS  Jean-Yves Jason
+PER_LAULAM  Laurent Lamothe
+PER_MICMAR  Michel Martelly
+PER_RAYJOS  Raymond Joseph
+PER_RENPRE  René Préval
+PER_STEHAR  Stephen Harper
+PER_WYCJEA  Wyclef Jean
+PER_CEOTEP  Masataka Shimizu
+PER_COPETE  Enrique Pena Nieto
+PER_LALOCA  Ricky Martin
+PER_ABDALA  Ahmedou Ould-Abdallah
+PER_CAPRIC  Captain Richard Phillips
+PER_GASPAR  Vitor Gaspar
+PER_JONGUN  Kim Jong-un
+PER_JKERRY  John Kerry
+PER_SADHUS  Saddam Hussein
+PER_ANDVIK  Anders Behring Breivik
+PER_HUSBND  Rick Husband
+    </pre>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseNine">
+        Show all crises with a specific type of disaster
+      </a>
+    </div>
+    <div id="collapseNine" class="accordion-body collapse">
+      <div class="accordion-inner">
+      <pre>
+select name from crises_crisis
+  where kind="Natural Disaster";
+      </pre>
+<pre>
+Hurricane Ike
+Water Scarcity in Africa
+2010 Copiago mining accident
+Moore, Oklahoma Tornado
+2011 Tohoku Earthquake and Tsunami
+Hurricane Katrina
+2010 Haiti Earthquake
+Hurricane Sandy
+Arizona Wildfires
+</pre>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTen">
+        The total number of natural disasters
+      </a>
+    </div>
+    <div id="collapseTen" class="accordion-body collapse">
+      <div class="accordion-inner">
+      <pre>
+select count(*) from crises_crisis
+  where kind="Natural Disaster"
+      </pre>
+      <pre>
+9
+      </pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}
