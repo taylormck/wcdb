@@ -347,16 +347,21 @@ def createuser(request):
             firstname = form.cleaned_data['firstname']
             lastname = form.cleaned_data['lastname']
             adminpass = form.cleaned_data['admin']
-            user = User.objects.create_user(username, email, password)
-            user.last_name = lastname
-            user.first_name = firstname
-            if adminpass == "downing" :
-              user.is_superuser = True
-            user.save()
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            c = RequestContext(request, getBaseContext())
-            return HttpResponse(t.render(c)) # Redirect after POST
+            try:
+                user = User.objects.get(username=username)
+            except User.DoesNotExist:
+                user = User.objects.create_user(username, email, password)
+                user.last_name = lastname
+                user.first_name = firstname
+                if adminpass == "downing" :
+                    user.is_superuser = True
+                user.save()
+                user = authenticate(username=username, password=password)
+                login(request, user)
+                c = RequestContext(request, getBaseContext())
+                return HttpResponse(t.render(c)) # Redirect after POST
+            else :
+                form = CreateUser()
      else:
         form = CreateUser() # An unbound form
 
