@@ -13,6 +13,7 @@ class CreateUser(forms.Form):
     admin = forms.CharField(widget=forms.PasswordInput(), label = "Password for Admin Status", required = False)
       
     def __init__(self, *args, **kwargs):
+      super(CreateUser, self).__init__(*args, **kwargs)
       self.helper = FormHelper()
       self.helper.form_id = 'id-exampleForm'
       self.helper.form_class = 'blueForms'
@@ -20,7 +21,7 @@ class CreateUser(forms.Form):
       self.helper.form_style = 'default'
 
       self.helper.add_input(Submit('submit', 'Submit'))
-      super(CreateUser, self).__init__(*args, **kwargs)
+     
     
 class LoginUser(forms.Form):
     username = forms.CharField(
@@ -34,6 +35,7 @@ class LoginUser(forms.Form):
       required = True)
     
     def __init__(self, *args, **kwargs):
+        super(LoginUser, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
@@ -46,6 +48,6 @@ class LoginUser(forms.Form):
               )
         ))
 
-        super(LoginUser, self).__init__(*args, **kwargs)
+        
     
 
