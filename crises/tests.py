@@ -281,6 +281,25 @@ class TestImportScript(TestCase):
                 assert model.objects.count() == 0
             except AssertionError:
                 raise Exception("Model " + model.__name__ + " failed the assertion")
+                
+    def test_text_merge(TestCase):
+        setMerge(True)
+        testXML = StringIO.StringIO(TestFile)
+        parse = parseXML(testXML)
+        root = et.fromstring(TestFile)
+        xmlToModels(parse)
+        
+        testCrisisCopy = cm.Crisis.objects.get(id="CRI_AURSHO")
+        assert testCrisisCopy.kind == "Natural Disaster"
+        
+        testElement = et.fromstring(NIFCrisis)
+        testElement.find("Kind").text = None
+        newCrisis = parseCrisis(testElement)
+        
+        assert testCrisisCopy.kind == "Natural Disaster"
+        assert newCrisis.kind == "Natural Disaster"
+        
+        
 
 
 

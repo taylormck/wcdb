@@ -110,7 +110,7 @@ def parseGeneric(nodes,parseFunction,ref,lud):
 
 def parseCrisis(crisis):        
     #Add all the basic info
-    newCrisis = info.Crisis(id=crisis.attrib["ID"], name=crisis.attrib["Name"])
+    newCrisis = fetchObject(info.Crisis, crisis)
     
     newCrisis.date = date.parse(getText(crisis.find("Date"), newCrisis.date))
     newCrisis.time = date.parse(getText(crisis.find("Time"), newCrisis.time))
@@ -134,7 +134,7 @@ def parseCrisis(crisis):
     return newCrisis
 
 def parsePerson(person):
-    newPerson = info.Person(id=person.attrib["ID"], name=person.attrib["Name"])
+    newPerson = fetchObject(info.Person, person)
     newPerson.kind = getText(person.find("Kind"), newPerson.kind)
     newPerson.location = getText(person.find("Location"), newPerson.location)
     
@@ -143,7 +143,7 @@ def parsePerson(person):
     return newPerson
 
 def parseOrganization(organization):
-    newOrg = info.Organization(id=organization.attrib["ID"], name=organization.attrib["Name"])
+    newOrg = fetchObject(info.Organization, organization)
     newOrg.kind = getText(organization.find("Kind"), newOrg.kind)
     newOrg.location = getText(organization.find("Location"), newOrg.location)
     
@@ -244,9 +244,20 @@ def parseListType(listType, node, parentModel):
     listMember.save()
 
 def getText(node, alternateValue=""):
-    if node is not None:
+    if node is not None and node.text is not None:
         return node.text
-    return alternateText
+    if alternateValue is None:
+        alternateValue = ""
+    return alternateValue
+
+def fetchObject(modelType, node):
+    newObj = None
+    try:
+        newObj = modelType.objects.get(id=node.attrib["ID"])
+    except ObjectDoesNotExist:
+        newObj = modelType(id=node.attrib["ID"], name=node.attrib["Name"])
+    assert newObj != None
+    return newObj
 
 #Basically, sets up our link up dictionary so we can do the DB relations properly
 #owner_of_mtm = The model that owns the Many To Many objects
