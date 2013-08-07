@@ -355,7 +355,7 @@ def createuser(request):
             user.save()
             user = authenticate(username=username, password=password)
             login(request, user)
-            c = RequestContext(request, getDropdownContext())
+            c = RequestContext(request, getBaseContext())
             return HttpResponse(t.render(c)) # Redirect after POST
      else:
         form = CreateUser() # An unbound form
@@ -372,7 +372,9 @@ def login_user(request):
     if form.is_valid():
       username = form.cleaned_data['username']
       password = form.cleaned_data['password']
-      c = RequestContext(request, getDropdownContext())
+      user = authenticate(username=username, password=password)
+      login(request, user)
+      c = RequestContext(request, getBaseContext())
       return HttpResponse(t.render(c)) # Redirect after POST
   else:
     form = LoginUser() #unbound form
