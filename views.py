@@ -5,6 +5,7 @@ from django.template import Context, RequestContext, Template, loader
 from django.forms.models import model_to_dict # convert model to dict
 from django.db.models.base import ObjectDoesNotExist
 from django.core.servers.basehttp import FileWrapper
+from django.core.exceptions import *
 
 import crises.models as cm
 
@@ -343,25 +344,29 @@ def createuser(request):
             #lastname = form.cleaned_data['lastname']
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            username = form.cleaned_data['username']
+            usern = form.cleaned_data['username']
             firstname = form.cleaned_data['firstname']
             lastname = form.cleaned_data['lastname']
             adminpass = form.cleaned_data['admin']
             try:
-                user = User.objects.get(username=username)
+                user = User.objects.get(username=usern)
+                form._errors["username"] = form.error_class(["Username is already in use"])
+                return render(request,
+                   'createUser.html',
+                   dict({'form': form,}, **getBaseContext()))
             except User.DoesNotExist:
-                user = User.objects.create_user(username, email, password)
+                user = User.objects.create_user(usern, email, password)
                 user.last_name = lastname
                 user.first_name = firstname
                 if adminpass == "downing" :
                     user.is_superuser = True
                 user.save()
-                user = authenticate(username=username, password=password)
+                user = authenticate(username=usern, password=password)
                 login(request, user)
                 c = RequestContext(request, getBaseContext())
                 return HttpResponse(t.render(c)) # Redirect after POST
             else :
-                form = CreateUser()
+                form = CreateUser(0)
      else:
         form = CreateUser() # An unbound form
 
