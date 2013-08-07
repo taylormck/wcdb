@@ -36,6 +36,7 @@ def getRandomCrisisID():
 # Returns a dictionary context for the navbar
 def getBaseContext():
     return dict({
+        'login_user': 'login_user',
         'dcrises' : cm.Crisis.objects.order_by('-date', '-time')[:10],
         'dorganizations' : cm.Organization.objects.order_by('?')[:10],
         'dpeople' : cm.Person.objects.order_by('?')[:10],
@@ -354,14 +355,14 @@ def createuser(request):
             user.save()
             user = authenticate(username=username, password=password)
             login(request, user)
-            c = RequestContext(request, getDropdownContext())
+            c = RequestContext(request, getBaseContext())
             return HttpResponse(t.render(c)) # Redirect after POST
      else:
         form = CreateUser() # An unbound form
 
      return render(request,
                    'createUser.html',
-                   dict({'form': form,}, **getDropdownContext()))
+                   dict({'form': form,}, **getBaseContext()))
      
 #logining in a user
 def login_user(request):
@@ -371,12 +372,14 @@ def login_user(request):
     if form.is_valid():
       username = form.cleaned_data['username']
       password = form.cleaned_data['password']
-      c = RequestContext(request, getDropdownContext())
+      user = authenticate(username=username, password=password)
+      login(request, user)
+      c = RequestContext(request, getBaseContext())
       return HttpResponse(t.render(c)) # Redirect after POST
   else:
     form = LoginUser() #unbound form
     
-  return render(request, 'Login.html', dict({'form': form,}, **getDropdownContext()))
+  return render(request, 'Login.html', dict({'temp': form,}, **getBaseContext()))
 
 # Our four oh four page
 def fourohfour(request):
