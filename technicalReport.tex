@@ -422,18 +422,35 @@ Upon visiting the site a user can create an account or login by navigating to ou
 
 \subsubsection*{Creating Users}
 
-Once a user has reached the Create User page the potiential user can simply put in their info and then django will create the user and store their info into our database.
-To become a super user one needs to enter the correct password into the Admin Status field, which as of now the correct password is  "downing". If the password entered into the
+Once a user has reached the Create User page the potiential user can simply put in their info and then django will create the user and store their info into the database.
+To become a super user one needs to enter the correct password into the Admin Status field, which as of now the correct password is  \textbf{downing} . If the password entered into the
 Admin Status field is not the correct password then the user that gets created will simply not have super user status. This Admin Status will allow the user to enter into the import page without having to enter a password. The user will bypass that page and be taken directly to the import page.
 \\
 
 If all of the fields in the Create User form are not filled except for the Admin Status then the user will be redirect back to the same page but with error messages next to the fields that were not submited, the user can then fill in the fields that were left out and resubmit the form.
 \\
 
-When the user creates their username and submits the form if that username is already in the database then the user will be redirect to the same page but with an error message next to the username field telling the user that the that name is already taken. The user will then be able to choose a new username, however they will have to reenter their password.
+When the user creates their username and submits the form if that user name is already in the database then the user will be redirect to the same page but with an error message next to the username field telling the user that the that name is already taken. The user will then be able to choose a new username, however they will have to reenter their password.
 
 \subsubsection*{Login in}
 This page will allow the user to sign into their account if the user has previsouly made an account. If the wrong info is submitted then the user will be redirected back to the same page with an error stating that the wrong combination was used. Then the user will be able to resubmit the form with the correct info.
+
+\subsubsection*{Implemenation of Users}
+To implement the creation of user and logging in, a file called models.py was created that contains two classes that are used to render the forms on the webpages. Theses classes pull the data out of the fields that the user types in.
+\\
+
+To make the site more beautiful a third party app was used called crispy forms. This is used to help combine bootstap forms with django forms. 
+With this installed almost no html was written to display the forms. 
+Calling load crispy forms tags followed by crispy forms inside of the html page will create all of the html needed to render the form. 
+\\
+
+The reason this was used is because bootstrap has specific names that need to be used in order to use the bootstrap features, 
+but django also has specific names that need to be used when dealing with forms. 
+This problem is taken care of with crispy forms, this also allows for the creation of pages and forms with minimal html code. 
+\\
+
+Two more views functions were created in order to render the Login page and Create User page. Theses views create instances of the classes in models.py and then render the pages to the user. This is also where all of the logic for processing erros if they occur, then the view function will render the page with the appropriate error message to the user. These views make heavy use of the django.contrib.auth.models. This django library allows for the creation of users and logging in users. This library has functions that will insert into the databases the user's data that can later be pulled out when logging in. All of these tables that hold the user's data are automatically created upon running django the first time the site is ran.
+
 
 
 \begin{comment}
@@ -468,9 +485,7 @@ Also at the end of Phase 1, the site has been modeled after IMBD website with em
 Some other desired features:
 \begin{itemize}
 \item A Kindness Slider, where users can vote and rate organizations and people
-\item A proper logo for our team and site
-\item A random crisis action, to show people random crises
-\item A ¨sympathy button¨ for crises
+\item Allow super users to remove other users
 \item User profiles
 \end{itemize}
 
@@ -485,6 +500,38 @@ Under Phase 3, we plan to add the following goals:
 \item Improve randomize button to pull from non-crises
 \item Coordinate with other teams to get XML data into a single db
 \item Generate cd
+\end{itemize}
+
+\newpage
+\section*{Critique of Gummy Panda}
+\hfill
+
+\subsection*{Things we liked}
+\hfill \newline
+
+\begin{itemize}
+\item The homepage was visually appealing, and the navigation bar was brightly colored. The color scheme was well done and the design was simple and clean.
+\item The layout of the homepage is well implemented, with different sections split for easy navigation and each sections cycles through different pages providing a very professional look
+\item At the bottom of each page there is a secondary navigation bar that is both smaller and non-obstructive which makes navigating to other pages even easier.
+\end{itemize}
+
+\subsection*{Concepts we liked, but could have been better}
+\hfill \newline
+
+\begin{itemize}
+\item Having just pictures to click on to navigate to a specific page is rather confusing and makes to finding a specific page difficult
+\item People pages use same the layout that crisis and organization use which makes the people pages look rather empty
+\item The about us page has a great image and is very entertaining but more information about the group would be nice
+\end{itemize}
+
+\subsection*{Concepts we felt were unneeded or hurt the website}
+\hfill \newline
+
+\begin{itemize}
+\item The color scheme for individual pages are awkward and can get annoying to stare at.
+\item Many of the pages are very empty, better use of the screen space would have been nice.
+\item Very difficlut to locate a specific page and the pages that list the people, organizations, and crisis are randomly places making it even harder to find something.
+\item Some of the functionality seem to be broken right now.
 \end{itemize}
 
 
