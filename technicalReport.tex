@@ -418,8 +418,24 @@ The links may be put in columns to span left and right for convenience as well.
 
 \subsection*{User Accounts}
 \hfill
+Upon visiting the site a user can create an account or login by navigating to our navbar and clicking on the appropriate link which will redirect them to the correct page.
 
-To gain access to the WCD website without admin access, there is a create user page where potential users sign up to the WCD website. Those that signup to webpage via this portal will be given access to view all crises, organizations, and people enterred in database. Admin privileges are defaulted to false, which gives all site functionality except for allowing non admins to import XML in to the database. For those who may need admin privileges, accounts can be manually updated outside of the create users page.
+\subsubsection*{Creating Users}
+
+Once a user has reached the Create User page the potiential user can simply put in their info and then django will create the user and store their info into our database.
+To become a super user one needs to enter the correct password into the Admin Status field, which as of now the correct password is  "downing". If the password entered into the
+Admin Status field is not the correct password then the user that gets created will simply not have super user status. This Admin Status will allow the user to enter into the import page without having to enter a password. The user will bypass that page and be taken directly to the import page.
+\\
+
+If all of the fields in the Create User form are not filled except for the Admin Status then the user will be redirect back to the same page but with error messages next to the fields that were not submited, the user can then fill in the fields that were left out and resubmit the form.
+\\
+
+When the user creates their username and submits the form if that username is already in the database then the user will be redirect to the same page but with an error message next to the username field telling the user that the that name is already taken. The user will then be able to choose a new username, however they will have to reenter their password.
+
+\subsubsection*{Login in}
+This page will allow the user to sign into their account if the user has previsouly made an account. If the wrong info is submitted then the user will be redirected back to the same page with an error stating that the wrong combination was used. Then the user will be able to resubmit the form with the correct info.
+
+
 \begin{comment}
 \subsection*{Search}
 \hfill

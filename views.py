@@ -384,9 +384,14 @@ def login_user(request):
       username = form.cleaned_data['username']
       password = form.cleaned_data['password']
       user = authenticate(username=username, password=password)
-      login(request, user)
-      c = RequestContext(request, getBaseContext())
-      return HttpResponse(t.render(c)) # Redirect after POST
+      if user is not None:
+        login(request, user)
+        c = RequestContext(request, getBaseContext())
+        return HttpResponse(t.render(c)) # Redirect after POST
+      else :
+        form._errors["password"] = form.error_class(["Username and password combination not valid"])
+        form._errors["username"] = form.error_class(["Username and password combination not valid"])
+        return render(request, 'Login.html', dict({'temp': form,}, **getBaseContext()))
   else:
     form = LoginUser() #unbound form
     
