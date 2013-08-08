@@ -83,9 +83,6 @@ def getCommonContext(common_id):
 
 # Get info for crises
 def getCrisesContext(crisis_id):
-    common = cm.Common.objects.get(crisis__id__exact=crisis_id)
-    summaries = [common.summary]
-
     locations = []
     humanImpact = []
     economicImpact = []
@@ -113,7 +110,6 @@ def getCrisesContext(crisis_id):
         peeps += [i]
 
     return {
-        'summaries' : summaries,
         'locations' : locations,
         'humanImpact' : humanImpact,
         'economicImpact' : economicImpact,
@@ -125,9 +121,6 @@ def getCrisesContext(crisis_id):
 
 # Get context for organizations
 def getOrganizationContext(organization_id):
-    common = cm.Common.objects.get(organization__id__exact=organization_id)
-    summaries = [common.summary]
-
     history = []
     contactInfo = []
     peeps = []
@@ -146,7 +139,6 @@ def getOrganizationContext(organization_id):
         cries += [i]
 
     return {
-        'summaries' : summaries,
         'history' : history,
         'contactInfo' : contactInfo,
         'peeps' : peeps,
@@ -331,7 +323,7 @@ def person(request, person_id):
         return HttpResponse(t.render(c))
     except ObjectDoesNotExist:
         return fourohfour(request)
-        
+
 #creating a user page
 
 def createuser(request):
@@ -374,7 +366,7 @@ def createuser(request):
      return render(request,
                    'createUser.html',
                    dict({'form': form,}, **getBaseContext()))
-     
+
 #logining in a user
 def login_user(request):
   t = loader.get_template("index.html")
@@ -389,7 +381,7 @@ def login_user(request):
       return HttpResponse(t.render(c)) # Redirect after POST
   else:
     form = LoginUser() #unbound form
-    
+
   return render(request, 'Login.html', dict({'temp': form,}, **getBaseContext()))
 
 # Our four oh four page
