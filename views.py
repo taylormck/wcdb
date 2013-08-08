@@ -83,6 +83,11 @@ def getCommonContext(common_id):
 
 # Get info for crises
 def getCrisesContext(crisis_id):
+    common = cm.Common.objects.get(crisis__id__exact=crisis_id)
+    summaries = []
+    if common.summary != "":
+        summaries += [common.summary]
+
     locations = []
     humanImpact = []
     economicImpact = []
@@ -121,6 +126,11 @@ def getCrisesContext(crisis_id):
 
 # Get context for organizations
 def getOrganizationContext(organization_id):
+    common = cm.Common.objects.get(organization__id__exact=organization_id)
+    summaries = []
+    if common.summary != "":
+        summaries += [common.summary]
+
     history = []
     contactInfo = []
     peeps = []
@@ -148,7 +158,9 @@ def getOrganizationContext(organization_id):
 # Get context for organizations
 def getPersonContext(person_id):
     common = cm.Common.objects.get(person__id__exact=person_id)
-    summaries = [common.summary]
+    summaries = []
+    if common.summary != "":
+        summaries += [common.summary]
 
     cries = []
     for i in cm.Crisis.objects.filter(people__id__exact=person_id):
