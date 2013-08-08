@@ -115,6 +115,7 @@ def getCrisesContext(crisis_id):
         peeps += [i]
 
     return {
+        'summaries' : summaries,
         'locations' : locations,
         'humanImpact' : humanImpact,
         'economicImpact' : economicImpact,
@@ -149,6 +150,7 @@ def getOrganizationContext(organization_id):
         cries += [i]
 
     return {
+        'summaries' : summaries,
         'history' : history,
         'contactInfo' : contactInfo,
         'peeps' : peeps,
