@@ -112,8 +112,8 @@ def parseCrisis(crisis):
     #Add all the basic info
     newCrisis = fetchDataModelObject(info.Crisis, crisis)
     
-    newCrisis.date = date.parse(getText(crisis.find("Date"), newCrisis.date))
-    newCrisis.time = date.parse(getText(crisis.find("Time"), newCrisis.time))
+    newCrisis.date = date.parse(getText(crisis.find("Date"), newCrisis.date).strip())
+    newCrisis.time = date.parse(getText(crisis.find("Time"), newCrisis.time).strip())
     newCrisis.kind = getText(crisis.find("Kind"), newCrisis.kind)
     
     #Parse the common types
@@ -248,7 +248,7 @@ def getText(node, alternateValue=""):
         return node.text
     if alternateValue is None:
         alternateValue = ""
-    return alternateValue
+    return str(alternateValue)
 
 def fetchDataModelObject(modelType, node):
     newObj = None
