@@ -7,13 +7,13 @@
   <div class="accordion-group">
     <div class="accordion-heading">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-        Crises that took place in the morning (between 12am and 12pm)   
+        Crises that took place in the morning (between 12am and 12pm)
       </a>
     </div>
     <div id="collapseOne" class="accordion-body collapse">
       <div class="accordion-inner">
-      <pre> 
-select id, name 
+      <pre>
+select id, name
   from crises_crisis
   where hour(time) >= 0
     and hour(time) < 12;
@@ -25,16 +25,16 @@ CRI_SWNFLU  Influenza A virus subtype H1N1
 CRI_BAGAIR  Baghdad Airstrike
 CRI_HURIKE  Hurricane Ike
 CRI_WSAFRC  Water Scarcity in Africa
-CRI_MUMBAI  2008 Mumbai attacks 
+CRI_MUMBAI  2008 Mumbai attacks
 CRI_COPMAC  2010 Copiago mining accident
-CRI_AURORA  2012 Aurora Shooting 
+CRI_AURORA  2012 Aurora Shooting
 CRI_WTXPLX  West Fertilizer Plant Explosion
 CRI_EGYPTR  Political Unrest in Egypt
 CRI_EUDEBT  European Sovereign-Debt Crisis
 CRI_NAPLES  Naples Waste Management Issue
 CRI_BMBOMB  Boston Marathon Bombings
 CRI_BPOILS  BP Oil Spill
-CRI_EXXVAL  Exxon Valdez Oil Spill 
+CRI_EXXVAL  Exxon Valdez Oil Spill
 CRI_FUKUSH  Fukushima Daiichi Nuclear Disaster
 CRI_HURSAN  Hurricane Sandy
 CRI_HUMTRA  Human trafficking
@@ -78,7 +78,7 @@ select count(*)
     </div>
     <div id="collapseThree" class="accordion-body collapse">
       <div class="accordion-inner">
-      <pre> 
+      <pre>
 select id, name from crises_crisis
   where month(date) = 6 or month(date) = 7 or month(date) = 8;
 </pre>
@@ -87,7 +87,7 @@ CRI_BAGAIR  Baghdad Airstrike
 CRI_HURIKE  Hurricane Ike
 CRI_WSAFRC  Water Scarcity in Africa
 CRI_COPMAC  2010 Copiago mining accident
-CRI_AURORA  2012 Aurora Shooting 
+CRI_AURORA  2012 Aurora Shooting
 CRI_KATRIN  Hurricane Katrina
 CRI_HUMTRA  Human trafficking
 CRI_SCMARI  South China Maritime Conflicts
@@ -107,14 +107,14 @@ CRI_COLSSD  Columbia Space Shuttle Disaster
     </div>
     <div id="collapseFour" class="accordion-body collapse">
       <div class="accordion-inner">
-        <pre> 
+        <pre>
 select id, name
   from crises_crisis
   where instr(kind, 'shooting') > 0;
       </pre>
       <pre>
-CRI_ALABUN  2013 Alabama bunker hostage crisis 
-CRI_AURORA  2012 Aurora Shooting 
+CRI_ALABUN  2013 Alabama bunker hostage crisis
+CRI_AURORA  2012 Aurora Shooting
 CRI_SHESSG  Sandy Hook Elementary School Shooting
       </pre>
       </div>
@@ -128,9 +128,9 @@ CRI_SHESSG  Sandy Hook Elementary School Shooting
     </div>
     <div id="collapseFive" class="accordion-body collapse">
       <div class="accordion-inner">
-      <pre> 
+      <pre>
 select c.id, c.name
-  from crises_crisislisttype as clt 
+  from crises_crisislisttype as clt
   inner join crises_crisis as c on c.id = clt.owner_id
     where context = 'LO' and (instr(text, 'Texas') or instr(text, 'TX'));
       </pre>
@@ -172,10 +172,10 @@ CRI_SWNFLU  Influenza A virus subtype H1N1
 CRI_BAGAIR  Baghdad Airstrike
 CRI_HURIKE  Hurricane Ike
 CRI_WSAFRC  Water Scarcity in Africa
-CRI_MUMBAI  2008 Mumbai attacks 
-CRI_ALABUN  2013 Alabama bunker hostage crisis 
+CRI_MUMBAI  2008 Mumbai attacks
+CRI_ALABUN  2013 Alabama bunker hostage crisis
 CRI_COPMAC  2010 Copiago mining accident
-CRI_AURORA  2012 Aurora Shooting 
+CRI_AURORA  2012 Aurora Shooting
 CRI_OKCBOM  Oklahoma City Bombings
 CRI_WTXPLX  West Fertilizer Plant Explosion
 CRI_MOKTOR  Moore, Oklahoma Tornado
@@ -217,8 +217,8 @@ CRI_COLSSD  Columbia Space Shuttle Disaster
     <div id="collapseSeven" class="accordion-body collapse">
       <div class="accordion-inner">
         <pre>
-select t_id as id, t_name as name 
-  from ( select o.id as t_id, o.name as t_name, 
+select t_id as id, t_name as name
+  from ( select o.id as t_id, o.name as t_name,
     count(*) as num_people from crises_organization as o
       inner join crises_organization_people as op on o.id=op.organization_id
       group by o.id) as t where t.num_people >= 3;
@@ -239,10 +239,10 @@ ORG_REDCRS  Red Cross
     <div id="collapseEight" class="accordion-body collapse">
       <div class="accordion-inner">
         <pre>
-select distinct p.id, p.name 
-  from crises_person as p 
-    inner join crises_crisis_people as cp on cp.person_id=p.id 
-    inner join crises_crisis as c on c.id=cp.crisis_id 
+select distinct p.id, p.name
+  from crises_person as p
+    inner join crises_crisis_people as cp on cp.person_id=p.id
+    inner join crises_crisis as c on c.id=cp.crisis_id
     where year(date)  > 2000;
       </pre>
       <pre>
@@ -259,7 +259,7 @@ PER_AJKASA  Ajmal Kasab
 PER_TAHUSS  Tahawwur Hussain Rana
 PER_JDYKES  Jimmy Lee Dykes
 PER_LUISUR  Luis Urzúa
-PER_JAMHOL  James Eagan Holmes 
+PER_JAMHOL  James Eagan Holmes
 PER_DADAIR  Donald Adair
 PER_RPERRY  Rick Perry
 PER_FALLIN  Mary Fallin
@@ -312,7 +312,7 @@ PER_HUSBND  Rick Husband
     <div id="collapseNine" class="accordion-body collapse">
       <div class="accordion-inner">
       <pre>
-select name from crises_crisis
+select id, name from crises_crisis
   where kind="Natural Disaster";
       </pre>
 <pre>
